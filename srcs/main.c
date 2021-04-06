@@ -6,14 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/06 15:15:38 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/06 15:28:39 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <curses.h>
-#include <term.h>
+#include "minishell.h" 
 
 int	init()
 {
@@ -24,6 +21,7 @@ int	init()
 
 	if (!term)
 	{
-		printf();
+		print_error(TERM_ENV_NOT_FOUND);
+		return (-1);
 	}
 }
