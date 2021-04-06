@@ -6,10 +6,12 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/06 15:39:19 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/06 16:17:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include <curses.h>
+# include <term.h>
 #include "minishell.h" 
 
 int	init()
@@ -34,5 +36,13 @@ int	init()
 		print_error(TERM_TYPE_NOT_DEFINED, term);
 		return (-1);
 	}
+	return (0);
+}
+
+int	main()
+{
+	init();
+	printf("%s\n", tgetstr("cl", NULL));
+	tputs(tgetstr("cl", NULL), 1, putchar);	
 	return (0);
 }

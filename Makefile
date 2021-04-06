@@ -7,7 +7,7 @@ SRC		 	=	$(notdir $(shell find $(SRC_DIR) -type f -name *.c))
 LIBFT_DIR	=	libft
 OBJ_DIR		=	obj
 OBJ 		= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-COMP_LINUX	=	-L $(LIBFT_DIR) -lft 
+COMP_LINUX	=	-L $(LIBFT_DIR) -lft -ltermcap
 INC_DIR		=	includes
 INC			=	$(shell find $(INC_DIR) -type f -name "*.h")
 IFLAGS 		=	-I $(INC_DIR)
