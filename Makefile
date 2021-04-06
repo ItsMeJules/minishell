@@ -10,7 +10,7 @@ OBJ 		= 	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 COMP_LINUX	=	-L $(LIBFT_DIR) -lft -ltermcap
 INC_DIR		=	includes
 INC			=	$(shell find $(INC_DIR) -type f -name "*.h")
-IFLAGS 		=	-I $(INC_DIR)
+IFLAGS 		=	-I $(LIBFT_DIR)/includes -I $(INC_DIR)
 vpath			%.c $(shell find $(SRC_DIR) -type d)
 .SUFFIXES: 		.c .o .h
 
@@ -32,7 +32,7 @@ init			:
 					
 $(NAME)			:	$(OBJ) $(INC)
 					@ echo "$(_INFO) Initialize $(NAME)"
-				 	@ $(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(COMP_LINUX) 
+				 	@ $(CC) $(CFLAGS) $(IFLAGS) -o $(NAME) $(OBJ) $(COMP_LINUX) 
 
 $(OBJ_DIR)/%.o	:	%.c
 					@ echo "\t$(_YELLOW)Compiling$(_RESET) $*.c\r\c"
