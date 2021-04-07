@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 15:13:07 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 15:17:26 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_token(void *vtoken)
 {
-	free((t_token *)vtoken->str);
+	free(((t_token *)vtoken)->str);
 	free(vtoken);
 }
 
