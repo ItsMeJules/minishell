@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 15:13:07 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 16:04:42 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,35 @@
 
 void	free_token(void *vtoken)
 {
-	free((t_token *)vtoken->str);
+	free(((t_token *)vtoken)->str);
 	free(vtoken);
 }
 
-void	tokenize_input(t_iter *iter, t_list *root)
+t_list	*tokenize_input(t_iter *iter)
 {
 	size_t			i;
-	static t_spf	tab[] =
-	{
-		{39, get_quote},
-		{34, get_dquote},
-		{'<', get_lchev},
-		{'>', get_rchev},
-		{';', get_semic},
-		{'|', get_pipe},
-		{0, NULL}
-	};
+	t_list			*elem;
+	t_list			*root;
+	static t_spf	funcs[] = {{39, get_quote}, {34, get_dquote},
+		{'<', get_lchev}, {'>', get_rchev}, {';', get_semic}, {'|', get_pipe},
+		{0, get_word}};
 
-	i = 0;
-	while (iter->line[iter->i] && iter->err == 0)
+	root = NULL;
+	while (iter->line[iter->i])
 	{
-		if (!tab[i].spe)
+		i = 0;
+		while (iter->line[iter->i] == ' ')
+			iter->i++;
+		while (funcs[i].spe && funcs[i].spe != iter->line[iter->i])
+			i++;
+		elem = funcs[i].f(iter);
+		if (iter->err != 0)
 		{
-			ft_lstadd_back(&root, get_word(iter));
-			i = 0;
-			continue ;
+			// GESTION ERR
+			ft_lstclear(&root, free_token);
+			return (NULL);
 		}
-		else if (iter->line[iter->i] == tab[i].spe)
-			ft_lstadd_back(&root, tab[i].f(iter));
-		i++;
-	}
-	if (iter->err != 0)
-		ft_lstclear(&root, free_token);
+		ft_lstadd_back(&root, elem);
+	}	
+	return (root);
 }

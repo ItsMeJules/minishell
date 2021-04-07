@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 14:47:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 16:06:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	print_error(int id, char *infos);
 /*
 ** lexer.c
 */
-void	tokenize_input(t_iter *iter, t_list *root);
+void	free_token(void *vtoken);
+t_list	*tokenize_input(t_iter *iter);
 
 /*
 ** lexer_get.c
