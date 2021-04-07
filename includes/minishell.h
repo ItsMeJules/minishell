@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 13:41:54 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 14:47:36 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "libft.h"
 # include "constants.h"
+# include "struct.h"
 
 # include <curses.h>
 # include <term.h>
@@ -41,7 +42,7 @@ t_list	*get_quote(t_iter *iter);
 t_list	*get_dquote(t_iter *iter);
 t_list	*get_lchev(t_iter *iter);
 t_list	*get_rchev(t_iter *iter);
-t_list	*get_pipe(t_iter *iter)
+t_list	*get_pipe(t_iter *iter);
 
 /*
 ** lexer_get2.c

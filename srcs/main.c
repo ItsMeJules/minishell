@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 12:47:52 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 14:42:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,20 @@ t_iter	*readu_input()
 
 int	main()
 {
+	t_iter	*iter;
+	t_list	*list;
+	t_token	*token;
+
 	init_termcap();
-	readu_input();
+	iter = readu_input();
+	tokenize_input(iter, list);
+
+	while (list->next)
+	{
+		token = (t_token *)list->data;
+		printf("type: %s | str: %s\n", token->token, token->str);
+		list = list->next;	
+	}
+
 	return (0);
 }

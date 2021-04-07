@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 12:48:02 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 15:03:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef	struct	s_iter
 typedef struct	s_spf
 {
 	char		spe;
-	t_token		*(*f)(*t_iter iter);
+	t_list		*(*f)(t_iter *iter);
 }				t_spf;
+
 #endif

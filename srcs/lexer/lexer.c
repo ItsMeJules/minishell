@@ -6,24 +6,31 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 13:35:43 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 15:13:07 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_token(t_token *token)
+void	free_token(void *vtoken)
 {
-	free(token->token);
-	free(token);
+	free((t_token *)vtoken->str);
+	free(vtoken);
 }
 
 void	tokenize_input(t_iter *iter, t_list *root)
 {
 	size_t			i;
-	static t_spf	tab = {{''', get_quote}, {'"', get_dquote},
-		{"<", get_lchev}, {">", get_rchev}, {';', get_semic}, {'|', get_pipe},
-		{0, 0}};
+	static t_spf	tab[] =
+	{
+		{39, get_quote},
+		{34, get_dquote},
+		{'<', get_lchev},
+		{'>', get_rchev},
+		{';', get_semic},
+		{'|', get_pipe},
+		{0, NULL}
+	};
 
 	i = 0;
 	while (iter->line[iter->i] && iter->err == 0)
