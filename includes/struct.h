@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 12:11:41 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:42:51 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,4 @@ typedef struct	s_spf
 	char		spe;
 	t_token		*(*f)(*t_iter iter);
 }				t_spf;
+#endif
