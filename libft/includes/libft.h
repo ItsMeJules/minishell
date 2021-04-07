@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:44 by tvachera          #+#    #+#             */
-/*   Updated: 2021/01/22 11:19:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:48:35 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdbool.h>
 # include "headers/ft_chain_list.h"
 # include "headers/ft_display.h"
-# include "headers/ft_printf.h"
 # include "headers/ft_string.h"
 # include "headers/get_next_line.h"
 # include "headers/ft_memory.h"
