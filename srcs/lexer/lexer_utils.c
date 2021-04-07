@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 12:40:07 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 15:44:24 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 16:43:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,16 @@ char	*get_wbetw(size_t start, size_t end, char *line)
 	}
 	str[i] = 0;
 	return (str);
+}
+
+int		count_backslash(char *start)
+{
+	size_t	i;
+	int		count;
+
+	i = -1;
+	count = 0;
+	while (start[++i] == 92)
+		count++;
+	return (count);
 }
