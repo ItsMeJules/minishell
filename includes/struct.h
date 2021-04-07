@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 11:45:45 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 12:11:41 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ typedef enum	e_type
 
 typedef struct	s_token
 {
-	enum		t_etype;
-	char		*token;
+	t_etype		token;
+	char		*str;
 }				t_token;
 
 typedef	struct	s_iter
 {
 	size_t		i;
 	char		*line;
+	size_t		err;
 }				t_iter;
 
 typedef struct	s_spf
