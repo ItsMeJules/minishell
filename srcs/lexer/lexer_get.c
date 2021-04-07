@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:48:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 14:45:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 15:15:53 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_list	*get_dquote(t_iter *iter)
 		i++;
 	if (!iter->line[i])
 	{
-		iter->err = 10;
+		iter->err = 11;
 		return (0);
 	}
 	token = create_token(get_wbetw(iter->i + 1, i, iter->line), D_QUOTE);
