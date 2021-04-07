@@ -1,43 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 12:37:08 by jules            ###   ########.fr       */
+/*   Created: 2021/04/07 12:40:07 by tvachera          #+#    #+#             */
+/*   Updated: 2021/04/07 13:40:24 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_token(t_token *token)
+t_token	*create_token(char *str, t_etype token)
 {
-	free(token->token);
-	free(token);
+	t_token	*new;
+
+	if (!str)
+		return (0);
+	if (!(new = malloc(sizeof(t_token))))
+		return (0);
+	new->str = str;
+	new->token = token;
+	return (new);
 }
 
-void	tokenize_input(t_iter *iter, t_list *root)
+char	*get_wbetw(size_t start, size_t end, char *line)
 {
-	size_t			i;
-	static t_spf	tab = {{''', get_quote}, {'"', get_dquote},
-		{"<", get_lchev}, {">", get_rchev}, {';', get_semic}, {'|', get_pipe},
-		{0, 0}};
+	char	*str;
+	size_t	i;
 
 	i = 0;
-	while (iter->line[iter->i] && iter->err == 0)
+	if (!(str = malloc(sizeof(char) * (end - start + 1))))
+		return (0);
+	while (start < end)
 	{
-		if (!tab[i].spe)
-		{
-			ft_lstadd_back(&root, get_word(iter));
-			i = 0;
-			continue ;
-		}
-		else if (iter->line[iter->i] == tab[i].spe)
-			ft_lstadd_back(&root, tab[i].f(iter));
+		str[i] = line[start];
 		i++;
+		start++;
 	}
-	if (iter->err != 0)
-		ft_lstclear(&root, free_token);
+	str[i] = 0;
+	return (str);
 }
