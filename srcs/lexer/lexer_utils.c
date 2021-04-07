@@ -6,22 +6,38 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 11:45:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 12:37:08 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** A appeler seulement quand on a un char special
-*/
-t_list	*apply_spefunc(t_iter *line)
+#include "minishell.h"
+
+void	free_token(t_token *token)
 {
-	static t_spf	tab = {{'\'', get_quote}, {'"', get_dquote},
+	free(token->token);
+	free(token);
+}
+
+void	tokenize_input(t_iter *iter, t_list *root)
+{
+	size_t			i;
+	static t_spf	tab = {{''', get_quote}, {'"', get_dquote},
 		{"<", get_lchev}, {">", get_rchev}, {';', get_semic}, {'|', get_pipe},
 		{0, 0}};
-	size_t	i;
 
 	i = 0;
-	while (tab[i].spe && line->line[line->i] != tab[i].spe)
+	while (iter->line[iter->i] && iter->err == 0)
+	{
+		if (!tab[i].spe)
+		{
+			ft_lstadd_back(&root, get_word(iter));
+			i = 0;
+			continue ;
+		}
+		else if (iter->line[iter->i] == tab[i].spe)
+			ft_lstadd_back(&root, tab[i].f(iter));
 		i++;
-	return (tab[i].f(line));
+	}
+	if (iter->err != 0)
+		ft_lstclear(&root, free_token);
 }
