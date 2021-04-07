@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 12:42:51 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:48:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct	s_token
 typedef	struct	s_iter
 {
 	size_t		i;
-	char		*line;
 	size_t		err;
+	char		*line;
 }				t_iter;
 
 typedef struct	s_spf
