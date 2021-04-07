@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:19:51 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 16:11:17 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 16:20:59 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	disp_lexer(t_list *root)
 		else if (data->token == CHEV_L)
 			printf("TYPE : CHEV_L --- ");
 		else if (data->token == D_CHEV_R)
-			printf("TYPE :  D_CHEV_R --- ");
+			printf("TYPE : D_CHEV_R --- ");
 		else if (data->token == SEMI)
-			printf("TYPE :  SEMI --- ");
+			printf("TYPE : SEMI --- ");
 		else
-			printf("TYPE :  BASE --- ");
+			printf("TYPE : BASE --- ");
 		printf("STR : %s\n", data->str);
 		root = root->next;
 	}
