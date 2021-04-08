@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 15:26:11 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:33:20 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	main()
 	init_termcap();
 	list = tokenize_input(iter);
 	disp_lexer(list);
+	lexer_free(list, iter);
 	return (0);
 }
