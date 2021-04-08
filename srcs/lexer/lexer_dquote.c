@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 16:44:42 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 15:14:52 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:28:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_wbetw_dq(size_t start, size_t end, size_t nb_esc, char *line)
 		{
 			while (line[start] == 92)
 				str[i++] = line[start++];
-			if (line[start] == '"')
+			if (line[start] == '"' && start < end)
 			{
 				str[--i] = line[start++];
 				i++;
