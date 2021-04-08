@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:34:59 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 16:23:10 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:25:11 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,68 @@ t_list	*get_semic(t_iter *iter)
 	return (ft_lstnew(token));
 }
 
-t_list	*get_word(t_iter *iter)
+char	*get_wbetw_wd(size_t start, size_t end, size_t nb_esc, char *line)
+{
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	if (!(str = malloc(sizeof(char) * (end - start - nb_esc + 1))))
+		return (0);
+	while (start < end)
+	{
+		if (line[start] == 92)
+		{
+			while (line[start] == 92)
+				str[i++] = line[start++];
+			if (ft_strchr(SPECIAL_CHARS, line[start]) && start < end)
+			{
+				str[--i] = line[start++];
+				i++;
+			}
+		}
+		else
+			str[i++] = line[start++];
+	}
+	str[i] = 0;
+	return (str);
+}
+
+size_t	get_word_bis(t_iter *iter, size_t *nb_esc)
 {
 	size_t	i;
-	t_token	*token;
+	int		bslash;
 
 	i = iter->i;
 	while (iter->line[i] && iter->line[i] != ' '
 			&& !ft_strchr(SPECIAL_CHARS, iter->line[i]))
-		i++;
-	token = create_token(get_wbetw(iter->i, i, iter->line), BASE);
+	{
+		if (iter->line[i] == 92)
+		{
+			bslash = count_backslash(&iter->line[i]);
+			while (iter->line[i] == 92)
+				i++;
+			if (bslash % 2 != 0 && ft_strchr(SPECIAL_CHARS, iter->line[i]))
+			{
+				i++;
+				(*nb_esc)++;
+			}
+		}
+		else
+			i++;
+	}
+	return (i);
+}
+
+t_list	*get_word(t_iter *iter)
+{
+	size_t	i;
+	t_token	*token;
+	size_t	nb_esc;
+
+	nb_esc = 0;
+	i = get_word_bis(iter, &nb_esc);
+	token = create_token(get_wbetw_wd(iter->i, i, nb_esc, iter->line), BASE);
 	if (!token)
 	{
 		iter->err = 1;
