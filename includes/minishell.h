@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 15:32:59 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 17:20:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <termios.h>
 
 # include "libft.h"
 # include "constants.h"
@@ -26,7 +27,13 @@
 /*
 ** termcap.c
 */
-int		init_termcap();
+int		init_termcap(t_termcap *tc);
+int		read_bpb(char **input);
+
+/*
+** term_mode.c
+*/
+void	change_term_mode(t_termcap *tc, int on);
 
 /*
 ** lexer.c

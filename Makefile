@@ -1,6 +1,6 @@
 NAME		=	minishit
 CC			=	gcc
-CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror
+CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror -g
 RM			=	rm -rf
 SRC_DIR 	= 	srcs
 SRC		 	=	$(notdir $(shell find $(SRC_DIR) -type f -name *.c))

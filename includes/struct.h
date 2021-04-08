@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/08 15:04:17 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 16:32:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,10 @@ typedef struct	s_spf
 	char		spe;
 	t_list		*(*f)(t_iter *iter);
 }				t_spf;
+
+typedef struct	s_termcap
+{
+	struct termios	o_termios;
+}				t_termcap;
 
 #endif
