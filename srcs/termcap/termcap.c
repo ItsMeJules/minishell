@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/06 17:23:30 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:06:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ int	init_termcap()
 	term = getenv("TERM");
 	if (!term)
 	{
-		print_error(TERM_ENV_NOT_FOUND, NULL);
+		printf(TERM_ENV_NOT_FOUND);
 		return (-1);
 	}
 	ret_ent = tgetent(NULL, term);
 	if (ret_ent == -1)
 	{
-		print_error(TERMCAP_DB_ACCESS, NULL);
+		printf(TERMCAP_DB_ACCESS);
 		return (-1);
 	}
 	else if (ret_ent == 0)
 	{
-		print_error(TERM_TYPE_NOT_DEFINED, term);
+		printf(TERM_TYPE_NOT_DEFINED, term);
 		return (-1);
 	}
 	return (0);

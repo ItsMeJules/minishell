@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 16:44:42 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 17:28:16 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:14:52 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ t_list	*get_dquote(t_iter *iter)
 	i = get_quote_bis(iter, &nb_esc);
 	if (!iter->line[i])
 	{
-		iter->err = 11;
+		iter->err = ERR_DQUOTE_NOT_CLOSED;
 		return (0);
 	}
 	token = create_token(get_wbetw_dq(iter->i + 1, i, nb_esc, iter->line),
 			D_QUOTE);
 	if (!token)
 	{
-		iter->err = 1;
+		iter->err = ERR_MALLOC;
 		return (0);
 	}
 	iter->i = i + 1;

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:48:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 17:07:45 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:17:20 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_list	*get_quote(t_iter *iter)
 		i++;
 	if (!iter->line[i])
 	{
-		iter->err = 10;
+		iter->err = ERR_QUOTE_NOT_CLOSED;
 		return (0);
 	}
 	token = create_token(get_wbetw(iter->i + 1, i, iter->line), QUOTE);
 	if (!token)
 	{
-		iter->err = 1;
+		iter->err = ERR_MALLOC;
 		return 0;
 	}
 	iter->i = i + 1;
@@ -43,7 +43,7 @@ t_list	*get_lchev(t_iter *iter)
 	iter->i++;
 	if (!token)
 	{
-		iter->err = 1; 
+		iter->err = ERR_MALLOC; 
 		return (NULL);
 	}
 	return (ft_lstnew(token));
@@ -65,7 +65,7 @@ t_list	*get_rchev(t_iter *iter)
 	}
 	if (!token)
 	{
-		iter->err = 1; 
+		iter->err = ERR_MALLOC; 
 		return (NULL);
 	}
 	return (ft_lstnew(token));
@@ -79,7 +79,7 @@ t_list	*get_pipe(t_iter *iter)
 	iter->i++;
 	if (!token)
 	{
-		iter->err = 1; 
+		iter->err = ERR_MALLOC; 
 		return (NULL);
 	}
 	return (ft_lstnew(token));

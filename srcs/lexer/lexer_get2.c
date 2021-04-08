@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:34:59 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 16:23:10 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:15:58 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*get_semic(t_iter *iter)
 	iter->i++;
 	if (!token)
 	{
-		iter->err = 1; 
+		iter->err = ERR_MALLOC; 
 		return (NULL);
 	}
 	return (ft_lstnew(token));
@@ -38,7 +38,7 @@ t_list	*get_word(t_iter *iter)
 	token = create_token(get_wbetw(iter->i, i, iter->line), BASE);
 	if (!token)
 	{
-		iter->err = 1;
+		iter->err = ERR_MALLOC;
 		return (NULL);
 	}
 	iter->i = i;
