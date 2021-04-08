@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:48:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 15:15:53 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:32:53 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*get_quote(t_iter *iter)
 	t_token	*token;
 
 	i = iter->i + 1;
-	while (iter->line[i] && iter->line[i] != 39 && iter->line[i - 1] != 92)
+	while (iter->line[i] && iter->line[i] != 39)
 		i++;
 	if (!iter->line[i])
 	{
