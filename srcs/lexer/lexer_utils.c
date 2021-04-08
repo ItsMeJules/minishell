@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 12:40:07 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/08 15:25:52 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/08 15:32:45 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int		count_backslash(char *start)
 	return (count);
 }
 
-void	lexer_error(t_list *root, t_iter *iter)
+void	lexer_free(t_list *root, t_iter *iter)
 {
-	printf("%s", iter->err);
+	if (iter->err)
+		printf("%s", iter->err);
 	ft_lstclear(&root, free_token);
 	free(iter->line);
 	free(iter);
