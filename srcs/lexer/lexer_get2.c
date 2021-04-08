@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:34:59 by jules             #+#    #+#             */
-/*   Updated: 2021/04/07 16:01:37 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/07 16:23:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,11 @@ t_list	*get_word(t_iter *iter)
 			&& !ft_strchr(SPECIAL_CHARS, iter->line[i]))
 		i++;
 	token = create_token(get_wbetw(iter->i, i, iter->line), BASE);
-//	printf("%s %ld\n", token->str, i);
 	if (!token)
 	{
 		iter->err = 1;
 		return (NULL);
 	}
-	while (iter->line[i] == ' ')
-		i++;
 	iter->i = i;
 	return (ft_lstnew(token));
 }
