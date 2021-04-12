@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 17:29:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/12 18:18:15 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,15 @@ void	print_prompt()
 
 void	disp_lexer(t_list *root);
 
-int	main()
+int	main(int argc, char **argv, char **envp)
 {
 	t_iter		*iter;
 	t_list		*list;
+	t_list		*env;
 	t_termcap	tc;
 
+	(void)argc;
+	(void)argv;
 	init_termcap(&tc);
 	while (42)
 	{
@@ -49,8 +52,12 @@ int	main()
 		iter = readu_input();
 		list = NULL;
 		list = tokenize_input(iter);
-		disp_lexer(list);
+		if (list)
+			disp_lexer(list);
 		lexer_free(list, iter);
+		if (!(env = pars_env(envp)))
+			printf("ENV ERROR\n");
+		ft_lstclear(&env, &del_env_elem);
 	}
 	change_term_mode(&tc, 0);
 	return (0);
