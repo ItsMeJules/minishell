@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 17:20:05 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/12 13:15:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <termios.h>
+# include <sys/types.h>
+# include <signal.h>
 
 # include "libft.h"
 # include "constants.h"

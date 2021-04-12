@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 17:25:14 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/12 15:45:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	init_termcap(t_termcap *tc)
 	return (0);
 }
 
+/*
+** Si on veut inserer des chars entre d'autres il faut parser la ligne seulement
+** a la fin. Sinon vu qu'on ajoute un par un on aura beau editer la ligne les chars
+** seront ajoutes les un a la suite des autres..
+*/
 int		addto_input(char buf[4], char **input)
 {
 	char	*tmp;
@@ -57,9 +62,13 @@ int		addto_input(char buf[4], char **input)
 	return (0);
 }
 
-void	handle_termcap(char buf[3])
+void	handle_termcap(char buf[4])
 {
-	(void)buf;
+	printf("buf: %s | getstr: %s\n", buf, tgetstr("kl", NULL));
+	if (ft_strcmp(buf, tgetstr("kl", NULL)) == 0)
+		write(1, tgetstr("le", NULL), 4);
+	else if (ft_strcmp(buf, tgetstr("kr", NULL)) == 0)
+		write(1, tgetstr("nd", NULL), 4);
 }
 
 int		read_bpb(char **input)
