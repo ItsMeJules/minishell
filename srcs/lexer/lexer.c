@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/12 18:49:57 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:09:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list	*tokenize_input(t_iter *iter)
 		{0, get_word}};
 
 	root = NULL;
-	while (iter->line[iter->i])
+	while (iter->line && iter->line[iter->i])
 	{
 		i = 0;
 		while (iter->line[iter->i] == ' ')

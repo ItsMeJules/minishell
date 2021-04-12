@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:34:59 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 15:45:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:24:23 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	get_word_bis(t_iter *iter, size_t *nb_esc)
 			bslash = count_backslash(&iter->line[i]);
 			while (iter->line[i] == 92)
 				i++;
-			if (bslash % 2 != 0 && ft_strchr(SPECIAL_CHARS, iter->line[i]))
+			if (bslash % 2 != 0 && iter->line[i] && ft_strchr(SPECIAL_CHARS, iter->line[i]))
 			{
 				i++;
 				(*nb_esc)++;
