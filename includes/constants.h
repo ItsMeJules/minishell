@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/12 14:58:45 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/13 13:35:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # define ERR_QUOTE_NOT_CLOSED "The simple quote is not closed !"
 # define ERR_DQUOTE_NOT_CLOSED "The double quote is not closed !"
 # define SPECIAL_CHARS "'\"<>;|"
+
+/*
+** TEMCPAS_KEYS
+*/
+# define LEFT_ARROW_KEY 1
+# define RIGHT_ARROW_KEY 2
+# define UP_ARROW_KEY 3
+# define DOWN_ARROW_KEY 4
+# define BACKSPACE_KEY 5
 
 /*
 ** TERMCAPS UTILES
