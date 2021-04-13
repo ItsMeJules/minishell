@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/13 15:57:29 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/13 16:24:16 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum	e_type
 	CHEV_L,
 	D_CHEV_R,
 	SEMI,
+	SPACE,
 	BASE
 }				t_etype;
 
