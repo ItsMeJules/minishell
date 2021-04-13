@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:48:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/08 15:28:21 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/13 15:19:11 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_list	*get_lchev(t_iter *iter)
 {
 	t_token	*token;
 	
-	token = create_token(ft_strdup("<"), CHEV_L);
+	token = create_token("<", CHEV_L);
 	iter->i++;
 	if (!token)
 	{
@@ -55,12 +55,12 @@ t_list	*get_rchev(t_iter *iter)
 	
 	if (iter->line[iter->i + 1] && iter->line[iter->i + 1] == '>')
 	{
-		token = create_token(ft_strdup(">>"), D_CHEV_R);
+		token = create_token(">>", D_CHEV_R);
 		iter->i += 2;
 	}
 	else
 	{
-		token = create_token(ft_strdup(">"), CHEV_R);
+		token = create_token(">", CHEV_R);
 		iter->i++;
 	}
 	if (!token)
@@ -75,7 +75,7 @@ t_list	*get_pipe(t_iter *iter)
 {
 	t_token	*token;
 	
-	token = create_token(ft_strdup("|"), PIPE);
+	token = create_token("|", PIPE);
 	iter->i++;
 	if (!token)
 	{
