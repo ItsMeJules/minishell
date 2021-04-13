@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/12 18:18:15 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/13 16:15:00 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	while (42)
 	{
 		print_prompt();
+		get_cursor_pos();
 		iter = readu_input();
 		list = NULL;
 		list = tokenize_input(iter);

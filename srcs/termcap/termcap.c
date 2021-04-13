@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 14:00:11 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/13 15:33:30 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ int	init_termcap(t_termcap *tc)
 	int		ret_ent;
 	char	*term;
 
-	term = getenv("TERM");
-	if (!term)
+	if (!(term = getenv("TERM")))
 	{
 		printf(TERM_ENV_NOT_FOUND);
 		return (-1);
 	}
-	ret_ent = tgetent(NULL, term);
-	if (ret_ent == -1)
+	if ((ret_ent = tgetent(NULL, term)) == -1)
 	{
 		printf(TERMCAP_DB_ACCESS);
 		return (-1);
@@ -58,6 +56,7 @@ int		add_input(char buf[4], char **input)
 
 void	handle_termcap(char buf[4])
 {
+	(void)buf;
 }
 
 int		read_bpb(char **input)

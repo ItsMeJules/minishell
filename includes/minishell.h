@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 13:57:11 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/13 15:27:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	change_term_mode(t_termcap *tc, int on);
 **	termcap/term_utils.c
 */
 int		is_tckey(char tc[4], int const_tc);
+void	get_cursor_pos(void);
 
 /*
 **	LEXER/lexer.c

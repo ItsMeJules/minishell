@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/12 15:29:05 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:57:29 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,13 @@ typedef struct	s_env
 	char		*var;
 	char		*val;
 }				t_env;
+
+typedef struct	s_termcaps
+{
+	int	col;
+	int	row;
+}				t_termcaps;
+
+t_termcaps	g_tc;
 
 #endif
