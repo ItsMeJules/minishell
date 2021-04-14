@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 15:11:35 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 16:19:25 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@
 # include <term.h>
 
 /*
-**	termcap/termcap.c
+**	termcap/termcap_init.c
 */
 void	change_term_mode(t_termcap *tc, int on);
 int		init_termcap(t_termcap *tc);
+
+/*
+**	termcap/termcap.c
+*/
 int		read_bpb(char **input);
 
 /*
@@ -45,6 +49,11 @@ int		ft_putchar(int c);
 */
 void	clear_after(int row, int col);
 void	move_cursor(int row, int col);
+
+/*
+** termcap/cursor_motion.c
+*/
+void	handle_cursor_move(int mode, char *input);
 
 /*
 **	LEXER/lexer.c
