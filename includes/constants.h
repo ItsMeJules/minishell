@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 15:57:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 14:29:53 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # define TERMCAP_DB_ACCESS "Access to termcap database failed...\n"
 # define TERM_TYPE_NOT_DEFINED "Term type '%s' doesn't exist in termcap"\
 	" database.\n"
-# define ERR_MALLOC "A malloc has failed..."
-# define ERR_QUOTE_NOT_CLOSED "The simple quote is not closed !"
-# define ERR_DQUOTE_NOT_CLOSED "The double quote is not closed !"
+# define ERR_MALLOC "A malloc has failed...\n"
+# define ERR_QUOTE_NOT_CLOSED "The simple quote is not closed !\n"
+# define ERR_DQUOTE_NOT_CLOSED "The double quote is not closed !\n"
 # define SPECIAL_CHARS "'\"<>;|"
 
 /*

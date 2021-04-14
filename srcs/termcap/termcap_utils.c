@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/13 16:15:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 15:17:04 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ void	get_cursor_pos(void)
 			g_tc.col = g_tc.col * 10 + buf[i] - '0';
 		}
 	}
+	g_tc.col--;
+	g_tc.row--;
+	g_tc.curr_col = g_tc.col;
+	g_tc.curr_row = g_tc.row;
+}
+
+int		ft_putchar(int c)
+{
+	return (write(1, &c, 1));
 }

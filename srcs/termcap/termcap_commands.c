@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term_mode.c                                        :+:      :+:    :+:   */
+/*   termcap_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 16:28:44 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 15:29:51 by jpeyron          ###   ########.fr       */
+/*   Created: 2021/04/14 15:04:22 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/04/14 15:21:43 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_term_mode(t_termcap *tc, int on)
+void	clear_after(int row, int col)
 {
-	struct termios	raw;
+	move_cursor(row, col);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+}
 
-	tcgetattr(0, &tc->o_termios);
-	if (on)
-	{
-		raw = tc->o_termios;
-		raw.c_lflag &= ~(ECHO | ICANON);
-
-		tcsetattr(0, TCSAFLUSH, &raw);
-	}
-	else
-		tcsetattr(0, TCSAFLUSH, &tc->o_termios);
+void	move_cursor(int row, int col)
+{
+	if (row < g_tc.row || col < g_tc.col)
+		return 
+	tputs(tgoto(tgetstr("cm", NULL), col, row), 1, ft_putchar);
 }

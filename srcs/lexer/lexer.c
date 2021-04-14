@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 15:28:20 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/14 14:28:00 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ t_list	*tokenize_input(t_iter *iter)
 			i++;
 		elem = funcs[i].f(iter);
 		if (iter->err)
-		{
-			lexer_free(root, iter);
 			return (NULL);
-		}
 		ft_lstadd_back(&root, elem);
 	}	
 	return (root);

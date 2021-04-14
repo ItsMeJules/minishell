@@ -6,11 +6,27 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 15:33:30 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 15:18:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	change_term_mode(t_termcap *tc, int on)
+{
+	struct termios	raw;
+
+	tcgetattr(0, &tc->o_termios);
+	if (on)
+	{
+		raw = tc->o_termios;
+		raw.c_lflag &= ~(ECHO | ICANON);
+
+		tcsetattr(0, TCSAFLUSH, &raw);
+	}
+	else
+		tcsetattr(0, TCSAFLUSH, &tc->o_termios);
+}
 
 int	init_termcap(t_termcap *tc)
 {
@@ -56,7 +72,8 @@ int		add_input(char buf[4], char **input)
 
 void	handle_termcap(char buf[4])
 {
-	(void)buf;
+	if (is_tckey(buf, LEFT_ARROW_KEY))
+		move_cursor(g_tc.curr_row, g_tc.curr_col--);
 }
 
 int		read_bpb(char **input)

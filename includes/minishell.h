@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/13 15:27:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 15:11:35 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,22 @@
 /*
 **	termcap/termcap.c
 */
+void	change_term_mode(t_termcap *tc, int on);
 int		init_termcap(t_termcap *tc);
 int		read_bpb(char **input);
 
 /*
-**	termcap/term_mode.c
-*/
-void	change_term_mode(t_termcap *tc, int on);
-
-/*
-**	termcap/term_utils.c
+**	termcap/termcap_utils.c
 */
 int		is_tckey(char tc[4], int const_tc);
 void	get_cursor_pos(void);
+int		ft_putchar(int c);
+
+/*
+** termcap/termcap_commands.c
+*/
+void	clear_after(int row, int col);
+void	move_cursor(int row, int col);
 
 /*
 **	LEXER/lexer.c
