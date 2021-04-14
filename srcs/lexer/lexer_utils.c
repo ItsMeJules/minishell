@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 12:40:07 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/08 17:16:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/14 16:20:32 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_token	*create_token(char *str, t_etype token)
 		return (0);
 	new->str = str;
 	new->token = token;
+	new->rm = false;
 	return (new);
 }
 
