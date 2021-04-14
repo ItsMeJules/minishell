@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/14 15:15:33 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 18:17:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ typedef struct	s_termcaps
 	int	row;
 	int	curr_row;
 }				t_termcaps;
+
+
+typedef struct	s_history
+{
+	t_list	*cmds;
+	int		fd;
+}				t_history;
 
 t_termcaps	g_tc;
 

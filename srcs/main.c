@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 15:32:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 18:28:34 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,18 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*list;
 	t_list		*env;
 	t_termcap	tc;
+	t_history	*history;
 
 	(void)argc;
 	(void)argv;
 	init_termcap(&tc);
+	history = read_file(FILE_HISTORY_NAME);
 	while (42)
 	{
 		print_prompt();
 		get_cursor_pos();
 		iter = readu_input();
+		save_command(iter->line, history);
 		list = NULL;
 		list = tokenize_input(iter);
 		if (list)

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 17:15:48 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 18:18:37 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <unistd.h>
 # include <termios.h>
 # include <sys/types.h>
+# include <sys/uio.h>
+# include <fcntl.h>
 # include <signal.h>
 
 # include "libft.h"
@@ -109,5 +112,11 @@ char	*get_var_from_str(char *str);
 char	*get_val_from_str(char *str);
 t_list	*pars_env(char **envp);
 
+
+/*
+**	history/file_manager.c
+*/
+t_history	*read_file(char *file);
+int			save_command(char *command, t_history *history);
 
 #endif
