@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 16:41:53 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 17:16:00 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	insert_char(char c, char *new_str, int str_size, char **input)
 {
-	int		rel_col;
-	int		i;
-	int		j;
+	int	rel_col;
+	int	i;
+	int	j;
 	
 	rel_col = g_tc.curr_col - g_tc.col;
 	i = -1;	
@@ -47,19 +47,23 @@ int		add_input(char c, char **input)
 		return (0);
 	}
 	insert_char(c, new_str, str_size, input);
-	clear_after(g_tc.row, g_tc.col);
-	ft_putstr_fd(new_str, 1);
 	g_tc.curr_col++;
-	move_cursor(g_tc.curr_row, g_tc.curr_col);
+	rewrite_line(new_str);
 	return (0);
 }
 
-void	handle_termcap(char buf[4], char *input)
+void	handle_termcap(char buf[4], char **input)
 {
 	if (is_tckey(buf, LEFT_ARROW_KEY))
-		handle_cursor_move(LEFT_ARROW_KEY, input);
+		handle_cursor_move(LEFT_ARROW_KEY, *input);
 	else if (is_tckey(buf, RIGHT_ARROW_KEY))
-		handle_cursor_move(RIGHT_ARROW_KEY, input);
+		handle_cursor_move(RIGHT_ARROW_KEY, *input);
+	if (is_tckey(buf, DOWN_ARROW_KEY))
+		handle_cursor_move(DOWN_ARROW_KEY, *input);
+	else if (is_tckey(buf, UP_ARROW_KEY))
+		handle_cursor_move(UP_ARROW_KEY, *input);
+	else if (is_tckey(buf, BACKSPACE_KEY))
+		handle_backspace(input);
 }
 
 int		read_bpb(char **input)
@@ -74,7 +78,7 @@ int		read_bpb(char **input)
 				&& add_input(buf[0], input))
 			return (1);
 		else if (ret == 3 || is_tckey(buf, BACKSPACE_KEY))
-			handle_termcap(buf, *input);
+			handle_termcap(buf, input);
 	}
 	return (0);
 }

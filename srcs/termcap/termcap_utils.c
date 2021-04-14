@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/14 15:17:04 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 17:15:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ void	get_cursor_pos(void)
 int		ft_putchar(int c)
 {
 	return (write(1, &c, 1));
+}
+
+void	rewrite_line(char *str)
+{
+	clear_after(g_tc.row, g_tc.col);
+	ft_putstr_fd(str, 1);
+	move_cursor(g_tc.curr_row, g_tc.curr_col);
 }
