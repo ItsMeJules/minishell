@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 18:23:54 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/14 18:25:00 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 t_iter	*readu_input()
 {
-	char	*input;
 	t_iter	*iter;
 
 	if (!(iter = malloc(sizeof(t_iter))))
 	{
 		return (NULL);
 	}
-	input = NULL;
-	read_bpb(&input);
 	iter->i = 0;
 	iter->err = NULL;
-	iter->line = input;
+	iter->line = NULL;
+	read_bpb(&iter->line);
 	return (iter);
 }
 
