@@ -6,11 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:16:03 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 14:38:30 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	disp_lexer(t_list *root);
 
 t_iter	*readu_input(t_history *history)
 {
@@ -32,7 +34,21 @@ void	print_prompt()
 	write(1, "minishit> ", 10);
 }
 
-void	disp_lexer(t_list *root);
+void	disp_vars(t_list *vars)
+{
+	char	**envp;
+	size_t	i;
+
+	envp = get_envp(vars);
+	i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -58,7 +74,11 @@ int	main(int argc, char **argv, char **envp)
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
-		get_vars(&lexer, &env, &vars);
+		expand(&lexer, &env, &vars);
+		printf("ENV\n");
+		disp_vars(env);
+		printf("VARS\n");
+		disp_vars(vars);
 		if (lexer)
 			disp_lexer(lexer);
 		lexer_free(lexer, iter);

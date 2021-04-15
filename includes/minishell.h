@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:05:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 14:28:28 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_list	*pars_env(char **envp);
 /*
 ** 	EXP/expander.c
 */
-void	get_vars(t_list **lexer, t_list **env, t_list **vars);
+void	expand(t_list **lexer, t_list **env, t_list **vars);
 
 /*
 **	history/file_manager.c

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/14 18:21:43 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:28:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ bool	is_declaration_field(t_list *lexer)
 	while (lexer)
 	{
 		token = (t_token *)lexer->content;
-		if (token->token == SEMI)
+		if (token->token != BASE && token->token != SPACE)
+		{
+			if (token->token == PIPE)
+				return (false);
 			return (true);
-		else if ((token->token != BASE && token->token != SPACE)
-			|| (token->token == BASE && !ft_strchr(token->str, '=')))
+		}
+		else if (token->token == BASE && !ft_strchr(token->str, '='))
 			return (false);
 		lexer = lexer->next;
 	}
@@ -52,7 +55,7 @@ void	add_vars(t_list *lexer, t_list **env, t_list **vars)
 	while (lexer)
 	{
 		token = (t_token *)lexer->content;
-		if (token->token == SEMI)
+		if (token->token != BASE && token->token != SPACE)
 			return ;
 		else if (token->token == BASE)
 		{
@@ -97,7 +100,7 @@ int		is_removable(void *data1, void *data2)
 	return (1);
 }
 
-void	get_vars(t_list **lexer, t_list **env, t_list **vars)
+void	expand(t_list **lexer, t_list **env, t_list **vars)
 {
 	t_list	*temp;
 
