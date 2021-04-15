@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 15:36:31 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/16 00:50:17 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_iter	*readu_input(t_history *history)
 	iter->err = NULL;
 	iter->line = NULL;
 	read_bpb(&iter->line, history);
+	history->pos = -1;
 	return (iter);
 }
 
