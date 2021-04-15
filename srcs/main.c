@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:05:13 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 14:16:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		print_prompt();
 		get_cursor_pos();
-		iter = readu_input();
+		iter = readu_input(history);
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
