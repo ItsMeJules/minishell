@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:19:32 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/15 14:33:48 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 15:18:41 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	handle_cursor_move(int mode, char **input, t_history *history)
 		if (history->pos - 1 < 0)
 		{
 			history->pos--;
+			*input = NULL;
 			clear_after(g_tc.row, g_tc.col);
 			return ;
 		}

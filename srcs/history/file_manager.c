@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 17:34:08 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/15 13:51:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 15:17:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_history	*read_file(char *file)
 
 int		save_command(char *command, t_history *history)
 {
+	if (command == NULL || ft_strcmp(command, history->cmds->content) == 0)
+		return (0);
 	if ((history->fd = open(FILE_HISTORY_NAME, O_APPEND | O_WRONLY)) < 0)
 	{
 		//msg erreur ?
