@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:39:26 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 18:13:50 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,29 @@ char	*get_val_from_str(char *str);
 t_list	*pars_env(char **envp);
 
 /*
-** 	EXP/expander.c
+** 	EXP/expand.c
 */
+bool	is_declaration(char *str);
+bool	is_declaration_field(t_list *lexer);
+void	add_vars(t_list *lexer, t_list **env, t_list **vars);
+void	mark_useless_declarations(t_list *lexer);
 void	expand(t_list **lexer, t_list **env, t_list **vars);
+
+/*
+** 	EXP/expand2.c
+*/
+bool	is_env(t_list *env, char *var);
+int		is_removable(void *data1, void *data2);
+void	split_for_expand(t_token *token, t_list **lst);
+void	expand_split(t_list *split, t_list *env, t_list *vars, t_etype type);
+void	expand_field(t_list *lexer, t_list *env, t_list *vars);
+
+/*
+** 	EXP/expand3.c
+*/
+char	*expand_dsign(char *str, t_list *env, t_list *vars);
+char	*expand_bslash(char *str, t_etype type);
+char	*join_split(t_list *split);
 
 /*
 **	history/file_manager.c
