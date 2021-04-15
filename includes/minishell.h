@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:39:26 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 15:23:21 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ void	expand(t_list **lexer, t_list **env, t_list **vars);
 */
 t_history	*read_file(char *file);
 int			save_command(char *command, t_history *history);
+void		free_history(t_history *history);
 
 #endif

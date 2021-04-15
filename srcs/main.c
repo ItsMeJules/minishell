@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:41:12 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 15:36:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	main(int argc, char **argv, char **envp)
 		print_prompt();
 		get_cursor_pos();
 		iter = readu_input(history);
+		if (iter->line == NULL)
+			continue ;
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
@@ -84,10 +86,16 @@ int	main(int argc, char **argv, char **envp)
 			printf("\nLEXER\n");
 			disp_lexer(lexer);
 		}
+		if (ft_strcmp(iter->line, "exit") == 0)
+		{
+			lexer_free(lexer, iter);
+			break ;
+		}
 		lexer_free(lexer, iter);
 	}
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
+	free_history(history);
 	change_term_mode(&tc, 0);
 	return (0);
 }
