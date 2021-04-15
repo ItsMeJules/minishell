@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 13:59:49 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 14:30:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int		add_input(char c, char **input)
 	int		str_size; 
 
 	if (c == '\n')
+	{
+		write(1, &c, 1);
 		return (1);
+	}
 	str_size = *input == NULL ? 1 : ft_strlen(*input) + 1;
 	if (!(new_str = malloc((str_size + 1) * sizeof(char))))
 	{
@@ -54,13 +57,13 @@ int		add_input(char c, char **input)
 void	handle_termcap(char buf[4], char **input, t_history *history)
 {
 	if (is_tckey(buf, LEFT_ARROW_KEY))
-		handle_cursor_move(LEFT_ARROW_KEY, *input, history);
+		handle_cursor_move(LEFT_ARROW_KEY, input, history);
 	else if (is_tckey(buf, RIGHT_ARROW_KEY))
-		handle_cursor_move(RIGHT_ARROW_KEY, *input, history);
+		handle_cursor_move(RIGHT_ARROW_KEY, input, history);
 	if (is_tckey(buf, DOWN_ARROW_KEY))
-		handle_cursor_move(DOWN_ARROW_KEY, *input, history);
+		handle_cursor_move(DOWN_ARROW_KEY, input, history);
 	else if (is_tckey(buf, UP_ARROW_KEY))
-		handle_cursor_move(UP_ARROW_KEY, *input, history);
+		handle_cursor_move(UP_ARROW_KEY, input, history);
 	else if (is_tckey(buf, BACKSPACE_KEY))
 		handle_backspace(input);
 }

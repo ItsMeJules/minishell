@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:05:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 14:25:23 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	move_cursor(int row, int col);
 /*
 ** termcap/cursor.c
 */
-void	handle_cursor_move(int mode, char *input, t_history *history);
+void	handle_cursor_move(int mode, char **input, t_history *history);
 void	handle_backspace(char **input);
 
 /*
