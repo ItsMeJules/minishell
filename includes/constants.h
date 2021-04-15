@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 14:29:53 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/14 17:54:38 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define ERR_QUOTE_NOT_CLOSED "The simple quote is not closed !\n"
 # define ERR_DQUOTE_NOT_CLOSED "The double quote is not closed !\n"
 # define SPECIAL_CHARS "'\"<>;|"
+# define FILE_HISTORY_NAME ".shitty_history"
 
 /*
 ** TEMCPAS_KEYS

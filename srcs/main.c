@@ -6,13 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 18:25:00 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:05:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_iter	*readu_input()
+t_iter	*readu_input(t_history *history)
 {
 	t_iter	*iter;
 
@@ -23,7 +23,7 @@ t_iter	*readu_input()
 	iter->i = 0;
 	iter->err = NULL;
 	iter->line = NULL;
-	read_bpb(&iter->line);
+	read_bpb(&iter->line, history);
 	return (iter);
 }
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*env;
 	t_list		*vars;
 	t_termcap	tc;
+	t_history	*history;
 
 	(void)argc;
 	(void)argv;
@@ -48,11 +49,13 @@ int	main(int argc, char **argv, char **envp)
 	if (!(env = pars_env(envp)))
 		printf("ENV ERROR\n");
 	vars = NULL;
+	history = read_file(FILE_HISTORY_NAME);
 	while (42)
 	{
 		print_prompt();
 		get_cursor_pos();
 		iter = readu_input();
+		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
 		get_vars(&lexer, &env, &vars);
