@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 17:34:08 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/15 13:51:36 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 15:32:43 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_history	*read_file(char *file)
 		return (NULL);
 	}
 	history->size = 0;
+	history->cmds = NULL;
 	while ((ret = get_next_line(history->fd, &line)) == 1)
 	{
 		ft_lstadd_front(&history->cmds, ft_lstnew(line));
@@ -47,6 +48,8 @@ t_history	*read_file(char *file)
 
 int		save_command(char *command, t_history *history)
 {
+	if (command == NULL || ft_strcmp(command, history->cmds->content) == 0)
+		return (0);
 	if ((history->fd = open(FILE_HISTORY_NAME, O_APPEND | O_WRONLY)) < 0)
 	{
 		//msg erreur ?
@@ -58,4 +61,10 @@ int		save_command(char *command, t_history *history)
 	write(history->fd, "\n", 1);
 	close(history->fd);
 	return (1);
+}
+
+void	free_history(t_history *history)
+{
+	ft_lstclear(&history->cmds, free);
+	free(history);
 }

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:19:32 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/15 14:33:48 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 16:30:06 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	handle_cursor_move(int mode, char **input, t_history *history)
 {
 	if (mode == LEFT_ARROW_KEY && g_tc.curr_col > g_tc.col)
-		move_cursor(g_tc.curr_row, --g_tc.curr_col);
+		move_cursor(g_tc.curr_row, g_tc.curr_col - 1);
 	else if (mode == RIGHT_ARROW_KEY
 			&& g_tc.curr_col < g_tc.col + (int)ft_strlen(*input))
-		move_cursor(g_tc.curr_row, ++g_tc.curr_col);
+		move_cursor(g_tc.curr_row, g_tc.curr_col + 1);
 	else if (mode == UP_ARROW_KEY && (size_t)history->pos + 1 < history->size)
 	{
+		if (*input)
+			free(*input);
 		*input = ft_strdup(ft_lstat(history->cmds, ++history->pos)->content);
 		rewrite_line(*input, g_tc.col + ft_strlen(*input));
 	}
@@ -29,9 +31,13 @@ void	handle_cursor_move(int mode, char **input, t_history *history)
 		if (history->pos - 1 < 0)
 		{
 			history->pos--;
+			free(*input);
+			*input = NULL;
 			clear_after(g_tc.row, g_tc.col);
 			return ;
 		}
+		if (*input)
+			free(*input);
 		*input = ft_strdup(ft_lstat(history->cmds, --history->pos)->content);
 		rewrite_line(*input, g_tc.col + ft_strlen(*input));
 	}
@@ -58,22 +64,23 @@ void	handle_backspace(char **input)
 	int		j;
 	char	*str;
 
-	if (input == NULL)
+	if (input == NULL || *input == NULL || g_tc.curr_col <= g_tc.col)
 		return ;
 	str = new_str(ft_strlen(*input) - 1);
 	if (!str)
 		return ;
-	rel_col = g_tc.curr_col - g_tc.col;
-	i = -1;
+	rel_col = g_tc.curr_col - g_tc.col - 1;
+	i = 0;
 	j = 0;
-	while ((*input)[++i])
+	while ((*input)[j])
 	{
-		if (i != rel_col)
-			str[i] = (*input)[j];
-		j++;
+		if (j == rel_col)
+			j++;
+		else
+			str[i++] = (*input)[j++];
 	}
-	str[i - 1] = 0;
+	str[i] = 0;
 	free(*input);
 	*input = str;
-	rewrite_line(str, --g_tc.curr_col);
+	rewrite_line(str, g_tc.curr_col - 1);
 }

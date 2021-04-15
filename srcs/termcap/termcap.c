@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 14:30:28 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/15 16:13:27 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		add_input(char c, char **input)
 		return (0);
 	}
 	insert_char(c, new_str, str_size, input);
-	rewrite_line(new_str, ++g_tc.curr_col);
+	rewrite_line(new_str, g_tc.curr_col + 1);
 	return (0);
 }
 
@@ -83,4 +83,6 @@ int		read_bpb(char **input, t_history *history)
 			handle_termcap(buf, input, history);
 	}
 	return (0);
+	//hahaha
+//	hahha
 }

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 18:13:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 18:30:24 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,6 @@ char	*join_split(t_list *split);
 */
 t_history	*read_file(char *file);
 int			save_command(char *command, t_history *history);
+void		free_history(t_history *history);
 
 #endif
