@@ -6,13 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/14 18:28:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/15 13:40:14 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_iter	*readu_input()
+t_iter	*readu_input(t_history *history)
 {
 	t_iter	*iter;
 
@@ -23,7 +23,7 @@ t_iter	*readu_input()
 	iter->i = 0;
 	iter->err = NULL;
 	iter->line = NULL;
-	read_bpb(&iter->line);
+	read_bpb(&iter->line, history);
 	return (iter);
 }
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		print_prompt();
 		get_cursor_pos();
-		iter = readu_input();
+		iter = readu_input(history);
 		save_command(iter->line, history);
 		list = NULL;
 		list = tokenize_input(iter);

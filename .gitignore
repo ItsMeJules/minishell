@@ -3,3 +3,4 @@ libft/obj*
 obj/*
 *.swp
 libft.a
+.shitty_history

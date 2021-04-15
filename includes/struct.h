@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/14 18:17:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/15 13:48:51 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct	s_termcaps
 typedef struct	s_history
 {
 	t_list	*cmds;
+	size_t	size;
+	int		pos;
 	int		fd;
 }				t_history;
 
