@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/15 14:28:14 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/15 15:09:28 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ bool	is_declaration_field(t_list *lexer)
 		token = (t_token *)lexer->content;
 		if (token->token != BASE && token->token != SPACE)
 		{
-			if (token->token == PIPE)
+			if (token->token == PIPE || token->token == QUOTE
+				|| token->token == D_QUOTE)
 				return (false);
 			return (true);
 		}
