@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 13:23:51 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/19 14:54:35 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
 
 # include "libft.h"
 # include "constants.h"
@@ -141,6 +142,9 @@ char	*join_split(t_list *split);
 **	EXEC/path.c
 */
 bool	is_var(t_list *list, char *var);
+char	*join_path(char *path, char *bin);
+char	*find_path(char **paths, char *bin);
+char	*get_path(char *bin, t_list *env, t_list *vars);
 
 /*
 **	history/file_manager.c

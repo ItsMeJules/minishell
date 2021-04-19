@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 11:15:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/19 14:58:25 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	(void)env;
 	init_termcap(&tc);
-	//if (!(env = pars_env(envp)))
-	//	printf("ENV ERROR\n");
+	if (!(env = pars_env(envp)))
+		printf("ENV ERROR\n");
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
