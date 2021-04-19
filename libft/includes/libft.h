@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:44 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/07 14:48:35 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/19 13:43:36 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # include "headers/get_next_line.h"
 # include "headers/ft_memory.h"
 # include "headers/ft_numbers.h"
+# include "headers/ft_btree.h"
 
 #endif

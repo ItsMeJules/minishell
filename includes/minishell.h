@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 18:30:24 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/19 13:23:51 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <termios.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
 
@@ -95,7 +96,7 @@ int		count_backslash(char *start);
 void	lexer_free(t_list *root, t_iter *iter);
 
 /*
-**	ENV/pars_env
+**	ENV/mod_env.c
 */
 void	disp_env(t_list *env);
 void	free_envp(char **envp);
@@ -104,7 +105,7 @@ char	*get_env_val(t_list *env, char *var);
 void	mod_env(t_list **env, char *var, char *val);
 
 /*
-**	ENV/pars_env
+**	ENV/pars_env.c
 */
 t_env	*create_env_elem(char *var, char *val);
 void	del_env_elem(void *elem);
@@ -124,7 +125,6 @@ void	expand(t_list **lexer, t_list **env, t_list **vars);
 /*
 ** 	EXP/expand2.c
 */
-bool	is_env(t_list *env, char *var);
 int		is_removable(void *data1, void *data2);
 void	split_for_expand(t_token *token, t_list **lst);
 void	expand_split(t_list *split, t_list *env, t_list *vars, t_etype type);
@@ -136,6 +136,11 @@ void	expand_field(t_list *lexer, t_list *env, t_list *vars);
 char	*expand_dsign(char *str, t_list *env, t_list *vars);
 char	*expand_bslash(char *str, t_etype type);
 char	*join_split(t_list *split);
+
+/*
+**	EXEC/path.c
+*/
+bool	is_var(t_list *list, char *var);
 
 /*
 **	history/file_manager.c
