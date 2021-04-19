@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/15 18:00:03 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/19 16:24:01 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	add_vars(t_list *lexer, t_list **env, t_list **vars)
 		{
 			var = get_var_from_str(token->str);
 			val = get_val_from_str(token->str);
-			if (is_env(*env, var))
+			if (is_var(*env, var))
 				mod_env(env, var, val);
 			else
 				mod_env(vars, var, val);

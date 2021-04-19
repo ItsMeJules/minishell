@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 14:54:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/19 16:22:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*join_path(char *path, char *bin)
 		free(tmp);
 	}
 	else
-		ret = ft_strjoin(tmp, bin);
+		ret = ft_strjoin(path, bin);
 	return (ret);
 }
 

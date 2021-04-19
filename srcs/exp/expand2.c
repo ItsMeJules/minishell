@@ -6,25 +6,11 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:58:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/15 18:22:04 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/19 16:23:28 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	is_env(t_list *env, char *var)
-{
-	t_env	*elem;
-
-	while (env)
-	{
-		elem = (t_env *)env->content;
-		if (!ft_strcmp(var, elem->var))
-			return (true);
-		env = env->next;
-	}
-	return (false);
-}
 
 int		is_removable(void *data1, void *data2)
 {

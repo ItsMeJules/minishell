@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:26:52 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/15 18:24:44 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/19 16:24:22 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*expand_dsign(char *str, t_list *env, t_list *vars)
 
 	if (ft_strlen(str) == 1)
 		return (str);
-	else if (is_env(env, str + 1))
+	else if (is_var(env, str + 1))
 		ret = ft_strdup(get_env_val(env, str + 1));
 	else
 		ret = ft_strdup(get_env_val(vars, str + 1));
