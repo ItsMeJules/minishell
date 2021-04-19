@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 11:15:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/19 16:13:10 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	(void)env;
 	init_termcap(&tc);
-	//if (!(env = pars_env(envp)))
-	//	printf("ENV ERROR\n");
+	if (!(env = pars_env(envp)))
+		printf("ENV ERROR\n");
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
@@ -79,11 +77,11 @@ int	main(int argc, char **argv, char **envp)
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
-		//expand(&lexer, &env, &vars);
-	//	printf("\nENV\n");
-		//disp_vars(env);
-	//	printf("\nVARS\n");
-		//disp_vars(vars);
+		expand(&lexer, &env, &vars);
+		printf("\nENV\n");
+		disp_vars(env);
+		printf("\nVARS\n");
+		disp_vars(vars);
 		if (lexer)
 		{
 			printf("\nLEXER\n");
@@ -96,8 +94,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		lexer_free(lexer, iter);
 	}
-	//ft_lstclear(&env, &del_env_elem);
-	//ft_lstclear(&vars, &del_env_elem);
+	ft_lstclear(&env, &del_env_elem);
+	ft_lstclear(&vars, &del_env_elem);
 	free_history(history);
 	change_term_mode(&tc, 0);
 	return (0);
