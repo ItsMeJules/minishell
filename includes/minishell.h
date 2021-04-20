@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 14:54:35 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:43:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,10 @@ char	*get_path(char *bin, t_list *env, t_list *vars);
 t_history	*read_file(char *file);
 int			save_command(char *command, t_history *history);
 void		free_history(t_history *history);
+
+/*
+** ast/ast_parser.c
+*/
+t_node		*parse_ast(t_list *lexer);
 
 #endif

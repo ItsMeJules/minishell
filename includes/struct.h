@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/15 16:12:21 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:47:38 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ typedef struct	s_history
 	int		pos;
 	int		fd;
 }				t_history;
+
+typedef struct	s_node
+{
+	char			*builtin;
+	char			*command;
+	char			**args;
+}				t_node;
 
 t_termcaps	g_tc;
 
