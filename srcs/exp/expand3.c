@@ -6,11 +6,59 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:26:52 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 16:24:22 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:53:12 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	lst_rmdspace(t_list **alst)
+{
+	t_token	*elem;
+	t_token	*next;
+	t_list	*lst;
+	size_t	i;
+
+	lst = *alst;
+	i = 0;
+	while (lst)
+	{
+		next = 0;
+		elem = (t_token *)lst->content;
+		if (lst->next)
+			next = (t_token *)lst->next->content;
+		if (elem->token == SPACE && ((next && next->token == SPACE)
+			|| !next || !i))
+			elem->rm = true;
+		lst = lst->next;
+		i++;
+	}
+	ft_lstremove_if(alst, *alst, is_removable, free_token);
+}
+
+void	lst_rmdsemi(t_list **alst)
+{
+	t_token	*elem;
+	t_token	*next;
+	t_list	*lst;
+	size_t	i;
+
+	lst = *alst;
+	i = 0;
+	while (lst)
+	{
+		next = 0;
+		elem = (t_token *)lst->content;
+		if (lst->next)
+			next = (t_token *)lst->next->content;
+		if (elem->token == SEMI && ((next && next->token == SEMI)
+			|| !next || !i))
+			elem->rm = true;
+		i = 0;
+		lst = lst->next;
+	}
+	ft_lstremove_if(alst, *alst, is_removable, free_token);
+}
 
 char	*expand_dsign(char *str, t_list *env, t_list *vars)
 {

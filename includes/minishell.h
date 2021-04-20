@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 14:54:35 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:09:08 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void	expand_field(t_list *lexer, t_list *env, t_list *vars);
 /*
 ** 	EXP/expand3.c
 */
+void	lst_rmdspace(t_list **alst);
+void	lst_rmdsemi(t_list **alst);
 char	*expand_dsign(char *str, t_list *env, t_list *vars);
 char	*expand_bslash(char *str, t_etype type);
 char	*join_split(t_list *split);
