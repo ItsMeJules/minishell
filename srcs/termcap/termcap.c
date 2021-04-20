@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/15 16:13:27 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/20 11:18:16 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,33 @@ int		add_input(char c, char **input)
 	return (0);
 }
 
+void	handle_ctrld(char **input)
+{
+	int		rel_col;
+	int		i;
+	int		j;
+	char	*new_str;
+	
+	rel_col = g_tc.curr_col - g_tc.col;
+	if (rel_col >= (int)ft_strlen(*input))
+		return ;
+	i = -1;
+	j = 0;
+	if (!(new_str = malloc(ft_strlen(*input) * sizeof(char))))
+	{
+		//msg d'erreur ?
+		return ;
+	}
+	while ((*input)[++i])
+	{
+		if (i != rel_col)
+			new_str[j++] = (*input)[i];
+	}
+	new_str[j] = 0;
+	free(*input);
+	rewrite_line(*input = new_str, g_tc.curr_col);
+}
+
 void	handle_termcap(char buf[4], char **input, t_history *history)
 {
 	if (is_tckey(buf, LEFT_ARROW_KEY))
@@ -66,6 +93,8 @@ void	handle_termcap(char buf[4], char **input, t_history *history)
 		handle_cursor_move(UP_ARROW_KEY, input, history);
 	else if (is_tckey(buf, BACKSPACE_KEY))
 		handle_backspace(input);
+	else if (buf[0] == 4 && input && *input)
+		handle_ctrld(input);
 }
 
 int		read_bpb(char **input, t_history *history)
@@ -77,12 +106,10 @@ int		read_bpb(char **input, t_history *history)
 	{
 		buf[ret] = 0;
 		if (ret == 1 && !is_tckey(buf, BACKSPACE_KEY)
-				&& add_input(buf[0], input))
+				&& buf[0] != 4 && add_input(buf[0], input))
 			return (1);
-		else if (ret == 3 || is_tckey(buf, BACKSPACE_KEY))
+		else if (ret == 3 || is_tckey(buf, BACKSPACE_KEY) || buf[0] == 4)
 			handle_termcap(buf, input, history);
 	}
 	return (0);
-	//hahaha
-//	hahha
 }
