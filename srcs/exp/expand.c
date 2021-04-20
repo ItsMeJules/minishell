@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/20 11:41:08 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 17:02:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,59 @@ bool	is_declaration_field(t_list *lexer)
 		}
 		else if (token->token == BASE && !is_declaration(token->str))
 			return (false);
-		lexer = lexer->next;
+		while (lexer && (((t_token *)lexer->content)->token == BASE
+			|| ((t_token *)lexer->content)->token == D_QUOTE
+			|| ((t_token *)lexer->content)->token == QUOTE))
+			lexer = lexer->next;
+		if (lexer && ((t_token *)lexer->content)->token == SPACE)
+			lexer = lexer->next;
 	}
 	return (true);
 }
 
-void	add_vars(t_list *lexer, t_list **env, t_list **vars)
+void	set_var(char *str, t_list **env, t_list **vars)
 {
-	t_token	*token;
 	char	*var;
 	char	*val;
 
+	if (!str)
+		return ;
+	var = get_var_from_str(str);
+	val = get_val_from_str(str);
+	if (is_var(*env, var))
+		mod_env(env, var, val);
+	else
+		mod_env(vars, var, val);
+	free(var);
+	free(val);
+	free(str);
+}
+
+void	add_and_expand(t_list *lexer, t_list **env, t_list **vars)
+{
+	char	*str;
+
 	while (lexer)
 	{
-		token = (t_token *)lexer->content;
-		if (token->token != BASE && token->token != SPACE)
+		str = 0;
+		if (((t_token *)lexer->content)->token != SPACE
+			&& ((t_token *)lexer->content)->token != BASE)
 			return ;
-		else if (token->token == BASE)
+		while (lexer && (((t_token *)lexer->content)->token == BASE
+			|| ((t_token *)lexer->content)->token == D_QUOTE
+			|| ((t_token *)lexer->content)->token == QUOTE))
 		{
-			var = get_var_from_str(token->str);
-			val = get_val_from_str(token->str);
-			if (is_var(*env, var))
-				mod_env(env, var, val);
-			else
-				mod_env(vars, var, val);
-			free(var);
-			free(val);
+			expand_elem(lexer, *env, *vars);
+			str = join_declaration(str, lexer->content);
+			((t_token *)lexer->content)->rm = true;
+			lexer = lexer->next;
 		}
-		token->rm = true;
-		lexer = lexer->next;
+		set_var(str, env, vars);
+		if (lexer && ((t_token *)lexer->content)->token == SPACE)
+		{
+			((t_token *)lexer->content)->rm = true;
+			lexer = lexer->next;
+		}
 	}
 }
 
@@ -100,15 +124,18 @@ void	expand(t_list **lexer, t_list **env, t_list **vars)
 	while (temp)
 	{
 		if (is_declaration_field(temp))
-			add_vars(temp, env, vars);
+			add_and_expand(temp, env, vars);
 		else
+		{
+			expand_field(temp, *env, *vars);
 			mark_useless_declarations(temp);
-		expand_field(temp, *env, *vars);
+		}
 		while (temp && ((t_token *)temp->content)->token != SEMI)
 			temp = temp->next;
 		if (temp)
 			temp = temp->next;
 	}
+	concat_chains(*lexer);
 	ft_lstremove_if(lexer, *lexer, is_removable, free_token);
 	lst_rmdspace(lexer);
 	lst_rmdsemi(lexer);
