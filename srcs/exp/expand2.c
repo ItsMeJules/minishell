@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:58:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 16:23:28 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 13:49:31 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,23 @@ void	expand_split(t_list *split, t_list *env, t_list *vars, t_etype type)
 			str = expand_bslash(str, type);
 		split->content = str;
 		split = split->next;
+	}
+}
+
+void	expand_elem(t_list *lexer, t_list *env, t_list *vars)
+{
+	t_token	*token;
+	t_list	*split;
+
+	token = (t_token *)lexer->content;
+	if (token->token == BASE || token->token == D_QUOTE)
+	{
+		split = 0;
+		split_for_expand(token, &split);
+		free(token->str);
+		expand_split(split, env, vars, token->token);
+		token->str = join_split(split);
+		ft_lstclear(&split, free);
 	}
 }
 

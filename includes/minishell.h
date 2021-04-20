@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 11:09:08 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:56:30 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	expand(t_list **lexer, t_list **env, t_list **vars);
 int		is_removable(void *data1, void *data2);
 void	split_for_expand(t_token *token, t_list **lst);
 void	expand_split(t_list *split, t_list *env, t_list *vars, t_etype type);
+void	expand_elem(t_list *lexer, t_list *env, t_list *vars);
 void	expand_field(t_list *lexer, t_list *env, t_list *vars);
 
 /*
@@ -139,6 +140,12 @@ void	lst_rmdsemi(t_list **alst);
 char	*expand_dsign(char *str, t_list *env, t_list *vars);
 char	*expand_bslash(char *str, t_etype type);
 char	*join_split(t_list *split);
+/*
+** 	EXP/expand4.c
+*/
+char	*join_declaration(char *str, t_token *token);
+bool	is_strenum(t_etype type);
+void	concat_chains(t_list *lexer);
 
 /*
 **	EXEC/path.c
