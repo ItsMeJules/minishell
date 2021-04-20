@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:19:32 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/15 16:30:06 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/20 16:03:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	handle_cursor_move(int mode, char **input, t_history *history)
 {
-	if (mode == LEFT_ARROW_KEY && g_tc.curr_col > g_tc.col)
-		move_cursor(g_tc.curr_row, g_tc.curr_col - 1);
-	else if (mode == RIGHT_ARROW_KEY
-			&& g_tc.curr_col < g_tc.col + (int)ft_strlen(*input))
-		move_cursor(g_tc.curr_row, g_tc.curr_col + 1);
+	if (mode == LEFT_ARROW_KEY)
+		handle_cursor_move_left();
+	else if (mode == RIGHT_ARROW_KEY)
+		handle_cursor_move_right(input);
 	else if (mode == UP_ARROW_KEY && (size_t)history->pos + 1 < history->size)
 	{
 		if (*input)
@@ -33,7 +32,7 @@ void	handle_cursor_move(int mode, char **input, t_history *history)
 			history->pos--;
 			free(*input);
 			*input = NULL;
-			clear_after(g_tc.row, g_tc.col);
+			clear_after(g_tc.row);
 			return ;
 		}
 		if (*input)
@@ -69,7 +68,7 @@ void	handle_backspace(char **input)
 	str = new_str(ft_strlen(*input) - 1);
 	if (!str)
 		return ;
-	rel_col = g_tc.curr_col - g_tc.col - 1;
+	rel_col = get_rel_col() - 1;
 	i = 0;
 	j = 0;
 	while ((*input)[j])

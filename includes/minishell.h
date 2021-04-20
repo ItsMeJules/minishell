@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 11:09:08 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:02:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <sys/stat.h>
+# include <sys/ioctl.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <errno.h>
@@ -32,10 +33,15 @@
 # include <term.h>
 
 /*
+** main.c
+*/
+void	print_prompt(void);
+
+/*
 **	termcap/termcap_init.c
 */
-void	change_term_mode(t_termcap *tc, int on);
-int		init_termcap(t_termcap *tc);
+void	change_term_mode(int on);
+int		init_termcap();
 
 /*
 **	termcap/termcap.c
@@ -47,13 +53,14 @@ int		read_bpb(char **input, t_history *history);
 */
 int		is_tckey(char tc[4], int const_tc);
 void	get_cursor_pos(void);
+int		get_rel_col(void);
 int		ft_putchar(int c);
 void	rewrite_line(char *str, int col);
 
 /*
 ** termcap/termcap_commands.c
 */
-void	clear_after(int row, int col);
+void	clear_after(int row);
 void	move_cursor(int row, int col);
 
 /*
@@ -61,6 +68,12 @@ void	move_cursor(int row, int col);
 */
 void	handle_cursor_move(int mode, char **input, t_history *history);
 void	handle_backspace(char **input);
+
+/*
+**	termcap/cursor_lr.c
+*/
+void	handle_cursor_move_left();
+void	handle_cursor_move_right(char **input);
 
 /*
 **	LEXER/lexer.c

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 11:18:16 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:09:26 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	insert_char(char c, char *new_str, int str_size, char **input)
 	int	i;
 	int	j;
 	
-	rel_col = g_tc.curr_col - g_tc.col;
+	rel_col = get_rel_col();
 	i = -1;	
 	j = 0;
 	while (++i < str_size)
@@ -61,7 +61,7 @@ void	handle_ctrld(char **input)
 	int		j;
 	char	*new_str;
 	
-	rel_col = g_tc.curr_col - g_tc.col;
+	rel_col = get_rel_col();
 	if (rel_col >= (int)ft_strlen(*input))
 		return ;
 	i = -1;

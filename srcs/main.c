@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 16:24:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/20 13:40:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*lexer;
 	t_list		*env;
 	t_list		*vars;
-	t_termcap	tc;
 	t_history	*history;
 
 	(void)argc;
 	(void)argv;
-	init_termcap(&tc);
+	init_termcap();
 	if (!(env = pars_env(envp)))
 		printf("ENV ERROR\n");
 	vars = NULL;
@@ -97,6 +96,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
 	free_history(history);
-	change_term_mode(&tc, 0);
+	change_term_mode(0);
 	return (0);
 }
