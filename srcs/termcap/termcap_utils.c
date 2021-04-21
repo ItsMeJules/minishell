@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/20 16:31:42 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:31:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,6 @@ void	get_cursor_pos(void)
 int		ft_putchar(int c)
 {
 	return (write(1, &c, 1));
-}
-
-int		get_rel_col(void)
-{
-	if (g_tc.row == g_tc.curr_row)
-		return (g_tc.curr_col - g_tc.col);
-	else
-		return (g_tc.curr_col + g_tc.w.ws_col - 10);
 }
 
 void	rewrite_line(char *str, int col)

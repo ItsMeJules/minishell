@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:35:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/20 13:37:46 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 12:40:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int	init_termcap()
 	}
 	change_term_mode(1);
 	ioctl(1, TIOCGWINSZ, &g_tc.w);
+	g_tc.cursor_pos = 0;
 	return (0);
 }

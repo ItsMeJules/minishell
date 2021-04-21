@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 17:21:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:38:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		read_bpb(char **input, t_history *history);
 */
 int		is_tckey(char tc[4], int const_tc);
 void	get_cursor_pos(void);
-int		get_rel_col(void);
 int		ft_putchar(int c);
 void	rewrite_line(char *str, int col);
 
@@ -64,16 +63,19 @@ void	clear_after(int row);
 void	move_cursor(int row, int col);
 
 /*
-** termcap/cursor.c
+** termcap/input_editor.c
 */
-void	handle_cursor_move(int mode, char **input, t_history *history);
+int		add_input(char c, char **input);
+void	handle_ctrld(char **input);
 void	handle_backspace(char **input);
 
 /*
-**	termcap/cursor_lr.c
+**	termcap/input_cursor.c
 */
 void	handle_cursor_move_left();
 void	handle_cursor_move_right(char **input);
+void	handle_up_arrow(t_history *history, char **input);
+void	handle_down_arrow(t_history *history, char **input);
 
 /*
 **	LEXER/lexer.c
