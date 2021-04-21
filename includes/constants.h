@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 16:00:54 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 15:06:07 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # define SPECIAL_CHARS "'\"<>;|"
 # define FILE_HISTORY_NAME ".shitty_history"
 # define TERM_NAME "minishit"
+
+/*
+**	ERRORS
+*/
+# define ERR_PARS "parse error\n"
 
 /*
 ** TEMCPAS_KEYS

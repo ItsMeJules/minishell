@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:26:52 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/20 11:53:12 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/21 14:06:36 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	lst_rmdspace(t_list **alst)
 {
 	t_token	*elem;
-	t_token	*next;
 	t_list	*lst;
 	size_t	i;
 
@@ -23,12 +22,8 @@ void	lst_rmdspace(t_list **alst)
 	i = 0;
 	while (lst)
 	{
-		next = 0;
 		elem = (t_token *)lst->content;
-		if (lst->next)
-			next = (t_token *)lst->next->content;
-		if (elem->token == SPACE && ((next && next->token == SPACE)
-			|| !next || !i))
+		if (elem->token == SPACE)
 			elem->rm = true;
 		lst = lst->next;
 		i++;
