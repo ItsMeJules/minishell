@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 17:21:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 15:07:39 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,14 @@ t_token	*create_token(char *str, t_etype token);
 char	*get_wbetw(size_t start, size_t end, char *line);
 int		count_backslash(char *start);
 void	lexer_free(t_list *root, t_iter *iter);
+
+/*
+**	LEXER:check.c
+*/
+void	disp_error(char *str);
+bool	check_chev(t_list *lexer);
+bool	check_pipe(t_list *lexer, int i);
+bool	check_parsing(t_list *lexer);
 
 /*
 **	ENV/mod_env.c

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 13:40:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 15:06:00 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int	main(int argc, char **argv, char **envp)
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
+		if (!check_parsing(lexer))
+		{
+			disp_error(ERR_PARS);
+			lexer_free(lexer, iter);
+			mod_env(&vars, "?", "1");
+			continue ;
+		}
 		expand(&lexer, &env, &vars);
 		printf("\nENV\n");
 		disp_vars(env);
@@ -92,6 +99,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		lexer_free(lexer, iter);
+		mod_env(&vars, "?", "0");
 	}
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
