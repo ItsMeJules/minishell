@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/22 12:31:48 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/22 16:54:43 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef enum	e_type
 	D_CHEV_R,
 	SEMI,
 	SPACE,
-	BASE
+	BASE,
+	COMMAND
 }				t_etype;
 
 typedef struct	s_token
@@ -77,12 +78,6 @@ typedef struct	s_node
 	t_etype	type;
 	void	*node_t;
 }				t_node;
-
-typedef struct	s_ncommand
-{
-	char	*cmd;
-	char	**args;
-}				t_ncommand;
 
 t_termcaps	g_tc;
 

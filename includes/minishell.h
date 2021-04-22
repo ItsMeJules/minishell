@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/22 12:32:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/22 14:19:52 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,12 @@ void		free_history(t_history *history);
 ** ast/ast_parser.c
 */
 t_node		*parse_ast(t_list *lexer);
+
+/*
+** ast/ast_utils.c
+*/
+t_node	*new_node(t_etype type, void *node_t);
+size_t	nb_words(t_list *lexer);
+char	**fill_argv(t_list *lexer, size_t size);
 
 #endif
