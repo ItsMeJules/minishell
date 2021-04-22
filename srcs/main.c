@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:00 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/22 10:51:02 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		lexer_free(lexer, iter);
+		g_tc.cursor_pos = 0;
 		mod_env(&vars, "?", "0");
 	}
 	ft_lstclear(&env, &del_env_elem);
