@@ -6,32 +6,32 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:35:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/14 16:10:58 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/21 12:40:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_term_mode(t_termcap *tc, int on)
+void	change_term_mode(int on)
 {
 	struct termios	raw;
 
-	tcgetattr(0, &tc->o_termios);
+	tcgetattr(0, &g_tc.o_termios);
 	if (on)
 	{
-		raw = tc->o_termios;
+		raw = g_tc.o_termios;
 		raw.c_lflag &= ~(ECHO | ICANON);
 
 		tcsetattr(0, TCSAFLUSH, &raw);
 	}
 	else
-		tcsetattr(0, TCSAFLUSH, &tc->o_termios);
+		tcsetattr(0, TCSAFLUSH, &g_tc.o_termios);
 }
 
-int	init_termcap(t_termcap *tc)
+int	init_termcap()
 {
-	int		ret_ent;
-	char	*term;
+	int				ret_ent;
+	char			*term;
 
 	if (!(term = getenv("TERM")))
 	{
@@ -48,6 +48,8 @@ int	init_termcap(t_termcap *tc)
 		printf(TERM_TYPE_NOT_DEFINED, term);
 		return (-1);
 	}
-	change_term_mode(tc, 1);
+	change_term_mode(1);
+	ioctl(1, TIOCGWINSZ, &g_tc.w);
+	g_tc.cursor_pos = 0;
 	return (0);
 }

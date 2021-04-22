@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/22 11:35:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:31:48 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ typedef struct	s_spf
 	t_list		*(*f)(t_iter *iter);
 }				t_spf;
 
-typedef struct	s_termcap
-{
-	struct termios	o_termios;
-}				t_termcap;
-
 typedef struct	s_env
 {
 	char		*var;
@@ -59,10 +54,13 @@ typedef struct	s_env
 
 typedef struct	s_termcaps
 {
-	int	col;
-	int	curr_col;
-	int	row;
-	int	curr_row;
+	struct winsize	w;
+	struct termios	o_termios;
+	int				col;
+	int				curr_col;
+	int				row;
+	int				curr_row;
+	int				cursor_pos;
 }				t_termcaps;
 
 

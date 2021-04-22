@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/20 11:43:39 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/22 12:32:03 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <sys/stat.h>
+# include <sys/ioctl.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <errno.h>
@@ -32,10 +33,15 @@
 # include <term.h>
 
 /*
+** main.c
+*/
+void	print_prompt(void);
+
+/*
 **	termcap/termcap_init.c
 */
-void	change_term_mode(t_termcap *tc, int on);
-int		init_termcap(t_termcap *tc);
+void	change_term_mode(int on);
+int		init_termcap();
 
 /*
 **	termcap/termcap.c
@@ -53,14 +59,23 @@ void	rewrite_line(char *str, int col);
 /*
 ** termcap/termcap_commands.c
 */
-void	clear_after(int row, int col);
+void	clear_after(int row);
 void	move_cursor(int row, int col);
 
 /*
-** termcap/cursor.c
+** termcap/input_editor.c
 */
-void	handle_cursor_move(int mode, char **input, t_history *history);
+int		add_input(char c, char **input);
+void	handle_ctrld(char **input);
 void	handle_backspace(char **input);
+
+/*
+**	termcap/input_cursor.c
+*/
+void	handle_cursor_move_left();
+void	handle_cursor_move_right(char **input);
+void	handle_up_arrow(t_history *history, char **input);
+void	handle_down_arrow(t_history *history, char **input);
 
 /*
 **	LEXER/lexer.c
@@ -97,6 +112,14 @@ int		count_backslash(char *start);
 void	lexer_free(t_list *root, t_iter *iter);
 
 /*
+**	LEXER:check.c
+*/
+void	disp_error(char *str);
+bool	check_chev(t_list *lexer);
+bool	check_pipe(t_list *lexer, int i);
+bool	check_parsing(t_list *lexer);
+
+/*
 **	ENV/mod_env.c
 */
 void	disp_env(t_list *env);
@@ -129,14 +152,23 @@ void	expand(t_list **lexer, t_list **env, t_list **vars);
 int		is_removable(void *data1, void *data2);
 void	split_for_expand(t_token *token, t_list **lst);
 void	expand_split(t_list *split, t_list *env, t_list *vars, t_etype type);
+void	expand_elem(t_list *lexer, t_list *env, t_list *vars);
 void	expand_field(t_list *lexer, t_list *env, t_list *vars);
 
 /*
 ** 	EXP/expand3.c
 */
+void	lst_rmdspace(t_list **alst);
+void	lst_rmdsemi(t_list **alst);
 char	*expand_dsign(char *str, t_list *env, t_list *vars);
 char	*expand_bslash(char *str, t_etype type);
 char	*join_split(t_list *split);
+/*
+** 	EXP/expand4.c
+*/
+char	*join_declaration(char *str, t_token *token);
+bool	is_strenum(t_etype type);
+void	concat_chains(t_list *lexer);
 
 /*
 **	EXEC/path.c

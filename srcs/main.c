@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/19 16:24:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/22 10:55:17 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*lexer;
 	t_list		*env;
 	t_list		*vars;
-	t_termcap	tc;
 	t_history	*history;
 
 	(void)argc;
 	(void)argv;
-	init_termcap(&tc);
+	init_termcap();
 	if (!(env = pars_env(envp)))
 		printf("ENV ERROR\n");
 	vars = NULL;
@@ -72,12 +71,25 @@ int	main(int argc, char **argv, char **envp)
 		print_prompt();
 		get_cursor_pos();
 		iter = readu_input(history);
+		g_tc.cursor_pos = 0;
 		if (iter->line == NULL)
 			continue ;
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
+		if (!check_parsing(lexer))
+		{
+			disp_error(ERR_PARS);
+			lexer_free(lexer, iter);
+			mod_env(&vars, "?", "1");
+			continue ;
+		}
 		expand(&lexer, &env, &vars);
+		if (ft_strcmp(iter->line, "exit") == 0)
+		{
+			lexer_free(lexer, iter);
+			break ;
+		}
 		printf("\nENV\n");
 		disp_vars(env);
 		printf("\nVARS\n");
@@ -97,6 +109,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
 	free_history(history);
-	change_term_mode(&tc, 0);
+	change_term_mode(0);
 	return (0);
 }

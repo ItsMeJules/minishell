@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/15 13:57:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/21 16:31:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,23 @@ int		ft_putchar(int c)
 
 void	rewrite_line(char *str, int col)
 {
-	clear_after(g_tc.row, g_tc.col);
+	int	trow;
+	
+	trow = g_tc.curr_row;
+	clear_after(g_tc.row);
+	print_prompt();
+	move_cursor(g_tc.row, g_tc.col);
 	ft_putstr_fd(str, 1);
-	move_cursor(g_tc.row, col);
+	if (col > g_tc.w.ws_col)
+	{
+		if (trow + 1 >= g_tc.w.ws_row && g_tc.row > 0)
+		{
+			move_cursor(trow, 1);
+			g_tc.row--;
+			return ;
+		}
+		move_cursor(trow + 1, 1);
+	}
+	else
+		move_cursor(trow, col);
 }
