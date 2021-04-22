@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:00 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/22 10:36:17 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		expand(&lexer, &env, &vars);
+		if (ft_strcmp(iter->line, "exit") == 0)
+		{
+			lexer_free(lexer, iter);
+			break ;
+		}
 		printf("\nENV\n");
 		disp_vars(env);
 		printf("\nVARS\n");
@@ -93,13 +98,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("\nLEXER\n");
 			disp_lexer(lexer);
 		}
-		if (ft_strcmp(iter->line, "exit") == 0)
-		{
-			lexer_free(lexer, iter);
-			break ;
-		}
-		lexer_free(lexer, iter);
 		mod_env(&vars, "?", "0");
+		lexer_free(lexer, iter);
 	}
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
