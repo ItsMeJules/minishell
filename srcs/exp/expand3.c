@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:26:52 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/21 14:06:36 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/22 11:51:40 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	lst_rmdsemi(t_list **alst)
 		if (elem->token == SEMI && ((next && next->token == SEMI)
 			|| !next || !i))
 			elem->rm = true;
-		i = 0;
+		i++;
 		lst = lst->next;
 	}
 	ft_lstremove_if(alst, *alst, is_removable, free_token);

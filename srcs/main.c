@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/22 10:36:17 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/22 10:55:17 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		print_prompt();
 		get_cursor_pos();
 		iter = readu_input(history);
+		g_tc.cursor_pos = 0;
 		if (iter->line == NULL)
 			continue ;
 		save_command(iter->line, history);
@@ -98,7 +99,11 @@ int	main(int argc, char **argv, char **envp)
 			printf("\nLEXER\n");
 			disp_lexer(lexer);
 		}
-		mod_env(&vars, "?", "0");
+		if (ft_strcmp(iter->line, "exit") == 0)
+		{
+			lexer_free(lexer, iter);
+			break ;
+		}
 		lexer_free(lexer, iter);
 	}
 	ft_lstclear(&env, &del_env_elem);
