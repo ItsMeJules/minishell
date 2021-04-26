@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:04:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/21 14:26:16 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 14:48:17 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	clear_after(int row)
 {
-	move_cursor(row, 0);
+	move_cursor(row, g_tc.col);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 15:40:01 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/21 16:54:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 14:49:37 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	handle_down_arrow(t_history *history, char **input)
 		free(*input);
 		*input = NULL;
 		clear_after(g_tc.row);
-		print_prompt();
 		move_cursor(g_tc.row, g_tc.col);
 		g_tc.cursor_pos = 0;
 		return ;
