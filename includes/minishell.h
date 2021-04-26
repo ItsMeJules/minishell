@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/26 13:55:58 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 15:02:49 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,10 @@ void		free_history(t_history *history);
 ** srcs/builtins/echo.c
 */
 int			ft_echo(t_list *lexer);
+
+/*
+** srcs/builtins/pwd.c
+*/
+int			ft_pwd();
 
 #endif
