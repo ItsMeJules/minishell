@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/21 16:55:41 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 15:07:27 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		count_backslash(char *start);
 void	lexer_free(t_list *root, t_iter *iter);
 
 /*
-**	LEXER:check.c
+**	LEXER/check.c
 */
 void	disp_error(char *str);
 bool	check_chev(t_list *lexer);
@@ -177,6 +177,26 @@ bool	is_var(t_list *list, char *var);
 char	*join_path(char *path, char *bin);
 char	*find_path(char **paths, char *bin);
 char	*get_path(char *bin, t_list *env, t_list *vars);
+
+/*
+**	BUILTINS/env.c
+*/
+int		env(t_list *env);
+
+/*
+**	BUILTINS/export.c
+*/
+int		print_declare(t_list *env);
+void	set_env(t_list **env, t_list **vars, char *var);
+void	mod_env2(t_list **env, char *var, char *val);
+void	remove_var(t_list **vars, char *var);
+int		export(int argc, char **argv, t_list **env, t_list **vars);
+
+/*
+**	BUILTINS/unset.c
+*/
+int		unset_err(char *str);
+int		unset(int argc, char **argv, t_list **env, t_list **vars);
 
 /*
 **	history/file_manager.c
