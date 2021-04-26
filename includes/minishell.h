@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/26 15:07:27 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:08:38 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,5 +204,15 @@ int		unset(int argc, char **argv, t_list **env, t_list **vars);
 t_history	*read_file(char *file);
 int			save_command(char *command, t_history *history);
 void		free_history(t_history *history);
+
+/*
+** srcs/builtins/echo.c
+*/
+int			ft_echo(t_list *lexer);
+
+/*
+** srcs/builtins/pwd.c
+*/
+int			ft_pwd();
 
 #endif
