@@ -6,15 +6,15 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:04:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/26 14:48:17 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 19:51:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_after(int row)
+void	clear_after(int row, int col)
 {
-	move_cursor(row, g_tc.col);
+	move_cursor(row, col);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
 

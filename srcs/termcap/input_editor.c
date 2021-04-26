@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cursor.c                                           :+:      :+:    :+:   */
+/*   input_editor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:19:32 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/22 10:50:25 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/26 20:34:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	handle_backspace(char **input)
 	int		j;
 	char	*str;
 
-	if (input == NULL || *input == NULL || g_tc.curr_col <= g_tc.col)
+	if (input == NULL || *input == NULL ||
+			(g_tc.curr_col <= g_tc.col && g_tc.row == g_tc.curr_row))
 		return ;
 	str = new_str(ft_strlen(*input) - 1);
 	if (!str)

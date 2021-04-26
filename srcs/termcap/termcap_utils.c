@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/26 14:48:22 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 20:43:44 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,25 @@ void	rewrite_line(char *str, int col)
 	int	trow;
 	
 	trow = g_tc.curr_row;
-	clear_after(g_tc.row);
+	clear_after(g_tc.row, g_tc.col);
 	move_cursor(g_tc.row, g_tc.col);
 	ft_putstr_fd(str, 1);
-	if (col > g_tc.w.ws_col)
+	if (col == g_tc.w.ws_col)
 	{
-		if (trow + 1 >= g_tc.w.ws_row && g_tc.row > 0)
+		if (trow + 1 == g_tc.w.ws_row && g_tc.row > 0)
 		{
-			move_cursor(trow, 1);
+			/*
+			 ** A small trick which allows me to go to the next line
+			 */
+			write(1, " ", 1);
+			move_cursor(trow, 0);
 			g_tc.row--;
 			return ;
 		}
-		move_cursor(trow + 1, 1);
+		move_cursor(trow + 1, 0);
 	}
+	else if (col < 0)
+		move_cursor(trow - 1, g_tc.w.ws_row);
 	else
 		move_cursor(trow, col);
 }

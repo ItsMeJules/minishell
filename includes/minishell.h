@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/26 15:02:49 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/26 19:52:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	rewrite_line(char *str, int col);
 /*
 ** termcap/termcap_commands.c
 */
-void	clear_after(int row);
+void	clear_after(int row, int col);
 void	move_cursor(int row, int col);
 
 /*
