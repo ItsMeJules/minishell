@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:27:05 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/26 15:07:18 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/27 16:34:34 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	unset(int argc, char **argv, t_list **env, t_list **vars)
 	{
 		if (is_declaration(argv[i]))
 			ret = unset_err(argv[i]);
-		else if (is_var(env, argv[i]))
+		else if (is_var(*env, argv[i]))
 			remove_var(env, argv[i]);
-		else if (is_var(vars, argv[i]))
+		else if (is_var(*vars, argv[i]))
 			remove_var(vars, argv[i]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/26 15:03:25 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/27 16:56:30 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,40 @@ void	disp_vars(t_list *vars)
 	free(envp);
 }
 
+void	disp_node(void *to_disp)
+{
+	t_list	*elem;
+	t_redir	*redir;
+	t_node	*node;
+
+	elem = (t_list *)to_disp;
+	while (elem)
+	{
+		node = (t_node *)elem->content;	
+		if (node->leaf)
+		{
+			for (int i = 0; node->argv[i]; i++)
+				printf("%s ", node->argv[i]);
+			while (node->redirs)
+			{
+				redir = (t_redir *)node->redirs->content;
+				if (redir->type == CHEV_R)
+					printf(" > ");
+				else if (redir->type == CHEV_L)
+					printf(" < ");
+				else if (redir->type == D_CHEV_R)
+					printf(" >> ");
+				printf(" %s ", redir->file);
+				node->redirs = node->redirs->next;
+			}
+		}
+		if (elem->next)
+			printf(" | ");
+		elem = elem->next;
+	}
+	fflush(stdout);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_iter		*iter;
@@ -58,6 +92,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*env;
 	t_list		*vars;
 	t_history	*history;
+	t_btree		*ast;
 
 	(void)argc;
 	(void)argv;
@@ -85,11 +120,14 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		expand(&lexer, &env, &vars);
-		if (ft_strcmp(iter->line, "exit") == 0)
+		if (lexer)
 		{
-			lexer_free(lexer, iter);
-			break ;
+			ast = parse_ast(lexer);
+			btree_apply_infix(ast, disp_node);
+			btree_apply_suffix(ast, free_ast_elem);
 		}
+		/*
+		 * TEST ENV ET VARS
 		printf("\nENV\n");
 		disp_vars(env);
 		printf("\nVARS\n");
@@ -99,6 +137,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("\nLEXER\n");
 			disp_lexer(lexer);
 		}
+		*/
 		if (ft_strcmp(iter->line, "exit") == 0)
 		{
 			lexer_free(lexer, iter);
