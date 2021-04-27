@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ast_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/26 12:51:33 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/26 12:58:45 by tvachera         ###   ########.fr       */
+/*   Created: 2021/04/20 11:39:16 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/04/22 11:54:04 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(t_list *env)
+t_btree	*parse_ast(t_list *lexer)
 {
-	t_env	*elem;
+	t_btree	*bt;
+	t_node	*root;
+	t_token	*token;
 
-	while (env)
+	while (lexer)
 	{
-		elem = (t_env *)env->content;
-		printf("%s=%s\n", elem->var, elem->val);
-		env = env->next	;
+		token = (t_token *)lexer->content;
+		if (token->token)
+		lexer = lexer->next;
 	}
-	return (0);
 }
