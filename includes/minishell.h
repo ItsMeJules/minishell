@@ -6,11 +6,8 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/04/22 12:32:03 by jpeyron          ###   ########.fr       */
-=======
-/*   Updated: 2021/04/26 15:08:38 by tvachera         ###   ########.fr       */
->>>>>>> 504d200d1a80f0781e6320f2e965b04a515d9683
+/*   Updated: 2021/04/27 11:25:44 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/27 11:22:13 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +200,16 @@ int		unset_err(char *str);
 int		unset(int argc, char **argv, t_list **env, t_list **vars);
 
 /*
+**	BUILTINS/echo.c
+*/
+int			ft_echo(t_list *lexer);
+
+/*
+**	BUILTINS/echo.c
+*/
+int			ft_echo(t_list *lexer);
+
+/*
 **	history/file_manager.c
 */
 t_history	*read_file(char *file);
@@ -210,19 +217,18 @@ int			save_command(char *command, t_history *history);
 void		free_history(t_history *history);
 
 /*
-<<<<<<< HEAD
-** ast/ast_parser.c
+**	AST/ast_parser.c
 */
 t_node		*parse_ast(t_list *lexer);
-=======
-** srcs/builtins/echo.c
-*/
-int			ft_echo(t_list *lexer);
 
 /*
-** srcs/builtins/pwd.c
+**	AST/ast_parser.c
+*/
+t_node		*parse_ast(t_list *lexer);
+
+/*
+**	BUILTINS/pwd.c
 */
 int			ft_pwd();
->>>>>>> 504d200d1a80f0781e6320f2e965b04a515d9683
 
 #endif
