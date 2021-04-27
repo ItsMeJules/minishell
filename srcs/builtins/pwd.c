@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   termcap_commands.c                                 :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 15:04:22 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/26 14:48:17 by jules            ###   ########.fr       */
+/*   Created: 2021/04/26 14:59:29 by jules             #+#    #+#             */
+/*   Updated: 2021/04/26 15:02:52 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_after(int row)
+int		ft_pwd()
 {
-	move_cursor(row, g_tc.col);
-	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-}
+	char	path[4096];
 
-void	move_cursor(int row, int col)
-{
-	tputs(tgoto(tgetstr("cm", NULL), col, row), 1, ft_putchar);
-	g_tc.curr_row = row;
-	g_tc.curr_col = col;
+	getcwd(path, 4096);
+	ft_putstr_fd(path, 1);
+	ft_putchar_fd('\n', 1);
+	return (1);
 }

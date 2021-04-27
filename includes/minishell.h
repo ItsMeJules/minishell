@@ -6,7 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/22 12:32:03 by jpeyron          ###   ########.fr       */
+=======
+/*   Updated: 2021/04/26 15:08:38 by tvachera         ###   ########.fr       */
+>>>>>>> 504d200d1a80f0781e6320f2e965b04a515d9683
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +116,7 @@ int		count_backslash(char *start);
 void	lexer_free(t_list *root, t_iter *iter);
 
 /*
-**	LEXER:check.c
+**	LEXER/check.c
 */
 void	disp_error(char *str);
 bool	check_chev(t_list *lexer);
@@ -179,6 +183,26 @@ char	*find_path(char **paths, char *bin);
 char	*get_path(char *bin, t_list *env, t_list *vars);
 
 /*
+**	BUILTINS/env.c
+*/
+int		env(t_list *env);
+
+/*
+**	BUILTINS/export.c
+*/
+int		print_declare(t_list *env);
+void	set_env(t_list **env, t_list **vars, char *var);
+void	mod_env2(t_list **env, char *var, char *val);
+void	remove_var(t_list **vars, char *var);
+int		export(int argc, char **argv, t_list **env, t_list **vars);
+
+/*
+**	BUILTINS/unset.c
+*/
+int		unset_err(char *str);
+int		unset(int argc, char **argv, t_list **env, t_list **vars);
+
+/*
 **	history/file_manager.c
 */
 t_history	*read_file(char *file);
@@ -186,8 +210,19 @@ int			save_command(char *command, t_history *history);
 void		free_history(t_history *history);
 
 /*
+<<<<<<< HEAD
 ** ast/ast_parser.c
 */
 t_node		*parse_ast(t_list *lexer);
+=======
+** srcs/builtins/echo.c
+*/
+int			ft_echo(t_list *lexer);
+
+/*
+** srcs/builtins/pwd.c
+*/
+int			ft_pwd();
+>>>>>>> 504d200d1a80f0781e6320f2e965b04a515d9683
 
 #endif
