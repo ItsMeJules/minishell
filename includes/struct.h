@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/22 12:31:48 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/27 16:13:10 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,35 @@ typedef enum	e_type
 	D_CHEV_R,
 	SEMI,
 	SPACE,
-	BASE
+	BASE,
+	COMMAND
 }				t_etype;
 
 typedef struct	s_token
 {
-	t_etype		token;
-	char		*str;
-	bool		rm;
+	t_etype			token;
+	char			*str;
+	bool			rm;
 }				t_token;
 
 typedef	struct	s_iter
 {
-	size_t		i;
-	char		*err;
-	char		*line;
+	size_t			i;
+	char			*err;
+	char			*line;
 }				t_iter;
 
 typedef struct	s_spf
 {
-	char		spe;
-	t_list		*(*f)(t_iter *iter);
+	char			spe;
+	t_list			*(*f)(t_iter *iter);
 }				t_spf;
 
 typedef struct	s_env
 {
-	char		*var;
-	char		*val;
-}				t_env;
+	char			*var;
+	char			*val;
+}					t_env;
 
 typedef struct	s_termcaps
 {
@@ -65,24 +66,25 @@ typedef struct	s_termcaps
 
 
 typedef struct	s_history
-{
-	t_list	*cmds;
-	size_t	size;
-	int		pos;
-	int		fd;
+{	
+	t_list			*cmds;
+	size_t			size;
+	int				pos;
+	int				fd;
 }				t_history;
 
 typedef struct	s_node
 {
-	t_etype	type;
-	void	*node_t;
+	bool			leaf;
+	char			**argv;
+	t_list			*redirs;
 }				t_node;
 
-typedef struct	s_ncommand
+typedef struct	s_redir
 {
-	char	*cmd;
-	char	**args;
-}				t_ncommand;
+	t_etype			type;
+	char			*file;
+}				t_redir;
 
 t_termcaps	g_tc;
 

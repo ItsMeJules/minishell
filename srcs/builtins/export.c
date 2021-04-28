@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:12:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/26 14:19:35 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/27 16:33:50 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void	mod_env2(t_list **env, char *var, char *val)
 			elem = elem->next;
 		}
 	}
-	var = var;
-	val = val;
 	ft_lstadd_back(env, ft_lstnew(create_env_elem(var, val)));
 }
 

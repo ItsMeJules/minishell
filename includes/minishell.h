@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/28 16:48:47 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/28 16:55:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ t_list	*get_dquote(t_iter *iter);
 */
 t_list	*get_semic(t_iter *iter);
 t_list	*get_word(t_iter *iter);
-
 
 /*
 **	LEXER/lexer_utils.c
@@ -211,9 +210,9 @@ int			save_command(char *command, t_history *history);
 void		free_history(t_history *history);
 
 /*
-**	AST/ast_parser.c
+**	BUILTINS/pwd.c
 */
-t_node		*parse_ast(t_list *lexer);
+int			ft_pwd();
 
 /*
 **	AST/ast_parser.c
@@ -223,7 +222,32 @@ t_node		*parse_ast(t_list *lexer);
 /*
 **	BUILTINS/pwd.c
 */
-int			ft_pwd();
+t_node		*new_node(bool leaf, char **argv, t_list *redirs);
+size_t		nb_words(t_list *lexer);
+char		**fill_argv(t_list *lexer, size_t size);
+bool		is_chev(t_etype type);
+bool		is_redir(t_etype type);
+
+/*
+**	srcs/ast/ast_elem.c
+*/
+t_list		*next_sep(t_list *lexer);
+
+/*
+**	srcs/ast/ast_parser.c
+*/
+void		add_node(t_btree **root, t_list *node);
+t_redir		*new_redir(t_etype type, char *file);
+t_list		*get_redirs(t_list	*lexer);
+t_list		*create_leaf(t_list *lexer);
+t_btree		*parse_ast(t_list *lexer);
+
+/*
+**	AST/free_ast.c
+*/
+void	free_redirs(void *to_free);
+void	free_node(void *to_free);
+void	free_ast_elem(void *to_free);
 
 /*
 **	BUILTINS/cd.c
