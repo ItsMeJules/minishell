@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/27 16:56:30 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/28 11:45:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	disp_node(void *to_disp)
 				node->redirs = node->redirs->next;
 			}
 		}
+		else
+			printf(" ; ");
 		if (elem->next)
 			printf(" | ");
 		elem = elem->next;
@@ -124,6 +126,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			ast = parse_ast(lexer);
 			btree_apply_infix(ast, disp_node);
+			printf("\n");
 			btree_apply_suffix(ast, free_ast_elem);
 		}
 		/*
