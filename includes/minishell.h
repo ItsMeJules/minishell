@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/27 22:23:26 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/28 16:48:47 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,12 +201,7 @@ int		unset(int argc, char **argv, t_list **env, t_list **vars);
 /*
 **	BUILTINS/echo.c
 */
-int			ft_echo(t_list *lexer);
-
-/*
-**	BUILTINS/echo.c
-*/
-int			ft_echo(t_list *lexer);
+int			ft_echo(int ac, char **av);
 
 /*
 **	history/file_manager.c
@@ -229,5 +224,10 @@ t_node		*parse_ast(t_list *lexer);
 **	BUILTINS/pwd.c
 */
 int			ft_pwd();
+
+/*
+**	BUILTINS/cd.c
+*/
+int			ft_cd(int ac, char **av, t_list *env);
 
 #endif

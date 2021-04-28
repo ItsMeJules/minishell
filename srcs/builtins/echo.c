@@ -6,57 +6,33 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:20:02 by jules             #+#    #+#             */
-/*   Updated: 2021/04/26 14:26:15 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/28 16:54:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	skip_options(t_list **lexer, bool *nl)
+int		ft_echo(int ac, char **av)
 {
-	if (*nl)
-		return (false);
-	while (*lexer && ft_strcmp(((t_token *)(*lexer)->content)->str, "-n") == 0)
-	{
-		*nl = true;
-		*lexer = (*lexer)->next;
-	}
-	return (!(*lexer));
-}
-
-void	print_params(t_list *lexer, bool *printed)
-{
-	t_token	*token;
-
-	*printed = true;
-	token = (t_token *)lexer->content;
-	ft_putstr_fd(token->str, 1);
-	if (lexer->next && is_strenum(token->token))
-		ft_putchar_fd(' ', 1);
-}
-
-int		ft_echo(t_list *lexer)
-{
-	t_token	*token;
 	bool	nl;
 	bool	printed;
+	int		i;
 
 	nl = false;
 	printed = false;
-	lexer = lexer->next; //skips the arg echo
-	while (lexer)
+	i = 1;
+	while (i < ac)
 	{
-		token = (t_token *)lexer->content;
-		if (is_strenum(token->token))
+		while (!printed && av[i] && ft_strcmp(av[i], "-n") == 0)
 		{
-			if (!printed)
-			{
-				if (skip_options(&lexer, &nl))
-					return (1);
-			}
-			print_params(lexer, &printed);
+			nl = true;
+			i++;
 		}
-		lexer = lexer->next;
+		printed = true;
+		ft_putstr_fd(av[i], 1);
+		if (i + 1 != ac)
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
 	if (!nl)
 		ft_putchar_fd('\n', 1);
