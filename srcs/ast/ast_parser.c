@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 11:39:16 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/27 16:44:33 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/28 11:51:26 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ t_list	*get_redirs(t_list	*lexer)
 			&& ((t_token *)lexer->content)->token != SEMI
 			&& !is_redir(((t_token *)lexer->content)->token))
 			lexer = lexer->next;
-		if (lexer && is_redir(((t_token *)lexer->content)->token))
+		if (lexer && is_redir(((t_token *)lexer->content)->token)
+			&& ((t_token *)lexer->content)->token != PIPE)
 		{
 			new = new_redir(((t_token *)lexer->content)->token
 				, ft_strdup(((t_token *)lexer->next->content)->str));
