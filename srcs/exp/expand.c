@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/29 16:35:07 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 17:24:26 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,6 @@ void	expand(t_list **lexer, t_list **env, t_list **vars)
 	concat_chains(*lexer);
 	ft_lstremove_if(lexer, *lexer, is_removable, free_token);
 	lst_rmdspace(lexer);
-	lst_rmdsemi(lexer);
 	lst_rmempty(lexer);
+	lst_rmdsemi(lexer);
 }

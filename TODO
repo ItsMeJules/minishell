@@ -1,0 +1,22 @@
+# ENV
+- initialiser la variable d'environnement SHLVL en debut de programme
+- initialiser PWD si n'existe pas en debut de programme
+
+# AST
+- Modifier AST
+
+# EXEC
+- expansion
+- Recuperation de la liste de redirection
+- Gestion des valeures de retour
+- Gerer la variable _ apres chaque commande executee
+- procedure d'execution a definir
+
+# SIGNAUX
+- Gestion des signaux a definir
+
+# AUTRES
+- mettre le main a la norme
+- Syntax error avec ;
+- Syntax error avec | multilignes
+- Gestion quote non fermee

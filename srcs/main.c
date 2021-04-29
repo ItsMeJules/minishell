@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 15:52:28 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 17:53:58 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,9 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	else if (!isatty(0))
-		return (0);
+		return (1);
 	init_termcap();
+	//	return (1);
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
@@ -137,7 +138,10 @@ int	main(int argc, char **argv, char **envp)
 		iter = readu_input(history);
 		g_tc.cursor_pos = 0;
 		if (iter->line == NULL)
+		{
+			mod_env(&vars, "?", "0");
 			continue ;
+		}
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
@@ -145,10 +149,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			disp_error(PARS_ERR);
 			lexer_free(lexer, iter);
-			mod_env(&vars, "?", "1");
+			mod_env(&vars, "?", "258");
 			continue ;
 		}
-	expand(&lexer, &env, &vars);
+		//	expand(&lexer, &env, &vars);
 		if (lexer)
 		{
 			ast = parse_ast(lexer);
