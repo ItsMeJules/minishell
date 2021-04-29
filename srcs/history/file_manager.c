@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 17:34:08 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/19 11:24:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/29 14:22:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_history	*read_file(char *file)
 		//msg erreur ?
 		return (NULL);
 	}
-	if ((history->fd = open(file, O_RDONLY | O_CREAT, S_IRWXU)) < 0)
+	if ((history->fd = open(file, O_RDONLY | O_CREAT, S_IRUSR | S_IWUSR)) < 0)
 	{
 		//msg erreur ?
 		return (NULL);
