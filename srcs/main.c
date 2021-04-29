@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 14:52:58 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/29 16:35:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_iter	*readu_input(t_history *history)
 	iter->line = NULL;
 	read_bpb(&iter->line, history);
 	history->pos = -1;
+	ft_putstr_fd(NORMAL, 1);
 	return (iter);
 }
 
@@ -34,7 +35,6 @@ void	print_prompt(char *path)
 {
 	char	*curr_dir;
 
-	ft_putstr_fd(NORMAL, 1);
 	ft_putstr_fd(CYAN, 1);
 	ft_putstr_fd("minishit ", 1);
 	ft_putstr_fd(BOLD, 1);
