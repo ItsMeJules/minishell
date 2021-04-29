@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/21 15:06:07 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:53:13 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@
 /*
 **	ERRORS
 */
-# define ERR_PARS "parse error\n"
+# define PARS_ERR "parse error\n"
+# define ENV_ERR "env error\n"
+# define ARG_ERR "to many argunments\n"
 
 /*
 ** TEMCPAS_KEYS

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/28 16:55:56 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/29 13:54:23 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,11 +213,6 @@ void		free_history(t_history *history);
 **	BUILTINS/pwd.c
 */
 int			ft_pwd();
-
-/*
-**	AST/ast_parser.c
-*/
-t_node		*parse_ast(t_list *lexer);
 
 /*
 **	BUILTINS/pwd.c

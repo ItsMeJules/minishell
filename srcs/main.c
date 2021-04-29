@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 13:47:38 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:53:24 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,19 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	if (!isatty(0))
+	if (argc != 1)
+	{
+		disp_error(ARG_ERR);
+		return (1);
+	}
+	else if (!(env = pars_env(envp)))
+	{
+		disp_error(ENV_ERR);
+		return (1);
+	}
+	else if (!isatty(0))
 		return (0);
 	init_termcap();
-	if (!(env = pars_env(envp)))
-		printf("ENV ERROR\n");
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
@@ -119,7 +127,7 @@ int	main(int argc, char **argv, char **envp)
 		lexer = tokenize_input(iter);
 		if (!check_parsing(lexer))
 		{
-			disp_error(ERR_PARS);
+			disp_error(PARS_ERR);
 			lexer_free(lexer, iter);
 			mod_env(&vars, "?", "1");
 			continue ;
