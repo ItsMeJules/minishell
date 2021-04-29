@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/28 11:45:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:40:19 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+
+	if (!isatty(0))
+		return (0);
 	init_termcap();
 	if (!(env = pars_env(envp)))
 		printf("ENV ERROR\n");
