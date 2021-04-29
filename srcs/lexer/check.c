@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/21 15:13:15 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 16:37:59 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ bool	check_parsing(t_list *lexer)
 			|| token->token == D_CHEV_R) && !check_chev(elem))
 			return (false);
 		else if (token->token == PIPE && !check_pipe(lexer, i))
+			return (false);
+		else if (elem->next && token->token == BASE
+			&& is_redir(((t_token *)elem->next->content)->token)
+			&& ((t_token *)elem->next->content)->token != PIPE)
 			return (false);
 		i++;
 		elem = elem->next;

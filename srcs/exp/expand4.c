@@ -6,11 +6,27 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:26:43 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/20 16:56:20 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 16:07:35 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	lst_rmempty(t_list **alst)
+{
+	t_token	*elem;
+	t_list	*lst;
+
+	lst = *alst;
+	while (lst)
+	{
+		elem = (t_token *)lst->content;
+		if (elem->token == BASE && !ft_strlen(elem->str))
+			elem->rm = true;
+		lst = lst->next;
+	}
+	ft_lstremove_if(alst, *alst, is_removable, free_token);
+}
 
 char	*join_declaration(char *str, t_token *token)
 {
