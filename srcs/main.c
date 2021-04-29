@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 13:18:49 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:47:38 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+
+	if (!isatty(0))
+		return (0);
 	init_termcap();
 	if (!(env = pars_env(envp)))
 		printf("ENV ERROR\n");
@@ -121,7 +124,7 @@ int	main(int argc, char **argv, char **envp)
 			mod_env(&vars, "?", "1");
 			continue ;
 		}
-		expand(&lexer, &env, &vars);
+	expand(&lexer, &env, &vars);
 		if (lexer)
 		{
 			ast = parse_ast(lexer);
