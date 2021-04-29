@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 13:54:23 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:01:52 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 /*
 ** main.c
 */
-void	print_prompt(void);
+void	print_prompt(char *path);
 
 /*
 **	termcap/termcap_init.c

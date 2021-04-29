@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 13:53:24 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:52:58 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,25 @@ t_iter	*readu_input(t_history *history)
 	return (iter);
 }
 
-void	print_prompt()
+void	print_prompt(char *path)
 {
-	write(1, "minishit> ", 10);
+	char	*curr_dir;
+
+	ft_putstr_fd(NORMAL, 1);
+	ft_putstr_fd(CYAN, 1);
+	ft_putstr_fd("minishit ", 1);
+	ft_putstr_fd(BOLD, 1);
+	ft_putstr_fd(WHITE, 1);
+	ft_putstr_fd("$", 1);
+	ft_putstr_fd(LIGHT_CYAN, 1);
+	curr_dir = ft_strrchr(path, '/');
+	if (curr_dir)
+		ft_putstr_fd(curr_dir + 1, 1);
+	else
+		ft_putstr_fd(path, 1);
+	ft_putstr_fd(DARK_GRAY, 1);
+	ft_putstr_fd("> ", 1);
+	ft_putstr_fd(DEFAULT_COLOR, 1);
 }
 
 void	disp_vars(t_list *vars)
@@ -116,7 +132,7 @@ int	main(int argc, char **argv, char **envp)
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
 	{
-		print_prompt();
+		print_prompt(get_env_val(env, "PWD"));
 		get_cursor_pos();
 		iter = readu_input(history);
 		g_tc.cursor_pos = 0;

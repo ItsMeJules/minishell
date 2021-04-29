@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 13:53:13 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:52:36 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,16 @@
 # define UP_ARROW_KEY 3
 # define DOWN_ARROW_KEY 4
 # define BACKSPACE_KEY 5
+
+/*
+** COLORS
+*/
+# define BOLD "\e[1m"
+# define NORMAL "\e[0m"
+# define DEFAULT_COLOR "\e[39m"
+# define WHITE "\e[97m"
+# define CYAN "\e[36m"
+# define LIGHT_CYAN "\e[96m"
+# define DARK_GRAY "\e[90m"
 
 #endif
