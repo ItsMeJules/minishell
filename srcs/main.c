@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/30 11:11:27 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/04/30 11:52:12 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	main(int argc, char **argv, char **envp)
 	else if (!is_var(env, "SHLVL"))
 		mod_env(&env, "SHLVL", "1");
 	else
-		mod_env(&env, "SHLVL", ft_itoa(ft_atoi(get_env_val(env, "SHLVL"))++));
+		mod_env(&env, "SHLVL", ft_itoa(ft_atoi(get_env_val(env, "SHLVL")) + 1));
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
@@ -143,6 +143,8 @@ int	main(int argc, char **argv, char **envp)
 		print_prompt(get_env_val(env, "PWD"));
 		get_cursor_pos();
 		iter = readu_input(history);
+		if (iter->err)
+			lexer_free(lexer, iter);
 		g_tc.cursor_pos = 0;
 		if (iter->line == NULL)
 		{

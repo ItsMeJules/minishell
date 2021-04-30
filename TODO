@@ -17,6 +17,6 @@ EN COURS - expansion
 
 # AUTRES
 - mettre le main a la norme
-EN COURS - Syntax error avec ;
-EN COURS - Syntax error avec | multilignes
-- Gestion quote non fermee
+FAIT - Syntax error avec ;
+FAIT - Syntax error avec | multilignes
+FAIT - Gestion quote non fermee
