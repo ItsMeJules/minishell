@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/29 16:37:59 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/30 11:50:52 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ bool	check_pipe(t_list *lexer, int i)
 
 	if (!i)
 		return (false);
+	else if (!ft_lstat(lexer, i + 1))
+		return (false);
 	i--;
 	elem = ft_lstat(lexer, i);
-	while (i >= 0 && ((t_token *)elem->content)->token != SEMI)
+	while (i >= 0 && ((t_token *)elem->content)->token != SEMI && elem->next)
 	{
 		if (is_strenum(((t_token *)elem->content)->token))
 			return (true);
@@ -52,6 +54,23 @@ bool	check_pipe(t_list *lexer, int i)
 			elem = ft_lstat(lexer, i);
 	}
 	return (false);
+}
+
+bool	check_semi(t_list *lexer, int i)
+{
+	t_list	*elem;
+	t_token	*token;
+
+	if (!i)
+		return (false);
+	elem = ft_lstat(lexer, i + 1);
+	if (elem)
+	{
+		token = (t_token *)elem->content;
+		if (token->token == SPACE || token->token == SEMI)
+			return (false);
+	}
+	return (true);
 }
 
 bool	check_parsing(t_list *lexer)
@@ -69,6 +88,8 @@ bool	check_parsing(t_list *lexer)
 			|| token->token == D_CHEV_R) && !check_chev(elem))
 			return (false);
 		else if (token->token == PIPE && !check_pipe(lexer, i))
+			return (false);
+		else if (token->token == SEMI && !check_semi(lexer, i))
 			return (false);
 		else if (elem->next && token->token == BASE
 			&& is_redir(((t_token *)elem->next->content)->token)
