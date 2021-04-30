@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/27 16:13:10 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/30 12:06:57 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_history
 typedef struct	s_node
 {
 	bool			leaf;
+	t_list			*lexer;
 	char			**argv;
 	t_list			*redirs;
 }				t_node;

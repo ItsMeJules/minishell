@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 16:06:57 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/30 12:44:08 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,23 +227,14 @@ bool		is_redir(t_etype type);
 /*
 **	srcs/ast/ast_elem.c
 */
-t_list		*next_sep(t_list *lexer);
 
 /*
 **	srcs/ast/ast_parser.c
 */
-void		add_node(t_btree **root, t_list *node);
-t_redir		*new_redir(t_etype type, char *file);
-t_list		*get_redirs(t_list	*lexer);
-t_list		*create_leaf(t_list *lexer);
-t_btree		*parse_ast(t_list *lexer);
 
 /*
 **	AST/free_ast.c
 */
-void	free_redirs(void *to_free);
-void	free_node(void *to_free);
-void	free_ast_elem(void *to_free);
 
 /*
 **	BUILTINS/cd.c

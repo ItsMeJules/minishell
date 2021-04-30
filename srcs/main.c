@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 18:16:16 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:34:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,42 +67,6 @@ void	disp_vars(t_list *vars)
 	free(envp);
 }
 
-void	disp_node(void *to_disp)
-{
-	t_list	*elem;
-	t_redir	*redir;
-	t_node	*node;
-
-	elem = (t_list *)to_disp;
-	while (elem)
-	{
-		node = (t_node *)elem->content;	
-		if (node->leaf)
-		{
-			for (int i = 0; node->argv[i]; i++)
-				printf("%s ", node->argv[i]);
-			while (node->redirs)
-			{
-				redir = (t_redir *)node->redirs->content;
-				if (redir->type == CHEV_R)
-					printf(" > ");
-				else if (redir->type == CHEV_L)
-					printf(" < ");
-				else if (redir->type == D_CHEV_R)
-					printf(" >> ");
-				printf(" %s ", redir->file);
-				node->redirs = node->redirs->next;
-			}
-		}
-		else
-			printf(" ; ");
-		if (elem->next)
-			printf(" | ");
-		elem = elem->next;
-	}
-	fflush(stdout);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_iter		*iter;
@@ -152,14 +116,13 @@ int	main(int argc, char **argv, char **envp)
 			mod_env(&vars, "?", "258");
 			continue ;
 		}
-		//	expand(&lexer, &env, &vars);
-		if (lexer)
+	/*	if (lexer)
 		{
 			ast = parse_ast(lexer);
 			btree_apply_infix(ast, disp_node);
 			printf("\n");
 			btree_apply_suffix(ast, free_ast_elem);
-		}
+		}*/
 		
 		// TEST ENV ET VARS
 		printf("\nENV\n");
