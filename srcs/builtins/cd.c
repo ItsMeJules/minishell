@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:48:08 by jules             #+#    #+#             */
-/*   Updated: 2021/04/28 16:49:26 by jules            ###   ########.fr       */
+/*   Updated: 2021/04/30 12:46:44 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,8 @@ int		cd_oldpwd(t_list *env)
 int		ft_cd(int ac, char **av, t_list *env)
 {
 	char	path[4096];
-	(void)ac;
 
-	if (ft_split_size(av) > 2)
+	if (ac > 2)
 	{
 		ft_putstr_fd(TERM_NAME, 2);
 		ft_putstr_fd(": cd: too many arguments", 2);
