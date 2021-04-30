@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 18:16:16 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/04/30 11:11:27 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*vars;
 	t_history	*history;
 	t_btree		*ast;
+	char		path[4096];
 
 	(void)argc;
 	(void)argv;
@@ -127,8 +128,14 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else if (!isatty(0))
 		return (1);
-	init_termcap();
-	//	return (1);
+	if (init_termcap() < 0)
+		return (1);
+	if (!is_var(env, "PWD"))
+		mod_env(&env, "PWD", getcwd(path, 4096));
+	else if (!is_var(env, "SHLVL"))
+		mod_env(&env, "SHLVL", "1");
+	else
+		mod_env(&env, "SHLVL", ft_itoa(ft_atoi(get_env_val(env, "SHLVL"))++));
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
 	while (42)
