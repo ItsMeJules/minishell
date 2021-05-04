@@ -6,21 +6,11 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 12:29:49 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/04 12:34:19 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 14:35:31 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	is_leaf(t_btree *root)
-{
-	t_list	*elem;
-
-	elem = (t_list *)root->item;
-	if (is_strenum(((t_token *)elem->content)->token))
-		return (true);
-	return (false);
-}
 
 t_node	*create_node(t_list *elem, t_etype type)
 {
@@ -36,8 +26,8 @@ t_node	*create_node(t_list *elem, t_etype type)
 
 bool	is_leaf(t_btree *leaf)
 {
-	if (((t_nbode *)leaf->item)->type == CMD
-		|| ((t_nbode *)leaf->item)->type == FL)
+	if (((t_node *)leaf->item)->type == CMD
+		|| ((t_node *)leaf->item)->type == FL)
 		return (true);
 	return (false);
 }

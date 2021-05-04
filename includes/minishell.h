@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 12:44:19 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 14:37:37 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,13 +242,15 @@ t_list		*next_command(t_list *lexer);
 /*
 **	AST/ast_parser.c
 */
+void		disp_node(void *item); // A RETIRER
+void		free_ast_item(void *item);
+void		fix_ast_chain(void *item);
 void		move_pipes_to_ast(t_btree **root, t_list *lexer);
 t_btree		*parse_ast(t_list *lexer);
 
 /*
 **	AST/ast_building.c
 */
-bool		is_leaf(t_btree *root);
 t_node		*create_node(t_list *elem, t_etype type);
 bool		is_leaf(t_btree *leaf);
 bool		add_node(t_btree **root, t_node *node);

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/03 15:19:55 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 14:24:43 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,13 @@ int	main(int argc, char **argv, char **envp)
 			mod_env(&vars, "?", "258");
 			continue ;
 		}
-	/*	if (lexer)
+		if (lexer)
 		{
 			ast = parse_ast(lexer);
 			btree_apply_infix(ast, disp_node);
 			printf("\n");
-			btree_apply_suffix(ast, free_ast_elem);
-		}*/
+			btree_clear(ast, free_ast_item);
+		}
 		
 		// TEST ENV ET VARS
 		printf("\nENV\n");
