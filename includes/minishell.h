@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/04/30 12:44:08 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/03 15:31:23 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,10 @@ bool		is_redir(t_etype type);
 /*
 **	srcs/ast/ast_elem.c
 */
+t_list		*next_sep(t_list *lexer);
+t_list		*next_pipe(t_list *lexer);
+t_list		*next_redir(t_list *lexer);
+t_list		*next_file(t_list *lexer);
 
 /*
 **	srcs/ast/ast_parser.c
