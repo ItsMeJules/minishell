@@ -6,21 +6,36 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:20:54 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 11:03:02 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 11:35:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*skip_chev(t_list **elem)
+void	skip_chev(t_list **elem)
 {
 	while (*elem->content->type != SPACE)
 		*elem = *elem->next;
 }
 
+void	link_all_args(t_list *elem)
+{
+	t_list	*end_cmd;
+
+	while (elem && ((t_token *)elem->content)->token == SPACE
+			|| is_strenum(((t_token *)elem->content)->token))
+		elem = elem->next;
+	end_cmd = elem;
+	if (is_chev(((t_token *)elem->content)->token))
+		skip_chev(&elem);
+	end_cmd->next = elem;
+}
+
 t_list	*next_command(t_list *lexer)
 {
 	static t_list	*elem = NULL;
+	t_list			*start;
+	t_list			*end;
 	
 	if (!elem)
 		elem = lexer;
@@ -30,12 +45,19 @@ t_list	*next_command(t_list *lexer)
 	while (elem && ((t_token *)elem->content)->token != PIPE
 			&& ((t_token *)elem->content)->token != SEMI)
 	{
-		while (is_chev((t_token *)elem->content->token))
+		if (is_chev((t_token *)elem->content->token))
 			skip_chev(&elem);
-		//echo lol>19 -n ; cat 1 > 2 >> 3 -n | touch 2 -t   
-		//
-		//>1>>2 echo lol<4 -n
-		
-		//__
+		((t_token *)elem->content)->rm = true;
+		start = elem;
+		link_all_args(end, elem);
 	}
+	//echo lol > 1 -n |
+	//rm_spaces= echo lol>1 -n
+	//= echo-> ->lol->-n
+
+	//echo lol > 1 ;
+	//rm_spaces=echo lol>1 ;
+		
+	//> 1 >>2 echo mdr < 4
+	//rm_spaces=>1>>2 echo mdr<4
 }
