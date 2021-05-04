@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 14:37:37 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 14:44:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,15 +214,6 @@ void		free_history(t_history *history);
 **	BUILTINS/pwd.c
 */
 int			ft_pwd();
-
-/*
-**	BUILTINS/pwd.c
-*/
-t_node		*new_node(bool leaf, char **argv, t_list *redirs);
-size_t		nb_words(t_list *lexer);
-char		**fill_argv(t_list *lexer, size_t size);
-bool		is_chev(t_etype type);
-bool		is_redir(t_etype type);
 
 /*
 **	AST/ast_elem.c

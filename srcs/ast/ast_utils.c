@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:14:30 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 10:54:25 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 14:43:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 bool	is_chev(t_etype type)
 {
 	return (type == CHEV_R || type == D_CHEV_R || type == CHEV_L);
+}
+
+bool	is_redir(t_etype type)
+{
+	return (is_chev(type) || type == PIPE);
 }
 
 void	rm_unused_spaces(t_list **lexer)
