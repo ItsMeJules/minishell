@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 14:48:18 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 16:34:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,8 @@ t_list		*next_file(t_list *lexer);
 /*
 **	AST/ast_elem_cmd.c
 */
-void		skip_chev(t_list *elem);
-void		link_all_args(t_list *elem);
+t_list		*skip_chev(t_list *elem);
+void		link_all_args(t_list **elem);
 t_list		*next_command(t_list *lexer);
 
 /*

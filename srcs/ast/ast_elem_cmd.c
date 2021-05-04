@@ -6,59 +6,59 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:20:54 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 12:04:28 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:30:57 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_chev(t_list *elem)
+t_list	*skip_chev(t_list *elem)
 {
-	while (((t_token *)elem->content)->token != SPACE)
+	if (!elem)
+		return (NULL);
+	if (is_chev(((t_token *)elem->content)->token))
 		elem = elem->next;
+	while (elem && is_strenum(((t_token *)elem->content)->token))
+		elem = elem->next;
+	if (elem && !is_chev(((t_token *)elem->content)->token))
+		return (elem);
+	return (skip_chev(elem));
 }
 
-void	link_all_args(t_list *elem)
+void	init_elem(t_list *lexer, t_list **elem, t_list **start)
 {
-	t_list	*end_cmd;
-
-	while (elem && (((t_token *)elem->content)->token == SPACE
-			|| is_strenum(((t_token *)elem->content)->token)))
-		elem = elem->next;
-	end_cmd = elem;
-	if (is_chev(((t_token *)elem->content)->token))
-		skip_chev(elem);
-	end_cmd->next = elem;
+	if (!*elem)
+		*elem = lexer;
+	if (is_chev(((t_token *)(*elem)->content)->token))
+		*start = skip_chev(*elem);
+	else
+		*start = *elem;
+	*elem = *start;
 }
 
 t_list	*next_command(t_list *lexer)
 {
 	static t_list	*elem = NULL;
+	static bool		end = false;
 	t_list			*start;
 	
-	if (!elem)
-		elem = lexer;
-	else if (((t_token *)elem->content)->token == PIPE
-			|| ((t_token *)elem->content)->token == SEMI)
-		elem = elem->next;
-	else if (is_chev(((t_token *)elem->content)->token))
-		skip_chev(elem);
-	start = elem;
-	link_all_args(elem);
+	if (end)
+	{
+		elem = NULL;
+		end = false;
+		return (NULL);
+	}
+	init_elem(lexer, &elem, &start);
 	while (elem && ((t_token *)elem->content)->token != PIPE
 			&& ((t_token *)elem->content)->token != SEMI)
+	{
+		if (elem->next && is_chev(((t_token *)elem->next->content)->token))	
+			elem->next = skip_chev(elem->next);
+		elem = elem->next;
+	}
+	if (!elem)
+		end = true;
+	else
 		elem = elem->next;
 	return (start);
 }
-// TESTS THEORIQUE
-//echo lol > 1 -n |
-//rm_spaces=echo lol>1 -n | cat haha
-//=echo-> ->lol-> ->-n | cat haha
-
-//echo lol > 1 ;
-//rm_spaces=echo lol>1 ;
-//=echo-> ->lol-> ->;
-	
-//> 1 >>2 echo mdr < 4 ;
-//rm_spaces=>1>>2 echo mdr<4 ;
-//= ->echo-> ->mdr-> ->;
