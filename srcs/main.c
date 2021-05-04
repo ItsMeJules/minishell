@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/04/30 17:45:19 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 11:04:27 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	char		path[4096];
 
 	(void)argc;
+	(void)ast;
 	(void)argv;
 
 	if (argc != 1)

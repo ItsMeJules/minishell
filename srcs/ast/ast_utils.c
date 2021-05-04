@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:14:30 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/30 17:45:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/04 11:07:40 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 bool	is_chev(t_etype type)
 {
-	return (type == CHEV_R || type == D_CHEV_R || type == CHEV_L)
+	return (type == CHEV_R || type == D_CHEV_R || type == CHEV_L);
+}
+
+bool	is_redir(t_etype type)
+{
+	return (is_chev(type) || type == PIPE);
 }
 
 void	rm_unused_spaces(t_list **lexer)
@@ -30,7 +35,7 @@ void	rm_unused_spaces(t_list **lexer)
 		token = (t_token *)elem->content;
 		if (token->token == SPACE)
 		{
-			if (elem->next && !is_strenum(((t_token *)elem->next)->content))
+			if (elem->next && !is_strenum(((t_token *)elem->next->content)->token))
 				token->rm = true;	
 			else if (!elem->next)
 				token->rm = true;
