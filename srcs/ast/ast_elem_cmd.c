@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:20:54 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 17:30:57 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 18:30:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_list	*skip_chev(t_list *elem)
 {
+	t_list	*tmp;
+
 	if (!elem)
 		return (NULL);
 	if (is_chev(((t_token *)elem->content)->token))
@@ -21,7 +23,17 @@ t_list	*skip_chev(t_list *elem)
 	while (elem && is_strenum(((t_token *)elem->content)->token))
 		elem = elem->next;
 	if (elem && !is_chev(((t_token *)elem->content)->token))
-		return (elem);
+	{
+		if (((t_token *)elem->content)->token != PIPE
+			&& ((t_token *)elem->content)->token != SEMI)
+			return (elem);
+		else
+		{
+			tmp = ft_lstnew(create_token(" ", SPACE));
+			tmp->next = elem;
+			return (tmp);
+		}
+	}
 	return (skip_chev(elem));
 }
 
