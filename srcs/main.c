@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 11:04:27 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:39:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,31 +126,24 @@ int	main(int argc, char **argv, char **envp)
 			mod_env(&vars, "?", "258");
 			continue ;
 		}
-	/*	if (lexer)
+		if (lexer)
 		{
 			ast = parse_ast(lexer);
 			btree_apply_infix(ast, disp_node);
 			printf("\n");
-			btree_apply_suffix(ast, free_ast_elem);
-		}*/
-		
-		// TEST ENV ET VARS
-		printf("\nENV\n");
-		disp_vars(env);
-		printf("\nVARS\n");
-		disp_vars(vars);
-		if (lexer)
-		{
-			printf("\nLEXER\n");
-			disp_lexer(lexer);
+			btree_clear(ast, free_ast_item);
 		}
 		
+		// TEST ENV ET VARS
+		//printf("\nENV\n");
+		//disp_vars(env);
+		//printf("\nVARS\n");
+		//disp_vars(vars);
 		if (ft_strcmp(iter->line, "exit") == 0)
 		{
 			lexer_free(lexer, iter);
 			break ;
 		}
-		lexer_free(lexer, iter);
 	}
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);

@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:14:30 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 11:07:40 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:40:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ bool	is_redir(t_etype type)
 void	rm_unused_spaces(t_list **lexer)
 {
 	t_list	*elem;
+	t_list	*prev;
 	t_token	*token;
 
 	elem = *lexer;
@@ -36,10 +37,13 @@ void	rm_unused_spaces(t_list **lexer)
 		if (token->token == SPACE)
 		{
 			if (elem->next && !is_strenum(((t_token *)elem->next->content)->token))
-				token->rm = true;	
+				token->rm = true;
 			else if (!elem->next)
 				token->rm = true;
+			else if (prev && is_chev(((t_token *)prev->content)->token))
+				token->rm = true;
 		}
+		prev = elem;
 		elem = elem->next;
 	}
 	ft_lstremove_if(lexer, *lexer, is_removable, free_token);
