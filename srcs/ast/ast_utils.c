@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:14:30 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 14:43:33 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 15:28:11 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	rm_unused_spaces(t_list **lexer)
 			else if (!elem->next)
 				token->rm = true;
 			else if (prev && is_chev(((t_token *)prev->content)->token))
-				((t_token *)prev->content)->rm = true;
+				token->rm = true;
 		}
 		prev = elem;
 		elem = elem->next;

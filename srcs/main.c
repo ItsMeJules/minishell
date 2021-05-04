@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 14:24:43 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:11:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,22 +135,15 @@ int	main(int argc, char **argv, char **envp)
 		}
 		
 		// TEST ENV ET VARS
-		printf("\nENV\n");
-		disp_vars(env);
-		printf("\nVARS\n");
-		disp_vars(vars);
-		if (lexer)
-		{
-			printf("\nLEXER\n");
-			disp_lexer(lexer);
-		}
-		
+		//printf("\nENV\n");
+		//disp_vars(env);
+		//printf("\nVARS\n");
+		//disp_vars(vars);
 		if (ft_strcmp(iter->line, "exit") == 0)
 		{
 			lexer_free(lexer, iter);
 			break ;
 		}
-		lexer_free(lexer, iter);
 	}
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/30 11:50:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/04 17:26:01 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ bool	check_semi(t_list *lexer, int i)
 	if (elem)
 	{
 		token = (t_token *)elem->content;
-		if (token->token == SPACE || token->token == SEMI)
+		if ((token->token == SPACE &&
+				((t_token *)elem->next->content)->token == SEMI) ||
+				token->token == SEMI)
 			return (false);
 	}
 	return (true);

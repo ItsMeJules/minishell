@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:35:16 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/04 14:33:47 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:31:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	disp_node(void *item)
 			printf("'%s'", tk->str);
 		else if (tk->token == D_QUOTE)
 			printf("\"%s\"", tk->str);
+		lst = lst->next;
 	}
 	printf(" ");
 }
@@ -90,7 +91,8 @@ void	move_pipes_to_ast(t_btree **root, t_list *lexer)
 			add_node(root, create_node(new, RDR));
 			add_node(root, create_node(new->next, FL));
 		}
-		add_node(root, create_node(next_command(lexer), CMD));
+		if ((new = next_command(lexer)))
+			add_node(root, create_node(new, CMD));
 	}
 }
 
@@ -100,6 +102,7 @@ t_btree	*parse_ast(t_list *lexer)
 	t_list	*new;
 
 	root = NULL;
+	rm_unused_spaces(&lexer);
 	while (42)
 	{
 		if ((new = next_sep(lexer)))
@@ -111,7 +114,7 @@ t_btree	*parse_ast(t_list *lexer)
 			add_node(&root, create_node(new->next, FL));
 		}
 		if ((new = next_command(lexer)))
-			add_node(&root, create_node(next_command(lexer), CMD));
+			add_node(&root, create_node(new, CMD));
 		else
 			break ;
 	}

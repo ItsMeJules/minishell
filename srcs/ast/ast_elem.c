@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:02:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 12:02:41 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:30:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ t_list	*next_sep(t_list *lexer)
 	t_token			*token;
 
 	if (end)
+	{
+		elem = NULL;
+		end = false;
 		return (NULL);
+	}
 	if (!elem)
 		elem = lexer;
 	else
@@ -42,7 +46,11 @@ t_list	*next_pipe(t_list *lexer)
 	t_token			*token;
 
 	if (end)
+	{
+		elem = NULL;
+		end = false;
 		return (NULL);
+	}
 	if (!elem)
 		elem = lexer;
 	else
@@ -66,7 +74,11 @@ t_list	*next_redir(t_list *lexer)
 	t_token			*token;
 
 	if (end)
+	{
+		elem = NULL;
+		end = false;
 		return (NULL);
+	}
 	if (!elem)
 		elem = lexer;
 	else
