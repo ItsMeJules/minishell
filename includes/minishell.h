@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 14:44:31 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/04 14:48:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ bool		add_node(t_btree **root, t_node *node);
 **	AST/ast_utils.c
 */
 bool		is_chev(t_etype type);
+bool		is_redir(t_etype type);
 void		rm_unused_spaces(t_list **lexer);
 
 /*
