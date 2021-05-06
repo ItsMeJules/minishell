@@ -1,9 +1,6 @@
 # ENV
-FAIT - initialiser la variable d'environnement SHLVL en debut de programme
-FAIT - initialiser PWD si n'existe pas en debut de programme
 
 # AST
-EN COURS - Modifier AST
 
 # EXEC
 EN COURS - expansion
@@ -17,6 +14,3 @@ EN COURS - expansion
 
 # AUTRES
 - mettre le main a la norme
-FAIT - Syntax error avec ;
-FAIT - Syntax error avec | multilignes
-FAIT - Gestion quote non fermee
