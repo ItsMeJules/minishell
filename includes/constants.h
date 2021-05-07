@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/04/29 16:10:11 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/07 13:30:12 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,13 @@
 # define CYAN "\e[36m"
 # define LIGHT_CYAN "\e[96m"
 # define DARK_GRAY "\e[90m"
+
+/*
+**	EXEC
+*/
+# define CHEVOUT_SFLAGS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+# define CHEVR_OFLAGS O_WRONLY | O_CREAT | O_TRUNC
+# define DCHEVR_OFLAGS O_WRONLY | O_CREAT | O_APPEND
+# define CHEVL_OFLAGS O_RDONLY
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/29 17:24:26 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/07 14:20:59 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,25 +116,14 @@ void	mark_useless_declarations(t_list *lexer)
 	}
 }
 
-void	expand(t_list **lexer, t_list **env, t_list **vars)
+void	expand(t_list **lexer, t_list **env, t_list **vars, t_etype type)
 {
-	t_list	*temp;
-
-	temp = *lexer;
-	while (temp)
-	{
-		if (is_declaration_field(temp))
-			add_and_expand(temp, env, vars);
-		else
-		{
-			expand_field(temp, *env, *vars);
-			mark_useless_declarations(temp);
-		}
-		while (temp && ((t_token *)temp->content)->token != SEMI)
-			temp = temp->next;
-		if (temp)
-			temp = temp->next;
-	}
+	if (type == CMD && is_declaration_field(*lexer))
+		add_and_expand(*lexer, env, vars);
+	else if (type == CMD)
+		mark_useless_declarations(*lexer);
+	else if (type == FL)
+		expand_field(*lexer, *env, *vars);
 	concat_chains(*lexer);
 	ft_lstremove_if(lexer, *lexer, is_removable, free_token);
 	lst_rmdspace(lexer);

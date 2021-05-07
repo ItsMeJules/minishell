@@ -6,48 +6,30 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/06 18:22:09 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/07 14:46:48 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_exex	init_ex(t_btree *root)
+void	exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars);
 {
-	t_exec	ex;
-
-	ex.fd_in = 0;
-	ex.fd_out = 1;
-	ex.pipe = false;
-	ex.root = root;
-	return (ex);
+	// A ECRIRE
+	return ;
 }
 
-void	reset_ex(t_exec *ex)
+void	exec_pipe(t_btree *ast, t_list **env, t_list **vars)
 {
-	if (ex->fd_in != 0)
-	{
-		close(ex->fd_in);
-		ex->fd_in = 0;
-	}
-	if (ex->fd_out != 1)
-	{
-		close(ex->fd_out);
-		ex->fd_out = 1;
-	}
-	ex->pipe = false;
+	// A ECRIRE
+	return ;
 }
 
-
-// GERER EXPANSION
 void	exec(t_btree *ast, t_list **env, t_list **vars)
 {
-	static t_exec	ex = NULL;
+	static t_exec	ex = {0, 1, false, ast};
 
 	if (!ast)
 		return ;	
-	if (!ex)
-		ex = init_ex(ast);
 	if (((t_node *)ast->item)->type == SEMI)
 	{
 		exec(ast->left, env, vars);
@@ -56,11 +38,14 @@ void	exec(t_btree *ast, t_list **env, t_list **vars)
 	}
 	else if (((t_node *)ast->item)->type == PIPE)
 		exec_pipe(ast, env, vars);
-	else if (((t_node *)ast->item)->type == RDR)
-	{
-		if (set_redir(&ex, ast, env, vars))
-			exec(ast->right, env, vars);
-	}
 	else
-		exec_cmd(&ex, ast, env, vars);
+	{
+		if (!ex.expand)
+			expand_leafs(&ex, ast, env, vars);
+		if (((t_node *)ast->item)->type == RDR
+			&& set_redir(&ex, ast->item, ast->left->item))
+			exec(ast->right, env, vars);
+		else if (((t_node *)ast->item)->type == CMD)
+			exec_cmd(&ex, ((t_node *)ast->item)->elem);
+	}
 }

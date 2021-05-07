@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 16:34:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/07 14:24:09 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ bool		is_declaration(char *str);
 bool		is_declaration_field(t_list *lexer);
 void		add_vars(t_list *lexer, t_list **env, t_list **vars);
 void		mark_useless_declarations(t_list *lexer);
-void		expand(t_list **lexer, t_list **env, t_list **vars);
+void		expand(t_list **lexer, t_list **env, t_list **vars, t_etype type);
 
 /*
 ** 	EXP/expand2.c
