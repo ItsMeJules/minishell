@@ -6,11 +6,29 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/07 14:47:15 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:08:25 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**get_argv(t_list *cmd)
+{
+	char	**argv;
+	size_t	i;
+
+	if (!(argv = malloc(sizeof(char *) * (ft_lstsize(env) + 1))))
+		return (0);
+	i = 0;
+	while (cmd)
+	{
+		argv[i] = ft_strdup(((t_token *)cmd->content)->str);
+		i++;
+		cmd = cmd->next;
+	}
+	argv[i] = 0;
+	return (argv);
+}
 
 void	reset_ex(t_exec *ex)
 {
@@ -56,7 +74,7 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 			close(ex->fd_in);
 		ex->fd_in = open(filename, CHEVL_OFLAGS);
 	}
-	if (ex->fd_out < 0 || ex->fd_int < 0)
+	if (ex->fd_out < 0 || ex->fd_in < 0)
 	{
 		disp_fd_error(filemane, strerror(errno));
 		return (false);
