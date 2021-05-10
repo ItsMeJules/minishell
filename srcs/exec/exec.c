@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/07 14:46:48 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 14:36:18 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec(t_btree *ast, t_list **env, t_list **vars)
 	static t_exec	ex = {0, 1, false, ast};
 
 	if (!ast)
-		return ;	
+		return ;
 	if (((t_node *)ast->item)->type == SEMI)
 	{
 		exec(ast->left, env, vars);
