@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/10 15:08:25 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 16:21:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	reset_ex(t_exec *ex)
 	ex->expand = false;
 }
 
-void	disp_fd_error(char *filename, char *err)
+int		disp_fd_error(char *filename, char *err)
 {
 	write(2, TERM_NAME, ft_strlen(TERM_NAME));
 	write(2, ": ", 2);
@@ -53,6 +53,7 @@ void	disp_fd_error(char *filename, char *err)
 	write(2, ": ", 2);
 	write(2, filename, ft_strlen(filename));
 	write(2, "\n", 1);
+	return (0);
 }
 
 bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
@@ -75,10 +76,7 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 		ex->fd_in = open(filename, CHEVL_OFLAGS);
 	}
 	if (ex->fd_out < 0 || ex->fd_in < 0)
-	{
-		disp_fd_error(filemane, strerror(errno));
-		return (false);
-	}
+		return (disp_fd_error(filemane, strerror(errno)));
 	return (true);
 }
 

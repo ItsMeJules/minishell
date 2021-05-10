@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/10 14:36:18 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 16:21:16 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 void	exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars);
 {
-	// A ECRIRE
+	char	**av;
+	char	*path
+
+	av = get_argv(cmd);
+	if (is_builtin(av[0]))
+		return (exec_builtin(av, env, vars));
+	path = get_path(av[0], *env, *vars);
+	if (path == 0)
+		return ;
 	return ;
 }
 

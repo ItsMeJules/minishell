@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/10 15:00:21 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/10 16:21:15 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*find_path(char **paths, char *bin)
 	int			ret;
 
 	i = 0;
+	errno = 0;
 	while (paths[i])
 	{
 		path = join_path(paths[i], bin);
@@ -69,24 +70,35 @@ char	*find_path(char **paths, char *bin)
 
 char	*get_path(char *bin, t_list *env, t_list *vars)
 {
-	char	**paths;
-	char	*path;
+	char		**paths;
+	char		*path;
+	struct stat	buf;
 
+	errno = 0
+	if (!stat(bin, &buf))
+		return (ft_strdup(bin));
+	else if (errno && errno != ENOENT)
+	{
+		mod_env(&vars, "?", "126");
+		return (disp_fd_error(bin, strerror(errno)));
+	}
 	if (is_var(env, "PATH"))
 		paths = ft_split(get_env_val(env, "PATH"), ":");
 	else if (is_var(vars, "PATH"))
 		paths = ft_split(get_env_val(vars, "PATH"), ":");
 	else
-		return (0);
+	{
+		mod_env(&vars, "?", "127");
+		return (disp_fd_error(bin, "command not found"));
+	}
 	path = find_path(paths, bin);
-	printf("%s\n", path);
 	ft_free_split(paths);
 	return (path);
 }
 
 int		is_builtin(char *cmd)
 {
-	return (ft_strcmp(cmd, "echo") || ft_strcmp(cmd, "ls")
+	return (ft_strcmp(cmd, "echo") || ft_strcmp(cmd, "env")
 			|| ft_strcmp(cmd, "cd") || ft_strcmp(cmd, "export")
 			|| ft_strcmp(cmd, "unset") || ft_strcmp(cmd, "pwd")
 			|| ft_strcmp(cmd, "exit"));
