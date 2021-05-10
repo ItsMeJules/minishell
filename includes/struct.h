@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/30 12:06:57 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 11:21:48 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ typedef enum	e_type
 	SEMI,
 	SPACE,
 	BASE,
-	COMMAND
+	FL,
+	CMD,
+	RDR
 }				t_etype;
 
 typedef struct	s_token
@@ -75,17 +77,9 @@ typedef struct	s_history
 
 typedef struct	s_node
 {
-	bool			leaf;
-	t_list			*lexer;
-	char			**argv;
-	t_list			*redirs;
+	t_list			*elem;
+	t_etype			type;	
 }				t_node;
-
-typedef struct	s_redir
-{
-	t_etype			type;
-	char			*file;
-}				t_redir;
 
 t_termcaps	g_tc;
 

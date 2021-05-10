@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:18:25 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/27 16:26:28 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/04 14:14:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void				*btree_search_item(t_btree *root, void *data_ref
 int					btree_level_count(t_btree *root);
 void				btree_apply_by_level(t_btree *root, void (*applyf)
 						(void *item, int current_level, int is_first_elem));
-void				btree_clear(t_btree *root);
+void				btree_clear(t_btree *root, void (*del)(void *));
 
 #endif
