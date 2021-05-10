@@ -6,13 +6,13 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 12:51:33 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/26 12:58:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 17:57:34 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(t_list *env)
+int	ft_env(t_list *env)
 {
 	t_env	*elem;
 

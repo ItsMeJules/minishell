@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/10 14:56:14 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:19:25 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	main(int argc, char **argv, char **envp)
 			ast = parse_ast(lexer);
 		//	btree_apply_infix(ast, disp_node);
 		//	printf("\n");
-			exec(ast, &env, &
+			exec(ast, &env, &vars);
 			btree_clear(ast, free_ast_item);
 		}
 		

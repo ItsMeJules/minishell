@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/10 16:21:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/10 18:07:24 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**get_argv(t_list *cmd)
 	char	**argv;
 	size_t	i;
 
-	if (!(argv = malloc(sizeof(char *) * (ft_lstsize(env) + 1))))
+	if (!(argv = malloc(sizeof(char *) * (ft_lstsize(cmd) + 1))))
 		return (0);
 	i = 0;
 	while (cmd)
@@ -76,7 +76,7 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 		ex->fd_in = open(filename, CHEVL_OFLAGS);
 	}
 	if (ex->fd_out < 0 || ex->fd_in < 0)
-		return (disp_fd_error(filemane, strerror(errno)));
+		return (disp_fd_error(filename, strerror(errno)));
 	return (true);
 }
 
@@ -89,7 +89,7 @@ void	expand_leafs(t_exec *ex, t_btree *ast, t_list **env, t_list **vars)
 	if (ast->right)
 		expand_leafs(ex, ast->right, env, vars);
 	if (ast->left)
-		expand_leafs(ex, ast->right, enc, vars);
+		expand_leafs(ex, ast->right, env, vars);
 	if (is_leaf(ast))
 	{
 		node = (t_node *)ast->item;

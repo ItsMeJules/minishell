@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/10 14:59:30 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/10 18:06:24 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ char		*get_path(char *bin, t_list *env, t_list *vars);
 /*
 **	BUILTINS/env.c
 */
-int			env(t_list *env);
+int			ft_env(t_list *env);
 
 /*
 **	BUILTINS/export.c
@@ -259,8 +259,43 @@ void		rm_unused_spaces(t_list **lexer);
 int			ft_cd(int ac, char **av, t_list *env);
 
 /*
+**	BUILTINS/cd.c
+*/
+int			ft_exit(int ac, char **av);
+
+/*
+** EXEC/builtin_utils.c
+*/
+int			is_builtin(char *cmd);
+void		exec_builtin(char **cmd, t_list **env, t_list **vars);
+
+/*
+** EXEC/exec.c
+*/
+void		exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars);
+void		exec_pipe(t_btree *ast, t_list **env, t_list **vars);
+void		exec(t_btree *ast, t_list **env, t_list **vars);
+
+/*
+** EXEC/exec_fork.c
+*/
+int			exec_fork(char **av, char *path, t_list **env);
+
+/*
+** EXEC/exec_utils.c
+*/
+char		**get_argv(t_list *cmd);
+void		reset_ex(t_exec *ex);
+int			disp_fd_error(char *filename, char *err);
+bool		set_redir(t_exec *ex, t_node *redir, t_node *file);
+void		expand_leafs(t_exec *ex, t_btree *ast, t_list **env, t_list **vars);
+
+/*
 ** EXEC/path.c
 */
-
+bool		is_var(t_list *list, char *name);
+char		*join_path(char *path, char *bin);
+char		*find_path(char **paths, char *bin);
+char		*get_path(char *bin, t_list *env, t_list *vars);
 
 #endif
