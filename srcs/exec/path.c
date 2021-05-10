@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 16:22:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:00:21 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,12 @@ char	*get_path(char *bin, t_list *env, t_list *vars)
 	printf("%s\n", path);
 	ft_free_split(paths);
 	return (path);
+}
+
+int		is_builtin(char *cmd)
+{
+	return (ft_strcmp(cmd, "echo") || ft_strcmp(cmd, "ls")
+			|| ft_strcmp(cmd, "cd") || ft_strcmp(cmd, "export")
+			|| ft_strcmp(cmd, "unset") || ft_strcmp(cmd, "pwd")
+			|| ft_strcmp(cmd, "exit"));
 }

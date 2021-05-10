@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/07 14:24:09 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/10 14:59:30 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,5 +257,10 @@ void		rm_unused_spaces(t_list **lexer);
 **	BUILTINS/cd.c
 */
 int			ft_cd(int ac, char **av, t_list *env);
+
+/*
+** EXEC/path.c
+*/
+
 
 #endif
