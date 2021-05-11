@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 12:22:27 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:00:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		handle_fds(t_exec *ex, int close, int *in, int *out)
 	{
 		if (dup2(*in, 0) < 0  || dup2(*out, 1) < 0)
 			return (1);
-		write(1, "h9h9", 4);
 		reset_ex(ex);
 	}
 	return (0);
@@ -45,9 +44,7 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars)
 		return ((void)handle_fds(ex, 1, &in, &out));
 	if (is_builtin(av[0]))
 	{
-		ft_putstr_fd("haha", 1);
 		exec_builtin(av, env, vars);
-		write(1, "hoho", 4);
 		return ((void)handle_fds(ex, 1, &in, &out));
 	}
 	path = get_path(av[0], *env, *vars);
