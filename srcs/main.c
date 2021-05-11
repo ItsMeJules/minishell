@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 17:09:49 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:15:04 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void	launch_shell(t_setup *setup)
 			lexer_free(setup->lexer, setup->iter);
 		g_tc.cursor_pos = 0;
 		if (!setup->iter->line || !lexing(setup))
+		{
+			change_term_mode(1);
 			continue ;
+		}
 		if (setup->lexer)
 		{
 			setup->ast = parse_ast(setup->lexer);
