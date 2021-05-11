@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 14:32:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:36:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	main(int argc, char **argv, char **envp)
 		mod_env(&env, "SHLVL", ft_itoa(ft_atoi(get_env_val(env, "SHLVL")) + 1));
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
+	mod_env(&vars, "?", "0");
 	while (42)
 	{
 		print_prompt(get_env_val(env, "PWD"));
@@ -111,10 +112,7 @@ int	main(int argc, char **argv, char **envp)
 			lexer_free(lexer, iter);
 		g_tc.cursor_pos = 0;
 		if (iter->line == NULL)
-		{
-			mod_env(&vars, "?", "0");
 			continue ;
-		}
 		save_command(iter->line, history);
 		lexer = NULL;
 		lexer = tokenize_input(iter);
@@ -125,24 +123,16 @@ int	main(int argc, char **argv, char **envp)
 			mod_env(&vars, "?", "258");
 			continue ;
 		}
-		if (lexer)
-		{
-			ast = parse_ast(lexer);
-		//	btree_apply_infix(ast, disp_node);
-		//	printf("\n");
-			exec(ast, &env, &vars);
-			btree_clear(ast, free_ast_item);
-		}
-		
-		// TEST ENV ET VARS
-		//printf("\nENV\n");
-		//disp_vars(env);
-		//printf("\nVARS\n");
-		//disp_vars(vars);
 		if (ft_strcmp(iter->line, "exit") == 0)
 		{
 			lexer_free(lexer, iter);
 			break ;
+		}
+		if (lexer)
+		{
+			ast = parse_ast(lexer);
+			exec(ast, &env, &vars);
+			btree_clear(ast, free_ast_item);
 		}
 	}
 	ft_lstclear(&env, &del_env_elem);

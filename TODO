@@ -1,13 +1,11 @@
-# ENV
-
-# AST
-
-# EXEC
-EN COURS - expansion
-- Recuperation de la liste de redirection
+- Expansion a debug
+- TERM MOT FOUND lors du lancement de ./minishit
+- mode canonique a desactiver
 - Gestion des valeures de retour
-- Gerer la variable _ apres chaque commande executee
-- procedure d'execution a definir
+
+- SEGFAULT a l'exit
+
+- PIPE
 
 # SIGNAUX
 - Gestion des signaux a definir
