@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 14:16:32 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:10:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,9 @@ void		exec(t_btree *ast, t_list **env, t_list **vars);
 /*
 ** EXEC/exec_fork.c
 */
+void		relink_fds(t_exec *ex);
+int			link_fds(t_exec *ex);
+void		link_error(t_exec *ex, t_list **vars);
 int			exec_fork(char **av, char *path, t_list **env);
 
 /*

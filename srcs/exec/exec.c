@@ -6,57 +6,39 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 14:33:02 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 15:11:45 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		handle_fds(t_exec *ex, int close, int *in, int *out)
-{
-	if (!close)
-	{
-		*in = dup(0);
-		*out = dup(1);
-		if (dup2(ex->fd_in, 0) < 0 || dup2(ex->fd_out, 1) < 0)
-			return (1);
-	}
-	else
-	{
-		if (dup2(*in, 0) < 0  || dup2(*out, 1) < 0)
-			return (1);
-		reset_ex(ex);
-	}
-	return (0);
-}
-
 void	exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars)
 {
 	char	**av;
 	char	*path;
-	int		out;
-	int		in;
 
-	if (handle_fds(ex, 0, &out, &in) || !cmd)
-		return ((void)handle_fds(ex, 1, &in, &out));
+	if (!cmd)
+		return ;
+	if (link_fds(ex))
+		return (link_error(ex, vars));
 	av = get_argv(cmd);
 	if (!av)
-		return ((void)handle_fds(ex, 1, &in, &out));
+		return (link_error(ex, vars));
 	if (is_builtin(av[0]))
 	{
 		exec_builtin(av, env, vars);
-		return ((void)handle_fds(ex, 1, &in, &out));
+		return (link_error(ex, vars));
 	}
 	path = get_path(av[0], *env, *vars);
 	if (!path)
 	{
 		ft_free_split(av);
-		return ((void)handle_fds(ex, 1, &in, &out));
+		return (link_error(ex, vars));
 	}
-	mod_env(vars, "?", ft_itoa(exec_fork(av, path, vars)));
+	mod_env(vars, "?", ft_itoa(exec_fork(av, path, env)));
 	free(path);
 	ft_free_split(av);
-	return ((void)handle_fds(ex, 1, &in, &out));
+	return ((void)relink_fds(ex));
 }
 
 void	exec_pipe(t_btree *ast, t_list **env, t_list **vars)
@@ -70,7 +52,7 @@ void	exec_pipe(t_btree *ast, t_list **env, t_list **vars)
 
 void	exec(t_btree *ast, t_list **env, t_list **vars)
 {
-	static t_exec	ex = {0, 1, false, NULL};
+	static t_exec	ex = {0, 1, -1, -1, false, NULL};
 
 	if (!ast)
 		return ;

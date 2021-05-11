@@ -6,11 +6,62 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 14:36:02 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 15:12:35 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	relink_fds(t_exec *ex)
+{
+	if (ex->fd_in == 0 && ex->fd_out == 1)
+		return ;
+	if (ex->fd_in != 0)
+	{
+		if (dup2(ex->in, 0) < 0)
+			close(ex->in);
+	}
+	if (ex->fd_out != 1)
+	{
+		if (dup2(ex->out, 1) < 0)
+			close(ex->out);
+	}
+	reset_ex(ex);
+}
+
+int		link_fds(t_exec *ex)
+{
+	if (ex->fd_in == 0 && ex->fd_out == 1)
+		return (0);
+	if (ex->fd_in != 0)
+	{
+		ex->in = dup(0);
+		if (dup2(ex->fd_in, 0) < 0)
+		{
+			close(ex->in);
+			reset_ex(ex);
+			return (1);
+		}
+	}
+	if (ex->fd_out != 1)
+	{
+		ex->out = dup(1);
+		if (dup2(ex->fd_out, 1) < 0)
+		{
+			close(ex->out);
+			reset_ex(ex);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	link_error(t_exec *ex, t_list **vars)
+{
+	relink_fds(ex);
+	ft_putstr_fd(strerror(errno), 1);
+	mod_env(vars, "?", "1");
+}
 
 int	exec_fork(char **av, char *path, t_list **env)
 {
@@ -20,9 +71,6 @@ int	exec_fork(char **av, char *path, t_list **env)
 
 	envp = get_envp(*env);
 	pid = fork();
-	ft_putstr_fd("test", 1);
-	for (int i = 0; envp[i]; i++)
-		ft_putstr_fd(envp[i], 1);
 	if (pid == 0)
 	{
 		if (execve(path, av, envp) == -1)
