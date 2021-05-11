@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 16:37:43 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:08:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,20 +266,20 @@ int			ft_cd(int ac, char **av, t_list *env);
 /*
 **	BUILTINS/cd.c
 */
-int			ft_exit(int ac, char **av);
+int			ft_exit(int ac, char **av, t_setup *setup);
 
 /*
 ** EXEC/builtin_utils.c
 */
 int			is_builtin(char *cmd);
-void		exec_builtin(char **cmd, t_list **env, t_list **vars);
+void		exec_builtin(char **cmd, t_setup *setup);
 
 /*
 ** EXEC/exec.c
 */
-void		exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars);
-void		exec_pipe(t_btree *ast, t_list **env, t_list **vars);
-void		exec(t_btree *ast, t_list **env, t_list **vars);
+void		exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup); 
+void		exec_pipe(t_btree *ast, t_setup *setup);
+void		exec(t_btree *ast, t_setup *setup);
 
 /*
 ** EXEC/exec_fork.c

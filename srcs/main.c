@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 16:37:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:09:49 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	launch_shell(t_setup *setup)
 		if (setup->lexer)
 		{
 			setup->ast = parse_ast(setup->lexer);
-			exec(setup->ast, &setup->env, &setup->vars);
+			exec(setup->ast, setup);
 			btree_clear(setup->ast, free_ast_item);
 		}
 		change_term_mode(1);

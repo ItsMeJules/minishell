@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 14:14:37 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 17:07:13 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,22 @@ int		print_error(int type, char *str)
 	return (0);
 }
 
-void	free_on_exit()
+void	free_on_exit(t_setup *setup)
 {
+	btree_clear(setup->ast, free_ast_item);
+	ft_lstclear(&setup->env, &del_env_elem);
+	ft_lstclear(&setup->vars, &del_env_elem);
+	free_history(setup->history);
 	ft_putstr_fd("exit\n", 1);
 }
 
-int		ft_exit(int ac, char **av)
+int		ft_exit(int ac, char **av, t_setup *setup)
 {
 	if (ac > 2)	
 		return (print_error(1, NULL));
 	else if (ac == 2)
 	{
-		free_on_exit();
+		free_on_exit(setup);
 		if (!string_is_num(av[1]))
 		{
 			print_error(2, av[1]);
@@ -65,8 +69,8 @@ int		ft_exit(int ac, char **av)
 	}
 	else
 	{
-		//recuperer la valeur de retour de la derniere commande
-		//exit avec la valeur de retour
+		free_on_exit(setup);
+		exit(ft_atoi(get_env_val(setup->vars, "?")));
 		return (1);
 	}
 }
