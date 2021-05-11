@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 15:51:57 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:37:43 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int			init_termcap();
 /*
 **	termcap/termcap.c
 */
+t_iter		*readu_input(t_history *history);
+void		print_prompt(char *path);
 int			read_bpb(char **input, t_history *history);
 
 /*
