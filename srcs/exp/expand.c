@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/07 14:20:59 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 14:29:40 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ void	expand(t_list **lexer, t_list **env, t_list **vars, t_etype type)
 	if (type == CMD && is_declaration_field(*lexer))
 		add_and_expand(*lexer, env, vars);
 	else if (type == CMD)
+	{
 		mark_useless_declarations(*lexer);
+		expand_field(*lexer, *env, *vars);
+	}
 	else if (type == FL)
 		expand_field(*lexer, *env, *vars);
 	concat_chains(*lexer);
