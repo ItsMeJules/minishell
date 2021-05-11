@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 15:11:45 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 15:18:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars)
 	if (is_builtin(av[0]))
 	{
 		exec_builtin(av, env, vars);
-		return (link_error(ex, vars));
+		return ((void)relink_fds(ex));
 	}
 	path = get_path(av[0], *env, *vars);
 	if (!path)
