@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 16:30:11 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:32:13 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,6 @@ void	init_setup(t_setup *setup)
 	setup->history = read_file(FILE_HISTORY_NAME);
 }
 
-void	init_launching(t_setup *setup)
-{
-	print_prompt(get_env_val(setup->env, "PWD"));
-	get_cursor_pos();
-	setup->iter = readu_input(setup->history);
-	change_term_mode(0);
-}
-
 bool	lexing(t_setup *setup)
 {
 	save_command(setup->iter->line, setup->history);
@@ -108,25 +100,22 @@ void	launch_shell(t_setup *setup)
 {
 	while (42)
 	{
-		init_launching(setup);
+		print_prompt(get_env_val(setup->env, "PWD"));
+		get_cursor_pos();
+		setup->iter = readu_input(setup->history);
+		change_term_mode(0);
 		if (setup->iter->err)
 			lexer_free(setup->lexer, setup->iter);
 		g_tc.cursor_pos = 0;
 		if (!setup->iter->line || !lexing(setup))
 			continue ;
-		// A RETIRER QUAND EXIT OK
-		if (!ft_strcmp(setup->iter->line, "exit"))
-		{
-			lexer_free(setup->lexer, setup->iter);
-			break ;
-		}
-		//
 		if (setup->lexer)
 		{
 			setup->ast = parse_ast(setup->lexer);
 			exec(setup->ast, &setup->env, &setup->vars);
 			btree_clear(setup->ast, free_ast_item);
 		}
+		change_term_mode(1);
 	}
 }
 
