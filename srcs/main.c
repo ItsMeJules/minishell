@@ -6,13 +6,11 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/10 18:19:25 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:16:18 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	disp_lexer(t_list *root);
 
 t_iter	*readu_input(t_history *history)
 {

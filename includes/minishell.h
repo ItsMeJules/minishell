@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/10 18:06:24 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:16:32 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 /*
 ** main.c
 */
+void	disp_lexer(t_list *root); // A RETIRER
 void		print_prompt(char *path);
 
 /*

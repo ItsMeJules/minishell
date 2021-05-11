@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 14:00:27 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:19:46 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@ void	expand_leafs(t_exec *ex, t_btree *ast, t_list **env, t_list **vars)
 {
 	t_node	*node;
 
+	ex->expand = true;
 	if (!ast)
 		return ;
 	if (ast->right)
 		expand_leafs(ex, ast->right, env, vars);
 	if (ast->left)
-		expand_leafs(ex, ast->right, env, vars);
+		expand_leafs(ex, ast->left, env, vars);
 	if (is_leaf(ast))
 	{
 		node = (t_node *)ast->item;
 		expand(&node->elem, env, vars, node->type);
-		ex->expand = true;
 	}
 }
