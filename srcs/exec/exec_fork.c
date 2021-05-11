@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 15:22:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 15:24:29 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	link_error(t_exec *ex, t_list **vars)
 {
 	relink_fds(ex);
 	ft_putstr_fd(strerror(errno), 1);
+	ft_putchar_fd('\n', 1);
 	mod_env(vars, "?", "1");
 }
 
