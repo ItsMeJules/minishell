@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:35:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/21 12:40:31 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/11 16:14:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ void	change_term_mode(int on)
 {
 	struct termios	raw;
 
-	tcgetattr(0, &g_tc.o_termios);
 	if (on)
 	{
+		tcgetattr(0, &g_tc.o_termios);
 		raw = g_tc.o_termios;
 		raw.c_lflag &= ~(ECHO | ICANON);
-
 		tcsetattr(0, TCSAFLUSH, &raw);
 	}
 	else
