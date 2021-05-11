@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 14:21:03 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 14:33:02 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_list **env, t_list **vars)
 	mod_env(vars, "?", ft_itoa(exec_fork(av, path, vars)));
 	free(path);
 	ft_free_split(av);
-	handle_fds(ex, 1, &in, &out);
 	return ((void)handle_fds(ex, 1, &in, &out));
 }
 

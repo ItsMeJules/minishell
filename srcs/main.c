@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 14:16:18 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 14:32:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		print_prompt(get_env_val(env, "PWD"));
 		get_cursor_pos();
 		iter = readu_input(history);
+		change_term_mode(0);
 		if (iter->err)
 			lexer_free(lexer, iter);
 		g_tc.cursor_pos = 0;
@@ -147,6 +148,5 @@ int	main(int argc, char **argv, char **envp)
 	ft_lstclear(&env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
 	free_history(history);
-	change_term_mode(0);
 	return (0);
 }
