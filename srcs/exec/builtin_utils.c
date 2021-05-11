@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:46:49 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 13:57:13 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:16:53 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		is_builtin(char *cmd)
 {
-	return (ft_strcmp(cmd, "echo") || ft_strcmp(cmd, "env")
-			|| ft_strcmp(cmd, "cd") || ft_strcmp(cmd, "export")
-			|| ft_strcmp(cmd, "unset") || ft_strcmp(cmd, "pwd")
-			|| ft_strcmp(cmd, "exit"));
+	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env")
+			|| !ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "export")
+			|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "pwd")
+			|| !ft_strcmp(cmd, "exit"));
 }
 
 void	exec_builtin(char **cmd, t_list **env, t_list **vars)

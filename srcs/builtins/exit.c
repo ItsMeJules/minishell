@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/30 13:55:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 14:14:37 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_exit(int ac, char **av)
 {
 	if (ac > 2)	
 		return (print_error(1, NULL));
-	else if (ac == 1)
+	else if (ac == 2)
 	{
 		free_on_exit();
 		if (!string_is_num(av[1]))
