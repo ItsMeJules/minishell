@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 14:36:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 16:30:11 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_iter	*readu_input(t_history *history)
 	t_iter	*iter;
 
 	if (!(iter = malloc(sizeof(t_iter))))
-	{
 		return (NULL);
-	}
 	iter->i = 0;
 	iter->err = NULL;
 	iter->line = NULL;
@@ -49,59 +47,103 @@ void	print_prompt(char *path)
 	ft_putstr_fd(DEFAULT_COLOR, 1);
 }
 
-void	disp_vars(t_list *vars)
+bool	init_shell(int argc, char **envp, t_setup *setup)
 {
-	char	**envp;
-	size_t	i;
-
-	envp = get_envp(vars);
-	i = 0;
-	while (envp[i])
+	if (argc != 1)
 	{
-		printf("%s\n", envp[i]);
-		free(envp[i]);
-		i++;
+		disp_error(ARG_ERR);
+		return (false);
 	}
-	free(envp);
+	setup->env = pars_env(envp);
+	if (!setup->env)
+	{
+		disp_error(ENV_ERR);
+		return (false);
+	}
+	else if (!isatty(0))
+		return (false);
+	else if (init_termcap() < 0)
+		return (false);
+	return (true);
+}
+
+void	init_setup(t_setup *setup)
+{
+	if (!is_var(setup->env, "PWD"))
+		mod_env(&setup->env, "PWD", getcwd(setup->path, 4096));
+	else if (!is_var(setup->env, "SHLVL"))
+		mod_env(&setup->env, "SHLVL", "1");
+	else
+		mod_env(&setup->env, "SHLVL"
+			, ft_itoa(ft_atoi(get_env_val(setup->env, "SHLVL")) + 1));
+	setup->vars = NULL;
+	mod_env(&setup->vars, "?", "0");
+	setup->history = read_file(FILE_HISTORY_NAME);
+}
+
+void	init_launching(t_setup *setup)
+{
+	print_prompt(get_env_val(setup->env, "PWD"));
+	get_cursor_pos();
+	setup->iter = readu_input(setup->history);
+	change_term_mode(0);
+}
+
+bool	lexing(t_setup *setup)
+{
+	save_command(setup->iter->line, setup->history);
+	setup->lexer = NULL;
+	setup->lexer = tokenize_input(setup->iter);
+	if (!check_parsing(setup->lexer))
+	{
+		disp_error(PARS_ERR);
+		lexer_free(setup->lexer, setup->iter);
+		mod_env(&setup->vars, "?", "258");
+		return (false);
+	}
+	return (true);
+}
+
+void	launch_shell(t_setup *setup)
+{
+	while (42)
+	{
+		init_launching(setup);
+		if (setup->iter->err)
+			lexer_free(setup->lexer, setup->iter);
+		g_tc.cursor_pos = 0;
+		if (!setup->iter->line || !lexing(setup))
+			continue ;
+		// A RETIRER QUAND EXIT OK
+		if (!ft_strcmp(setup->iter->line, "exit"))
+		{
+			lexer_free(setup->lexer, setup->iter);
+			break ;
+		}
+		//
+		if (setup->lexer)
+		{
+			setup->ast = parse_ast(setup->lexer);
+			exec(setup->ast, &setup->env, &setup->vars);
+			btree_clear(setup->ast, free_ast_item);
+		}
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_iter		*iter;
-	t_list		*lexer;
-	t_list		*env;
-	t_list		*vars;
-	t_history	*history;
-	t_btree		*ast;
-	char		path[4096];
+	t_setup	setup;
 
-	(void)argc;
-	(void)ast;
 	(void)argv;
-
-	if (argc != 1)
-	{
-		disp_error(ARG_ERR);
+	if (!init_shell(argc, envp, &setup))
 		return (1);
-	}
-	else if (!(env = pars_env(envp)))
-	{
-		disp_error(ENV_ERR);
-		return (1);
-	}
-	else if (!isatty(0))
-		return (1);
-	if (init_termcap() < 0)
-		return (1);
-	if (!is_var(env, "PWD"))
-		mod_env(&env, "PWD", getcwd(path, 4096));
-	else if (!is_var(env, "SHLVL"))
-		mod_env(&env, "SHLVL", "1");
-	else
-		mod_env(&env, "SHLVL", ft_itoa(ft_atoi(get_env_val(env, "SHLVL")) + 1));
-	vars = NULL;
-	history = read_file(FILE_HISTORY_NAME);
-	mod_env(&vars, "?", "0");
+	init_setup(&setup);
+	launch_shell(&setup);
+	ft_lstclear(&setup.env, &del_env_elem);
+	ft_lstclear(&setup.vars, &del_env_elem);
+	free_history(setup.history);
+	return (0);
+/*
 	while (42)
 	{
 		print_prompt(get_env_val(env, "PWD"));
@@ -128,15 +170,12 @@ int	main(int argc, char **argv, char **envp)
 			lexer_free(lexer, iter);
 			break ;
 		}
+
 		if (lexer)
 		{
 			ast = parse_ast(lexer);
 			exec(ast, &env, &vars);
 			btree_clear(ast, free_ast_item);
 		}
-	}
-	ft_lstclear(&env, &del_env_elem);
-	ft_lstclear(&vars, &del_env_elem);
-	free_history(history);
-	return (0);
+	}*/
 }

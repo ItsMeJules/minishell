@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 15:40:04 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:29:30 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,17 @@ typedef struct	s_node
 	t_list			*elem;
 	t_etype			type;	
 }				t_node;
+
+typedef struct	s_setup
+{
+	t_iter			*iter;
+	t_list			*lexer;
+	t_list			*env;
+	t_list			*vars;
+	t_history		*history;
+	t_btree			*ast;
+	char			path[4096];
+}				t_setup;
 
 typedef struct	s_exec
 {
