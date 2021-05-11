@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 15:04:30 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/11 15:40:04 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct	s_exec
 	int				in;
 	int				out;
 	bool			expand;
-	t_btree			*root;
 }				t_exec;
 
 t_termcaps	g_tc;
