@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 15:41:51 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 14:51:24 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	reset_ex(t_exec *ex)
 		close(ex->fd_out);
 		ex->fd_out = 1;
 	}
+	if (ex->av)
+		ft_free_split(ex->av);
+	if (ex->path)
+		free(ex->path);
+	if (ex->envp)
+		ft_free_split(ex->envp);
+	ex->av = NULL;
+	ex->path = NULL;
+	ex->envp = NULL;
 	ex->in = -1;
 	ex->out = -1;
 	ex->expand = false;

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/12 13:37:55 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 14:42:01 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,15 @@ typedef struct	s_exec
 	int				in;
 	int				out;
 	bool			expand;
+	char			*path;
+	char			**av;
+	char			**envp;
 }				t_exec;
 
 typedef struct	s_cmd
 {
-	pid_t			pid;	
-	int				status;
+	pid_t			pid[2];
+	int				status[2];
 	int				child_status;
 	int				pfd[2];
 }				t_cmd;

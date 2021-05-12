@@ -6,45 +6,37 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/12 11:48:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:33:06 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
-		, (void)(*f)(char **, char *, t_list **, t_setup *))
+		, void (*f)(t_exec *, t_setup *))
 {
-	char	**av;
-	char	*path;
-
 	if (!cmd)
 		return (reset_ex(ex));
 	if (link_fds(ex))
 		return (link_error(ex, &setup->vars));
-	av = get_argv(cmd);
-	if (!av)
+	ex->av = get_argv(cmd);
+	if (!ex->av)
 		return ((void)relink_fds(ex));
-	if (is_builtin(av[0]))
+	if (is_builtin(ex->av[0]))
 	{
-		exec_builtin(av, setup);
+		exec_builtin(ex->av, setup);
 		return ((void)relink_fds(ex));
 	}
-	path = get_path(av[0], setup->env, setup->vars);
-	if (!path)
-	{
-		ft_free_split(av);
+	ex->path = get_path(ex->av[0], setup->env, setup->vars);
+	if (!ex->path)
 		return ((void)relink_fds(ex));
-	}
-	mod_env(&setup->vars, "?", ft_itoa((f)(av, path, &setup->env)));
-	free(path);
-	ft_free_split(av);
+	f(ex, setup);
 	return ((void)relink_fds(ex));
 }
 
 void	exec(t_btree *ast, t_setup *setup)
 {
-	static t_exec	ex = {0, 1, -1, -1, false};
+	static t_exec	ex = {0, 1, -1, -1, false, NULL, NULL, NULL};
 
 	if (!ast)
 		return ;

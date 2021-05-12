@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/12 12:06:12 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:39:34 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,41 +65,35 @@ void	link_error(t_exec *ex, t_list **vars)
 	mod_env(vars, "?", "1");
 }
 
-void	quit_shell(char **envp, char *path, char **av, t_setup *setup)
+void	quit_shell(t_exec *ex, t_setup *setup)
 {
-	if (envp)
-		ft_free_split(envp);
-	if (path)
-		free(path);
-	if (av)
-		free_on_exit(setup, av, 1);
+	if (ex->envp)
+		ft_free_split(ex->envp);
+	if (ex->path)
+		free(ex->path);
+	if (ex->av)
+		free_on_exit(setup, ex->av, 1);
 	else
-		free_on_exit(setup, av, 0);
+		free_on_exit(setup, ex->av, 0);
 	exit(1);
-	return (1);
 }
 
-int		exec_fork(char **av, char *path, t_setup *setup)
+void	exec_fork(t_exec *ex, t_setup *setup)
 {
 	pid_t	pid;
 	int		status;
-	char	**envp;
 
-	envp = get_envp(setup->env);
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(path, av, envp) == -1)
-			quit_shell(envp, path, av, setup);
+		if (execve(ex->path, ex->av, ex->envp) == -1)
+			quit_shell(ex, setup);
 	}
 	else if (pid != -1)
 	{
 		if (waitpid(pid, &status, 0) == -1)
-			quit_shell(envp, path, av, setup);
-		ft_free_split(envp);
-		//verifier commment l'enfant a quiite
-		return (WEXITSTATUS(status));
+			quit_shell(ex, setup);
+		if (!how_exited(status))
+			mod_env(&setup->vars, "?", ft_itoa(WEXITSTATUS(status)));
 	}
-	ft_free_split(envp);
-	return (1);
 }

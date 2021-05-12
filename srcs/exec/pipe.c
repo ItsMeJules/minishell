@@ -6,26 +6,21 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/12 12:49:02 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 17:29:01 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		exec_nofork(char **av, char *path, t_setup *setup)
+void	exec_nofork(t_exec *ex, t_setup *setup)
 {
-	char	**envp;
-
-	envp = get_envp(setup->env);
-	if (execve(path, av, envp) == -1)
-		quit_shell(envp, path, av, setup);
-	ft_free_split(envp);
-	return (1);
+	if (execve(ex->path, ex->av, ex->envp) == -1)
+		quit_shell(ex, setup);
 }
 
 void	exec_pipe(t_btree *ast, t_setup *setup)
 {
-	static t_exec	ex = {0, 1, -1, -1, false};
+	static t_exec	ex = {0, 1, -1, -1, false, NULL, NULL, NULL};
 
 	if (!ast)
 		return ;
@@ -47,26 +42,32 @@ int		how_exited(int status)
 {
 	if (WIFEXITED(status))
 		return (0);
-	else if (WIFSIGNALED(status))
+	else
 		return (WTERMSIG(status));
 }
 
-void	pipe_lor(bool left, t_cmd *cmd, t_btree *ast, t_setup *setup)
+void	pipe_l(t_cmd *cmd, t_btree *ast, t_setup *setup, bool reset)
 {
-	if (left)
+	static t_cmd	*scmd = NULL;
+
+	if (scmd == NULL)
 	{
+		scmd = cmd;
 		close(cmd->pfd[0]);
 		dup2(cmd->pfd[1], 1);
-		exec_pipe(ast->left, setup);
-		close(cmd->pfd[1]);
-		return ;
+		exec_pipe(ast, setup);
 	}
-	if (waitpid(cmd->pid, &cmd->status, 0) == -1)
-		quit_shell(NULL, NULL, NULL, setup);
-	if (how_exited(cmd->status))
+	else
 	{
-		
+		close(cmd->pfd[1]);	
+		dup2(cmd->pfd[0], 0);
+		scmd = cmd;
+		exec_pipe(ast, setup);
+		close(cmd->pfd[0]);
+		close(scmd->pfd[1]);
 	}
+	if (reset)
+		scmd = NULL;
 }
 
 void	pipe_it(t_btree *ast, t_setup *setup)
@@ -74,15 +75,28 @@ void	pipe_it(t_btree *ast, t_setup *setup)
 	t_cmd	cmd;
 
 	if (pipe(cmd.pfd) == -1)
-		quit_shell(NULL, NULL, NULL, setup);
-	cmd.pid = fork();
-	if (cmd.pid == 0)
-		pipe_lor(true, &cmd, ast, setup);
-	else if (cmd.pid != -1)
-	{ 
-			
-		// mettre ? a sa valeur	&& verifier comment l'enfant a quitte
+		quit_shell2(setup);
+	cmd.pid[0] = fork();
+	if (cmd.pid[0] == 0)
+		pipe_l(&cmd, ast->left, setup, 0);
+	else if (cmd.pid[0] == -1)
+		quit_shell2(setup);
+	if (((t_node *)ast->right->item)->type == PIPE)
+		pipe_it(ast->right, setup);
+	else
+	{
+		cmd.pid[1] = fork();
+		if (cmd.pid[1] == 0)
+			pipe_l(&cmd, ast->right, setup, 1);
+		else if (cmd.pid[1] == -1)
+			quit_shell2(setup);
+		printf("%d\n", cmd.pid[1]);
+		if (waitpid(cmd.pid[1], &cmd.status[1], 0) == -1)
+			quit_shell2(setup);
+		if (!how_exited(cmd.status[1]))
+			mod_env(&setup->vars, "?", ft_itoa(WEXITSTATUS(cmd.status[1])));
 	}
-	return ;
+	printf("first=%d\n", cmd.pid[1]);
+	if (cmd.pid[0] == 0 && waitpid(cmd.pid[0], &cmd.status[0], 0) == -1)
+		quit_shell2(setup);
 }
-
