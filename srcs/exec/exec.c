@@ -6,13 +6,14 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 17:09:27 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:48:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup)
+void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
+		, (void)(*f)(char **, char *, t_list **, t_setup *))
 {
 	char	**av;
 	char	*path;
@@ -35,18 +36,10 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup)
 		ft_free_split(av);
 		return ((void)relink_fds(ex));
 	}
-	mod_env(&setup->vars, "?", ft_itoa(exec_fork(av, path, &setup->env)));
+	mod_env(&setup->vars, "?", ft_itoa((f)(av, path, &setup->env)));
 	free(path);
 	ft_free_split(av);
 	return ((void)relink_fds(ex));
-}
-
-void	exec_pipe(t_btree *ast, t_setup *setup)
-{
-	(void)ast;
-	(void)setup;
-	// A ECRIRE
-	return ;
 }
 
 void	exec(t_btree *ast, t_setup *setup)
@@ -61,7 +54,7 @@ void	exec(t_btree *ast, t_setup *setup)
 		exec(ast->right, setup);
 	}
 	else if (((t_node *)ast->item)->type == PIPE)
-		exec_pipe(ast, setup);
+		pipe_it(ast, setup);
 	else
 	{
 		if (!ex.expand)
@@ -70,6 +63,6 @@ void	exec(t_btree *ast, t_setup *setup)
 			&& set_redir(&ex, ast->item, ast->left->item))
 			exec(ast->right, setup);
 		else if (((t_node *)ast->item)->type == CMD)
-			exec_cmd(&ex, ((t_node *)ast->item)->elem, setup);
+			exec_cmd(&ex, ((t_node *)ast->item)->elem, setup, &exec_fork);
 	}
 }

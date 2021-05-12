@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 15:41:21 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 12:06:12 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,41 @@ void	link_error(t_exec *ex, t_list **vars)
 	mod_env(vars, "?", "1");
 }
 
-int	exec_fork(char **av, char *path, t_list **env)
+void	quit_shell(char **envp, char *path, char **av, t_setup *setup)
+{
+	if (envp)
+		ft_free_split(envp);
+	if (path)
+		free(path);
+	if (av)
+		free_on_exit(setup, av, 1);
+	else
+		free_on_exit(setup, av, 0);
+	exit(1);
+	return (1);
+}
+
+int		exec_fork(char **av, char *path, t_setup *setup)
 {
 	pid_t	pid;
 	int		status;
 	char	**envp;
 
-	envp = get_envp(*env);
+	envp = get_envp(setup->env);
 	pid = fork();
 	if (pid == 0)
 	{
 		if (execve(path, av, envp) == -1)
-			exit(1);
+			quit_shell(envp, path, av, setup);
 	}
 	else if (pid != -1)
 	{
 		if (waitpid(pid, &status, 0) == -1)
-			exit(1);
+			quit_shell(envp, path, av, setup);
+		ft_free_split(envp);
+		//verifier commment l'enfant a quiite
 		return (WEXITSTATUS(status));
 	}
+	ft_free_split(envp);
 	return (1);
 }
