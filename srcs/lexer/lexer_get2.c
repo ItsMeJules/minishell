@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:34:59 by jules             #+#    #+#             */
-/*   Updated: 2021/04/12 19:24:23 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/14 17:42:56 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*get_semic(t_iter *iter)
 {
 	t_token	*token;
 	
-	token = create_token(ft_strdup(";"), SEMI);
+	token = create_token(";", SEMI);
 	iter->i++;
 	if (!token)
 	{

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/12 14:51:24 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 18:40:42 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ char	**get_argv(t_list *cmd)
 		return (0);
 	i = 0;
 	while (cmd)
-	{
-		argv[i] = ft_strdup(((t_token *)cmd->content)->str);
+	{	
+		if (!((t_token *)cmd->content)->str)
+			argv[i] = ft_strdup("");
+		else
+			argv[i] = ft_strdup(((t_token *)cmd->content)->str);
 		i++;
 		cmd = cmd->next;
 	}
@@ -87,7 +90,10 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 		ex->fd_in = open(filename, CHEVL_OFLAGS);
 	}
 	if (ex->fd_out < 0 || ex->fd_in < 0)
+	{
+		reset_ex(ex);
 		return (disp_fd_error(filename, strerror(errno)));
+	}
 	return (true);
 }
 
