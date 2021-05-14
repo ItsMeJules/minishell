@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/12 17:29:01 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 16:55:37 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,6 @@ void	exec_nofork(t_exec *ex, t_setup *setup)
 		quit_shell(ex, setup);
 }
 
-void	exec_pipe(t_btree *ast, t_setup *setup)
-{
-	static t_exec	ex = {0, 1, -1, -1, false, NULL, NULL, NULL};
-
-	if (!ast)
-		return ;
-	if (((t_node *)ast->item)->type == PIPE)
-		pipe_it(ast, setup);
-	else
-	{
-		if (!ex.expand)
-			expand_leafs(&ex, ast, &setup->env, &setup->vars);
-		if (((t_node *)ast->item)->type == RDR
-			&& set_redir(&ex, ast->item, ast->left->item))
-			exec(ast->right, setup);
-		else if (((t_node *)ast->item)->type == CMD)
-			exec_cmd(&ex, ((t_node *)ast->item)->elem, setup, &exec_nofork);
-	}
-}
-
 int		how_exited(int status)
 {
 	if (WIFEXITED(status))
@@ -46,57 +26,61 @@ int		how_exited(int status)
 		return (WTERMSIG(status));
 }
 
-void	pipe_l(t_cmd *cmd, t_btree *ast, t_setup *setup, bool reset)
+void	dup_exec(int *prev_pfd, int *pfd, t_btree *dest, t_setup *setup)
 {
-	static t_cmd	*scmd = NULL;
-
-	if (scmd == NULL)
+	if (prev_pfd)
 	{
-		scmd = cmd;
-		close(cmd->pfd[0]);
-		dup2(cmd->pfd[1], 1);
-		exec_pipe(ast, setup);
+		close(prev_pfd[1]);
+		if (dup2(prev_pfd[0], 0) < 0)
+			exit(1);
+		close(prev_pfd[0]);
 	}
-	else
+	if (pfd)
 	{
-		close(cmd->pfd[1]);	
-		dup2(cmd->pfd[0], 0);
-		scmd = cmd;
-		exec_pipe(ast, setup);
-		close(cmd->pfd[0]);
-		close(scmd->pfd[1]);
+		close(pfd[0]);
+		if (dup2(pfd[1], 1) < 0)
+			exit(1);
+		close(pfd[1]);
 	}
-	if (reset)
-		scmd = NULL;
+	exec(dest, setup, &exec_nofork);
+	exit(ft_atoi(get_env_val(setup->vars, "?")));
 }
 
-void	pipe_it(t_btree *ast, t_setup *setup)
+void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 {
-	t_cmd	cmd;
+	pid_t	pid;
+	int		status;
+	
+	pid = fork();
+	if (!pid)
+		dup_exec(pfd, NULL, ast->right, setup);
+	else if (pid < 0)
+		quit_shell2(setup);
+	close(pfd[0]);
+	if (waitpid(pid, &status, 0) < 0)
+		quit_shell2(setup);
+	if (!how_exited(status))
+		mod_env(&setup->vars, "?", ft_itoa(WEXITSTATUS(status)));
+}
 
-	if (pipe(cmd.pfd) == -1)
+void	pipe_it(t_btree *ast, t_setup *setup, int *prev_pfd)
+{
+	int		pfd[2];
+	int		status;
+	pid_t	pid;
+
+	if (pipe(pfd) == -1)
 		quit_shell2(setup);
-	cmd.pid[0] = fork();
-	if (cmd.pid[0] == 0)
-		pipe_l(&cmd, ast->left, setup, 0);
-	else if (cmd.pid[0] == -1)
+	pid = fork();
+	if (!pid)
+		dup_exec(prev_pfd, pfd, ast->left, setup);
+	else if (pid < 0)
 		quit_shell2(setup);
+	close(pfd[1]);
 	if (((t_node *)ast->right->item)->type == PIPE)
-		pipe_it(ast->right, setup);
+		pipe_it(ast->right, setup, pfd);
 	else
-	{
-		cmd.pid[1] = fork();
-		if (cmd.pid[1] == 0)
-			pipe_l(&cmd, ast->right, setup, 1);
-		else if (cmd.pid[1] == -1)
-			quit_shell2(setup);
-		printf("%d\n", cmd.pid[1]);
-		if (waitpid(cmd.pid[1], &cmd.status[1], 0) == -1)
-			quit_shell2(setup);
-		if (!how_exited(cmd.status[1]))
-			mod_env(&setup->vars, "?", ft_itoa(WEXITSTATUS(cmd.status[1])));
-	}
-	printf("first=%d\n", cmd.pid[1]);
-	if (cmd.pid[0] == 0 && waitpid(cmd.pid[0], &cmd.status[0], 0) == -1)
+		pipe_r(ast, setup, pfd);
+	if (waitpid(pid, &status, 0) < 0)
 		quit_shell2(setup);
 }

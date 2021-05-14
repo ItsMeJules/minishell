@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/12 16:45:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 17:10:27 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/uio.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <errno.h>
@@ -275,7 +276,8 @@ void		exec_builtin(char **cmd, t_setup *setup);
 */
 void		exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 			, void (*f)(t_exec *, t_setup *)); 
-void		exec(t_btree *ast, t_setup *setup);
+void		exec(t_btree *ast, t_setup *setup
+			, void (*f)(t_exec *, t_setup *));
 
 /*
 ** EXEC/exec_fork.c
@@ -320,9 +322,7 @@ void		quit_shell2(t_setup *setup);
 ** EXEC/pipe.c
 */
 void		exec_nofork(t_exec *ex, t_setup *setup);
-void		exec_pipe(t_btree *ast, t_setup *setup);
 int			how_exited(int status);
-void		pipe_l(t_cmd *cmd, t_btree *ast, t_setup *setup, bool reset);
-void		pipe_it(t_btree *ast, t_setup *setup);
+void		pipe_it(t_btree *ast, t_setup *setup, int *prev_fd);
 
 #endif

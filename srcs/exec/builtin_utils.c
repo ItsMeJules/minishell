@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:46:49 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 17:01:57 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 16:35:55 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		is_builtin(char *cmd)
 
 void	exec_builtin(char **cmd, t_setup *setup)
 {
-	int	ret;
+	int		ret;
+	char	*nbr;
 
 	ret = 0;
 	if (!ft_strcmp(cmd[0], "echo"))
@@ -39,5 +40,7 @@ void	exec_builtin(char **cmd, t_setup *setup)
 		ret = ft_pwd();
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ret = ft_exit(ft_split_size(cmd), cmd, setup);
-	mod_env(&setup->vars, "?", ft_itoa(ret));
+	nbr = ft_itoa(ret);
+	mod_env(&setup->vars, "?", nbr);
+	free(nbr);
 }

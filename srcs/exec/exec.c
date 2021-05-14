@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/12 16:33:06 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 16:57:42 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 	return ((void)relink_fds(ex));
 }
 
-void	exec(t_btree *ast, t_setup *setup)
+void	exec(t_btree *ast, t_setup *setup, void (*f)(t_exec *, t_setup *))
 {
 	static t_exec	ex = {0, 1, -1, -1, false, NULL, NULL, NULL};
 
@@ -42,19 +42,19 @@ void	exec(t_btree *ast, t_setup *setup)
 		return ;
 	if (((t_node *)ast->item)->type == SEMI)
 	{
-		exec(ast->left, setup);
-		exec(ast->right, setup);
+		exec(ast->left, setup, f);
+		exec(ast->right, setup, f);
 	}
 	else if (((t_node *)ast->item)->type == PIPE)
-		pipe_it(ast, setup);
+		pipe_it(ast, setup, NULL);
 	else
 	{
 		if (!ex.expand)
 			expand_leafs(&ex, ast, &setup->env, &setup->vars);
 		if (((t_node *)ast->item)->type == RDR
 			&& set_redir(&ex, ast->item, ast->left->item))
-			exec(ast->right, setup);
+			exec(ast->right, setup, f);
 		else if (((t_node *)ast->item)->type == CMD)
-			exec_cmd(&ex, ((t_node *)ast->item)->elem, setup, &exec_fork);
+			exec_cmd(&ex, ((t_node *)ast->item)->elem, setup, f);
 	}
 }

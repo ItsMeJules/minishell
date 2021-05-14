@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 17:15:04 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 16:58:33 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,18 @@ bool	init_shell(int argc, char **envp, t_setup *setup)
 
 void	init_setup(t_setup *setup)
 {
+	char	*shlvl;
+
 	if (!is_var(setup->env, "PWD"))
 		mod_env(&setup->env, "PWD", getcwd(setup->path, 4096));
 	else if (!is_var(setup->env, "SHLVL"))
 		mod_env(&setup->env, "SHLVL", "1");
 	else
-		mod_env(&setup->env, "SHLVL"
-			, ft_itoa(ft_atoi(get_env_val(setup->env, "SHLVL")) + 1));
+	{
+		shlvl = ft_itoa(ft_atoi(get_env_val(setup->env, "SHLVL")) + 1);
+		mod_env(&setup->env, "SHLVL", shlvl);
+		free(shlvl);
+	}
 	setup->vars = NULL;
 	mod_env(&setup->vars, "?", "0");
 	setup->history = read_file(FILE_HISTORY_NAME);
@@ -80,7 +85,7 @@ void	launch_shell(t_setup *setup)
 		if (setup->lexer)
 		{
 			setup->ast = parse_ast(setup->lexer);
-			exec(setup->ast, setup);
+			exec(setup->ast, setup, &exec_fork);
 			btree_clear(setup->ast, free_ast_item);
 		}
 		change_term_mode(1);
