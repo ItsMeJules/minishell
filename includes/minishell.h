@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/14 18:28:37 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:24:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ int			ft_echo(int ac, char **av);
 /*
 **	BUILTINS/pwd.c
 */
-int			ft_pwd();
+int			ft_pwd(t_list *env);
 
 /*
 **	BUILTINS/cd.c

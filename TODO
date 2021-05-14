@@ -9,10 +9,6 @@
 # ECHO
 - gerer -nnnnnm etc
 
-# CD
-- Tester des trucs
-- deplacmeent depuis un dossier non existant
-
 # EXPORT
 - export 1=test -> error
 - regles de nom de variables :

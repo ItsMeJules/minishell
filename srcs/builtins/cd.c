@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:48:08 by jules             #+#    #+#             */
-/*   Updated: 2021/05/11 15:46:32 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:21:44 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		ft_cd(int ac, char **av, t_list *env)
 {
 	char	path[4096];
 
+	path[0] = 0;
 	if (ac > 2)
 	{
 		ft_putstr_fd(TERM_NAME, 2);
@@ -78,6 +79,8 @@ int		ft_cd(int ac, char **av, t_list *env)
 	if (chdir(av[1]))
 		return (dir_change_err(av[1]));
 	mod_env(&env, "OLDPWD", get_env_val(env, "PWD"));
-	mod_env(&env, "PWD", getcwd(path, 4096));
+	getcwd(path, 4096);
+	if (path[0])
+		mod_env(&env, "PWD", path);
 	return (1);
 }

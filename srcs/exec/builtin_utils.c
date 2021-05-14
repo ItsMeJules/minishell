@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:46:49 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/14 16:35:55 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:24:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_builtin(char **cmd, t_setup *setup)
 	else if (!ft_strcmp(cmd[0], "export"))
 		ret = export(ft_split_size(cmd), cmd, &setup->env, &setup->vars);
 	else if (!ft_strcmp(cmd[0], "pwd"))
-		ret = ft_pwd();
+		ret = ft_pwd(setup->env);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ret = ft_exit(ft_split_size(cmd), cmd, setup);
 	nbr = ft_itoa(ret);

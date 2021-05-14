@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:09:12 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/14 18:22:21 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:13:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void	mod_env(t_list **env, char *var, char *val)
 			if (!ft_strcmp(var, data->var))
 			{
 				free(data->val);
-				data->val = ft_strdup(val);
+				if (!val)
+					data->val = ft_strdup("");
+				else
+					data->val = ft_strdup(val);
 				return ;
 			}
 			elem = elem->next;
