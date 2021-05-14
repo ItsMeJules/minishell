@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/10 18:18:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 17:47:02 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,13 @@ char	*find_path(char **paths, char *bin)
 		path = join_path(paths[i], bin);
 		ret = stat(path, &buf);
 		if (ret == -1 && errno != ENOENT)
+		{
+			free(path);
 			return (0);
+		}
 		else if (!ret)
 			return (path);
+		free(path);
 		i++;
 	}
 	return (0);

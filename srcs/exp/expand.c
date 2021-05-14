@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 14:29:40 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:02:34 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_declaration(char *str)
 	size_t	i;
 
 	i = 0;
-	if (!ft_strchr(str, '='))
+	if (!ft_strchr(str, '=') || ft_isdigit(str[0]))
 		return (false);
 	while (str[i] != '=')
 		i++;

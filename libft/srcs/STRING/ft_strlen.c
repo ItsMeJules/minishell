@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:27 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/16 16:20:29 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:28:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (i);
 	while (s[i])
 		i++;
 	return (i);

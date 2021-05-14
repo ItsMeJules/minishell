@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/14 16:55:37 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 17:40:10 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 {
 	pid_t	pid;
 	int		status;
+	char	*str;
 	
 	pid = fork();
 	if (!pid)
@@ -60,7 +61,11 @@ void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 	if (waitpid(pid, &status, 0) < 0)
 		quit_shell2(setup);
 	if (!how_exited(status))
-		mod_env(&setup->vars, "?", ft_itoa(WEXITSTATUS(status)));
+	{
+		str = ft_itoa(WEXITSTATUS(status));
+		mod_env(&setup->vars, "?", str);
+		free(str);
+	}
 }
 
 void	pipe_it(t_btree *ast, t_setup *setup, int *prev_pfd)

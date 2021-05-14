@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/12 16:39:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 17:41:35 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	exec_fork(t_exec *ex, t_setup *setup)
 {
 	pid_t	pid;
 	int		status;
+	char	*str;
 
 	pid = fork();
 	if (pid == 0)
@@ -94,6 +95,10 @@ void	exec_fork(t_exec *ex, t_setup *setup)
 		if (waitpid(pid, &status, 0) == -1)
 			quit_shell(ex, setup);
 		if (!how_exited(status))
-			mod_env(&setup->vars, "?", ft_itoa(WEXITSTATUS(status)));
+		{
+			str = ft_itoa(WEXITSTATUS(status));
+			mod_env(&setup->vars, "?", str);
+			free(str);
+		}
 	}
 }
