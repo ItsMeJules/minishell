@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 16:34:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/06 17:32:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,5 +257,10 @@ void		rm_unused_spaces(t_list **lexer);
 **	BUILTINS/cd.c
 */
 int			ft_cd(int ac, char **av, t_list *env);
+
+/*
+** SRCS/signals.c
+*/
+void		handle_signal(int signum);
 
 #endif

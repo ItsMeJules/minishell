@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/04 11:21:48 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:06:58 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct	s_termcaps
 	int				row;
 	int				curr_row;
 	int				cursor_pos;
+	int				signal;
+	t_list			*env;
 }				t_termcaps;
 
 

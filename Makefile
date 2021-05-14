@@ -1,4 +1,4 @@
-NAME		=	minishit
+NAME		=	minishell
 CC			=	gcc
 CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror -g
 RM			=	rm -rf

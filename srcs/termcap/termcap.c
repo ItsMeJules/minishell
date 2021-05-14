@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/21 16:34:08 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/07 17:28:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,26 @@ void	handle_termcap(char buf[4], char **input, t_history *history)
 	else if (is_tckey(buf, BACKSPACE_KEY))
 		handle_backspace(input);
 	else if (buf[0] == 4 && input && *input)
-		handle_ctrld(input);
+	{
+		if (ft_strlen(*input) == 0)
+		{
+			//free les mallocs & donner le dernier status a exit
+			write(1, "exit", 4);
+			exit(0);
+		}
+		else
+			handle_ctrld(input);
+	}
+}
+
+void	check_signal(char **input)
+{
+	if (g_tc.signal != 0)
+	{
+		free(*input);
+		*input = NULL;
+		g_tc.signal = 0;
+	}
 }
 
 int		read_bpb(char **input, t_history *history)
@@ -35,6 +54,7 @@ int		read_bpb(char **input, t_history *history)
 
 	while ((ret = read(0, buf, 3))) 
 	{
+		check_signal(input);
 		buf[ret] = 0;
 		if (ret == 1 && !is_tckey(buf, BACKSPACE_KEY)
 				&& buf[0] != 4 && add_input(buf[0], input))

@@ -1,10 +1,3 @@
-# ENV
-FAIT - initialiser la variable d'environnement SHLVL en debut de programme
-FAIT - initialiser PWD si n'existe pas en debut de programme
-
-# AST
-EN COURS - Modifier AST
-
 # EXEC
 EN COURS - expansion
 - Recuperation de la liste de redirection
@@ -12,11 +5,11 @@ EN COURS - expansion
 - Gerer la variable _ apres chaque commande executee
 - procedure d'execution a definir
 
+- JULES : Tester cd et finir exit 
+- JULES : Faire les signaux
+
 # SIGNAUX
 - Gestion des signaux a definir
 
 # AUTRES
 - mettre le main a la norme
-FAIT - Syntax error avec ;
-FAIT - Syntax error avec | multilignes
-FAIT - Gestion quote non fermee

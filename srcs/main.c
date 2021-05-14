@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 17:39:50 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/07 17:02:41 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	print_prompt(char *path)
 {
 	char	*curr_dir;
 
+	ft_putstr_fd("\e[22m", 1);
 	ft_putstr_fd(CYAN, 1);
 	ft_putstr_fd("minishit ", 1);
 	ft_putstr_fd(BOLD, 1);
@@ -71,7 +72,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_iter		*iter;
 	t_list		*lexer;
-	t_list		*env;
 	t_list		*vars;
 	t_history	*history;
 	t_btree		*ast;
@@ -86,26 +86,27 @@ int	main(int argc, char **argv, char **envp)
 		disp_error(ARG_ERR);
 		return (1);
 	}
-	else if (!(env = pars_env(envp)))
+	else if (!(g_tc.env = pars_env(envp)))
 	{
-		disp_error(ENV_ERR);
 		return (1);
 	}
 	else if (!isatty(0))
 		return (1);
 	if (init_termcap() < 0)
 		return (1);
-	if (!is_var(env, "PWD"))
-		mod_env(&env, "PWD", getcwd(path, 4096));
-	else if (!is_var(env, "SHLVL"))
-		mod_env(&env, "SHLVL", "1");
+	if (!is_var(g_tc.env, "PWD"))
+		mod_env(&g_tc.env, "PWD", getcwd(path, 4096));
+	else if (!is_var(g_tc.env, "SHLVL"))
+		mod_env(&g_tc.env, "SHLVL", "1");
 	else
-		mod_env(&env, "SHLVL", ft_itoa(ft_atoi(get_env_val(env, "SHLVL")) + 1));
+		mod_env(&g_tc.env, "SHLVL", ft_itoa(ft_atoi(get_env_val(g_tc.env, "SHLVL")) + 1));
 	vars = NULL;
 	history = read_file(FILE_HISTORY_NAME);
+	signal(SIGINT, &handle_signal);
+	signal(SIGQUIT, &handle_signal);
 	while (42)
 	{
-		print_prompt(get_env_val(env, "PWD"));
+		print_prompt(get_env_val(g_tc.env, "PWD"));
 		get_cursor_pos();
 		iter = readu_input(history);
 		if (iter->err)
@@ -145,7 +146,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 	}
-	ft_lstclear(&env, &del_env_elem);
+	ft_lstclear(&g_tc.env, &del_env_elem);
 	ft_lstclear(&vars, &del_env_elem);
 	free_history(history);
 	change_term_mode(0);
