@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/14 17:24:30 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/14 19:45:34 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	launch_shell(t_setup *setup)
 		if (!setup->iter->line || !lexing(setup))
 		{
 			change_term_mode(1);
+			free(setup->iter->line);
+			free(setup->iter);
 			continue ;
 		}
 		if (setup->lexer)
