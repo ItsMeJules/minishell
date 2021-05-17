@@ -1,30 +1,12 @@
-- Gestion des valeures de retour
-
-# SIGNAUX
-- Gestion des signaux a definir
-
 # EXEC
 - verifier execution d'un fichier non executable ou directory (ex: ./TODO et ./libft)
-
-# ECHO
-- gerer -nnnnnm etc
-
-# EXPORT
-- export 1=test -> error
-- regles de nom de variables :
-	- Pas de digit en index 0
-	- Que des lettres/digit/_ avant le =
-- gerer +=
-- gerer export d'un nom valide sans =
-
-#ENV
-- Ne pas afficher variables dont val = 0
 
 #EXPANSION
 - Trimer espaces en debut/fin si pas de D_QUOTE lors de l'expansion
 - Si espace dans un type BASE apres expansion, créer un autre token et le mettre à next
 
 # AUTRES
+- Verifier valeures de retour
 - exit affiche rien dans un pipe
 - Bloquer TAB dans termcaps
 - LEAKS termcaps

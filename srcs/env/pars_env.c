@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:25:42 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/12 17:59:02 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 14:24:08 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*create_env_elem(char *var, char *val)
 {
 	t_env	*new;
 
-	if (!var || !val || !(new = malloc(sizeof(t_env))))
+	if (!var || !(new = malloc(sizeof(t_env))))
 		return (0);
 	new->var = var;
 	new->val = val;
@@ -28,28 +28,33 @@ void	del_env_elem(void *elem)
 	t_env	*data;
 
 	data = (t_env *)elem;
-	free(data->var);
-	free(data->val);
+	if (data->var)
+		free(data->var);
+	if (data->val)
+		free(data->val);
 	free(elem);
 }
 
 char	*get_var_from_str(char *str)
 {
 	size_t	i;
+	size_t	j;
 	char	*var;
 
 	i = 0;
+	j = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	if (i > 0 && str[i - 1] == '+')
+		i--;
 	if (!(var = malloc(sizeof(char) * (i + 1))))
 		return (0);
-	i = 0;
-	while (str[i] && str[i] != '=')
+	while (j < i)
 	{
-		var[i] = str[i];
-		i++;
+		var[j] = str[j];
+		j++;
 	}
-	var[i] = 0;
+	var[j] = 0;
 	return (var);
 }
 
@@ -65,6 +70,8 @@ char	*get_val_from_str(char *str)
 		i++;
 	if (str[i])
 		i++;
+	else
+		return (0);
 	if (!(val = malloc(sizeof(char) * (ft_strlen(str) - i + 1))))
 		return (0);
 	while (str[i])

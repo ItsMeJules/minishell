@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/14 19:24:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/17 15:28:11 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		lexer_free(t_list *root, t_iter *iter);
 void		disp_error(char *str);
 bool		check_chev(t_list *lexer);
 bool		check_pipe(t_list *lexer, int i);
+bool		check_semi(t_list *lexer);
 bool		check_parsing(t_list *lexer);
 
 /*
@@ -145,7 +146,6 @@ t_list		*pars_env(char **envp);
 /*
 ** 	EXP/expand.c
 */
-bool		is_declaration(char *str);
 bool		is_declaration_field(t_list *lexer);
 void		add_vars(t_list *lexer, t_list **env, t_list **vars);
 void		mark_useless_declarations(t_list *lexer);
@@ -193,10 +193,19 @@ int			ft_env(t_list *env);
 **	BUILTINS/export.c
 */
 int			print_declare(t_list *env);
-void		set_env(t_list **env, t_list **vars, char *var);
+void		switch_var(t_list **dest, t_list **src, char *var);
 void		mod_env2(t_list **env, char *var, char *val);
 void		remove_var(t_list **vars, char *var);
 int			export(int argc, char **argv, t_list **env, t_list **vars);
+
+/*
+**	BUILTINS/export2.c
+*/
+bool		is_declaration(char *str);
+bool		is_joinable(char *str);
+bool		check_var(char *str);
+void		concat_var(t_list **env, char *var, char *val);
+bool		check_env_args(int argc, char **argv, char *fct);
 
 /*
 **	BUILTINS/unset.c
