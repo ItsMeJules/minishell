@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 16:13:17 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 17:37:26 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	handle_termcap(char buf[4], char **input, t_setup *setup)
 		if (!*input || ft_strlen(*input) == 0)
 		{
 			status = ft_atoi(get_env_val(setup->vars, "?"));
-			write(1, "exit", 4);
+			write(1, "exit\n", 5);
 			ft_lstclear(&g_tc.env, &del_env_elem);
 			ft_lstclear(&setup->vars, &del_env_elem);
 			free_history(setup->history);

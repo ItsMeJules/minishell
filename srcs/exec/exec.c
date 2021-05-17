@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 15:16:09 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 17:34:58 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 	if (link_fds(ex))
 		return (link_error(ex, &setup->vars));
 	ex->av = get_argv(cmd);
+	ex->envp = get_envp(g_tc.env);
 	if (!ex->av)
 		return ((void)relink_fds(ex));
 	if (is_builtin(ex->av[0]))
