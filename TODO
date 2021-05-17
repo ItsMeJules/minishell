@@ -1,5 +1,4 @@
 # EXEC
-- Verifier valeures de retour
 - Exec minishit dans minishit donne un env error
 
 #EXPANSION
@@ -7,5 +6,4 @@
 - Si espace dans un type BASE apres expansion, créer un autre token et le mettre à next
 
 # AUTRES
-- Verifier valeures de retour
 - LEAKS termcaps
