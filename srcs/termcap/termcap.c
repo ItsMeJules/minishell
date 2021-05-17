@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 16:05:37 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 16:13:17 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int		read_bpb(char **input, t_setup *setup)
 
 	while ((ret = read(0, buf, 3))) 
 	{
+		if (buf[0] == 9)
+			continue ;
 		check_signal(input, &setup->vars);
 		buf[ret] = 0;
 		if (ret == 1 && !is_tckey(buf, BACKSPACE_KEY)

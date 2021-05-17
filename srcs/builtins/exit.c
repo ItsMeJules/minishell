@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/17 15:12:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 16:14:15 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	free_on_exit(t_setup *setup, char **av, int free_av)
 	free_history(setup->history);
 	if (free_av)
 		ft_free_split(av);
-	ft_putstr_fd("exit\n", 1);
+	if (g_tc.forked == 0)
+		ft_putstr_fd("exit\n", 1);
 }
 
 int		ft_exit(int ac, char **av, t_setup *setup)
