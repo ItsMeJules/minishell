@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 15:56:49 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 16:07:04 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	launch_shell(t_setup *setup)
 		print_prompt(get_env_val(g_tc.env, "PWD"));
 		get_cursor_pos();
 		setup->iter = readu_input(setup);
-		if (g_tc.signal == 2)
-			break ;
 		change_term_mode(0);
 		if (setup->iter->err)
 			lexer_free(setup->lexer, setup->iter);
