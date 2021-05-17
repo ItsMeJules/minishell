@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 16:22:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 17:47:02 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,32 +54,66 @@ char	*find_path(char **paths, char *bin)
 	int			ret;
 
 	i = 0;
+	errno = 0;
 	while (paths[i])
 	{
 		path = join_path(paths[i], bin);
 		ret = stat(path, &buf);
 		if (ret == -1 && errno != ENOENT)
+		{
+			free(path);
 			return (0);
+		}
 		else if (!ret)
 			return (path);
+		free(path);
 		i++;
+	}
+	return (0);
+}
+
+char	*get_herebin(char *bin, t_list *vars)
+{
+	struct stat	buf;
+
+	errno = 0;
+	if (!stat(bin, &buf))
+		return (ft_strdup(bin));
+	else if (errno && errno != ENOENT)
+	{
+		mod_env(&vars, "?", "126");
+		disp_fd_error(bin, strerror(errno));
+		return (0);
 	}
 	return (0);
 }
 
 char	*get_path(char *bin, t_list *env, t_list *vars)
 {
-	char	**paths;
-	char	*path;
+	char		**paths;
+	char		*path;
 
+	path = get_herebin(bin, vars);
+	if (path)
+		return (path);
+	else if (errno != ENOENT)
+		return (0);
 	if (is_var(env, "PATH"))
 		paths = ft_split(get_env_val(env, "PATH"), ":");
 	else if (is_var(vars, "PATH"))
 		paths = ft_split(get_env_val(vars, "PATH"), ":");
 	else
+	{
+		mod_env(&vars, "?", "127");
+		disp_fd_error(bin, "command not found");
 		return (0);
+	}
 	path = find_path(paths, bin);
-	printf("%s\n", path);
+	if (!path)
+	{
+		mod_env(&vars, "?", "127");
+		disp_fd_error(bin, "command not found");
+	}
 	ft_free_split(paths);
 	return (path);
 }

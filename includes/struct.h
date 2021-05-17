@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/04 11:21:48 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/12 14:42:01 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct	s_termcaps
 	int				cursor_pos;
 }				t_termcaps;
 
-
 typedef struct	s_history
 {	
 	t_list			*cmds;
@@ -80,6 +79,37 @@ typedef struct	s_node
 	t_list			*elem;
 	t_etype			type;	
 }				t_node;
+
+typedef struct	s_setup
+{
+	t_iter			*iter;
+	t_list			*lexer;
+	t_list			*env;
+	t_list			*vars;
+	t_history		*history;
+	t_btree			*ast;
+	char			path[4096];
+}				t_setup;
+
+typedef struct	s_exec
+{
+	int				fd_in;
+	int				fd_out;
+	int				in;
+	int				out;
+	bool			expand;
+	char			*path;
+	char			**av;
+	char			**envp;
+}				t_exec;
+
+typedef struct	s_cmd
+{
+	pid_t			pid[2];
+	int				status[2];
+	int				child_status;
+	int				pfd[2];
+}				t_cmd;
 
 t_termcaps	g_tc;
 

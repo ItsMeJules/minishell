@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/29 17:24:26 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:02:34 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_declaration(char *str)
 	size_t	i;
 
 	i = 0;
-	if (!ft_strchr(str, '='))
+	if (!ft_strchr(str, '=') || ft_isdigit(str[0]))
 		return (false);
 	while (str[i] != '=')
 		i++;
@@ -116,25 +116,17 @@ void	mark_useless_declarations(t_list *lexer)
 	}
 }
 
-void	expand(t_list **lexer, t_list **env, t_list **vars)
+void	expand(t_list **lexer, t_list **env, t_list **vars, t_etype type)
 {
-	t_list	*temp;
-
-	temp = *lexer;
-	while (temp)
+	if (type == CMD && is_declaration_field(*lexer))
+		add_and_expand(*lexer, env, vars);
+	else if (type == CMD)
 	{
-		if (is_declaration_field(temp))
-			add_and_expand(temp, env, vars);
-		else
-		{
-			expand_field(temp, *env, *vars);
-			mark_useless_declarations(temp);
-		}
-		while (temp && ((t_token *)temp->content)->token != SEMI)
-			temp = temp->next;
-		if (temp)
-			temp = temp->next;
+		mark_useless_declarations(*lexer);
+		expand_field(*lexer, *env, *vars);
 	}
+	else if (type == FL)
+		expand_field(*lexer, *env, *vars);
 	concat_chains(*lexer);
 	ft_lstremove_if(lexer, *lexer, is_removable, free_token);
 	lst_rmdspace(lexer);

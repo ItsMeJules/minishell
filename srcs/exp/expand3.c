@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:26:52 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/22 11:51:40 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:32:58 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@ void	lst_rmdspace(t_list **alst)
 {
 	t_token	*elem;
 	t_list	*lst;
-	size_t	i;
-
+	
 	lst = *alst;
-	i = 0;
 	while (lst)
 	{
 		elem = (t_token *)lst->content;
 		if (elem->token == SPACE)
 			elem->rm = true;
 		lst = lst->next;
-		i++;
 	}
 	ft_lstremove_if(alst, *alst, is_removable, free_token);
 }

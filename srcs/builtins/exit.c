@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/30 13:55:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/14 17:24:57 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,30 +43,42 @@ int		print_error(int type, char *str)
 	return (0);
 }
 
-void	free_on_exit()
+void	free_on_exit(t_setup *setup, char **av, int free_av)
 {
+	btree_clear(setup->ast, free_ast_item);
+	ft_lstclear(&setup->env, &del_env_elem);
+	ft_lstclear(&setup->vars, &del_env_elem);
+	free_history(setup->history);
+	if (free_av)
+		ft_free_split(av);
 	ft_putstr_fd("exit\n", 1);
 }
 
-int		ft_exit(int ac, char **av)
+int		ft_exit(int ac, char **av, t_setup *setup)
 {
+	int	ret;
+
 	if (ac > 2)	
 		return (print_error(1, NULL));
-	else if (ac == 1)
+	else if (ac == 2)
 	{
-		free_on_exit();
+		free_on_exit(setup, av, !string_is_num(av[1]));
 		if (!string_is_num(av[1]))
 		{
 			print_error(2, av[1]);
 			exit(2);
 		}
 		else
-			exit(ft_atoi(av[1]));
+		{
+			ret = ft_atoi(av[1]);
+			ft_free_split(av);
+			exit(ret);
+		}
 	}
 	else
 	{
-		//recuperer la valeur de retour de la derniere commande
-		//exit avec la valeur de retour
+		free_on_exit(setup, av, 1);
+		exit(ft_atoi(get_env_val(setup->vars, "?")));
 		return (1);
 	}
 }

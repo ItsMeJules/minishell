@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   exec_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/26 12:51:33 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/10 17:57:34 by jpeyron          ###   ########.fr       */
+/*   Created: 2021/05/12 14:59:53 by jpeyron           #+#    #+#             */
+/*   Updated: 2021/05/14 17:19:00 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_list *env)
+void	quit_shell2(t_setup *setup)
 {
-	t_env	*elem;
-
-	while (env)
-	{
-		elem = (t_env *)env->content;
-		printf("%s=%s\n", elem->var, elem->val);
-		env = env->next	;
-	}
-	return (0);
+	btree_clear(setup->ast, free_ast_item);
+	ft_lstclear(&setup->env, &del_env_elem);
+	ft_lstclear(&setup->vars, &del_env_elem);
+	free_history(setup->history);	
+	exit(1);
 }

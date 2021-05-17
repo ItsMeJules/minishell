@@ -6,18 +6,15 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:59:29 by jules             #+#    #+#             */
-/*   Updated: 2021/04/26 15:02:52 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/14 19:25:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_pwd()
+int		ft_pwd(t_list *env)
 {
-	char	path[4096];
-
-	getcwd(path, 4096);
-	ft_putstr_fd(path, 1);
+	ft_putstr_fd(get_env_val(env, "PWD"), 1);
 	ft_putchar_fd('\n', 1);
 	return (1);
 }

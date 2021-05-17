@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:35:16 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/04 18:31:18 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/14 17:37:14 by tvachera         ###   ########.fr       */
 /*   Updated: 2021/05/04 17:31:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -46,6 +46,7 @@ void	disp_node(void *item)
 		lst = lst->next;
 	}
 	printf(" ");
+	fflush(stdout);
 }
 
 void	free_ast_item(void *item)
@@ -54,6 +55,7 @@ void	free_ast_item(void *item)
 
 	node = (t_node *)item;
 	ft_lstclear(&node->elem, free_token);
+	free(node);
 }
 
 void	fix_ast_chain(void *item)

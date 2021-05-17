@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:19:51 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/13 15:29:03 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:52:03 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,20 @@ void	disp_lexer(t_list *root)
 		printf("STR : %s\n", data->str);
 		root = root->next;
 	}
+}
+
+void	disp_vars(t_list *vars)
+{
+	char	**envp;
+	size_t	i;
+
+	envp = get_envp(vars);
+	i = 0;
+	while (envp[i])
+	{
+		printf("%s\n", envp[i]);
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
 }

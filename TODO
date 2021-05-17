@@ -1,22 +1,30 @@
-# ENV
-FAIT - initialiser la variable d'environnement SHLVL en debut de programme
-FAIT - initialiser PWD si n'existe pas en debut de programme
-
-# AST
-EN COURS - Modifier AST
-
-# EXEC
-EN COURS - expansion
-- Recuperation de la liste de redirection
 - Gestion des valeures de retour
-- Gerer la variable _ apres chaque commande executee
-- procedure d'execution a definir
 
 # SIGNAUX
 - Gestion des signaux a definir
 
+# EXEC
+- verifier execution d'un fichier non executable ou directory (ex: ./TODO et ./libft)
+
+# ECHO
+- gerer -nnnnnm etc
+
+# EXPORT
+- export 1=test -> error
+- regles de nom de variables :
+	- Pas de digit en index 0
+	- Que des lettres/digit/_ avant le =
+- gerer +=
+- gerer export d'un nom valide sans =
+
+#ENV
+- Ne pas afficher variables dont val = 0
+
+#EXPANSION
+- Trimer espaces en debut/fin si pas de D_QUOTE lors de l'expansion
+- Si espace dans un type BASE apres expansion, créer un autre token et le mettre à next
+
 # AUTRES
-- mettre le main a la norme
-FAIT - Syntax error avec ;
-FAIT - Syntax error avec | multilignes
-FAIT - Gestion quote non fermee
+- exit affiche rien dans un pipe
+- Bloquer TAB dans termcaps
+- LEAKS termcaps

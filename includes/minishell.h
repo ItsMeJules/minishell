@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/04 16:34:34 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/14 19:24:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/uio.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <errno.h>
@@ -31,6 +32,9 @@
 
 # include <curses.h>
 # include <term.h>
+
+void	disp_lexer(t_list *root); // A RETIRER
+void	disp_vars(t_list *vars); // A RETIRER
 
 /*
 ** main.c
@@ -46,6 +50,8 @@ int			init_termcap();
 /*
 **	termcap/termcap.c
 */
+t_iter		*readu_input(t_history *history);
+void		print_prompt(char *path);
 int			read_bpb(char **input, t_history *history);
 
 /*
@@ -143,7 +149,7 @@ bool		is_declaration(char *str);
 bool		is_declaration_field(t_list *lexer);
 void		add_vars(t_list *lexer, t_list **env, t_list **vars);
 void		mark_useless_declarations(t_list *lexer);
-void		expand(t_list **lexer, t_list **env, t_list **vars);
+void		expand(t_list **lexer, t_list **env, t_list **vars, t_etype type);
 
 /*
 ** 	EXP/expand2.c
@@ -162,6 +168,7 @@ void		lst_rmdsemi(t_list **alst);
 char		*expand_dsign(char *str, t_list *env, t_list *vars);
 char		*expand_bslash(char *str, t_etype type);
 char		*join_split(t_list *split);
+
 /*
 ** 	EXP/expand4.c
 */
@@ -171,17 +178,16 @@ void		concat_chains(t_list *lexer);
 void		lst_rmempty(t_list **alst);
 
 /*
-**	EXEC/path.c
+**	history/file_manager.c
 */
-bool		is_var(t_list *list, char *var);
-char		*join_path(char *path, char *bin);
-char		*find_path(char **paths, char *bin);
-char		*get_path(char *bin, t_list *env, t_list *vars);
+t_history	*read_file(char *file);
+int			save_command(char *command, t_history *history);
+void		free_history(t_history *history);
 
 /*
 **	BUILTINS/env.c
 */
-int			env(t_list *env);
+int			ft_env(t_list *env);
 
 /*
 **	BUILTINS/export.c
@@ -204,16 +210,22 @@ int			unset(int argc, char **argv, t_list **env, t_list **vars);
 int			ft_echo(int ac, char **av);
 
 /*
-**	history/file_manager.c
-*/
-t_history	*read_file(char *file);
-int			save_command(char *command, t_history *history);
-void		free_history(t_history *history);
-
-/*
 **	BUILTINS/pwd.c
 */
-int			ft_pwd();
+int			ft_pwd(t_list *env);
+
+/*
+**	BUILTINS/cd.c
+*/
+int			ft_cd(int ac, char **av, t_list *env);
+
+/*
+**	BUILTINS/exit.c
+*/
+int			string_is_num(char *str);
+int			print_error(int type, char *str);
+void		free_on_exit(t_setup *setup, char **av, int free_av);
+int			ft_exit(int ac, char **av, t_setup *setup);
 
 /*
 **	AST/ast_elem.c
@@ -254,8 +266,63 @@ bool		is_redir(t_etype type);
 void		rm_unused_spaces(t_list **lexer);
 
 /*
-**	BUILTINS/cd.c
+** EXEC/builtin_utils.c
 */
-int			ft_cd(int ac, char **av, t_list *env);
+int			is_builtin(char *cmd);
+void		exec_builtin(char **cmd, t_setup *setup);
+
+/*
+** EXEC/exec.c
+*/
+void		exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
+			, void (*f)(t_exec *, t_setup *)); 
+void		exec(t_btree *ast, t_setup *setup
+			, void (*f)(t_exec *, t_setup *));
+
+/*
+** EXEC/exec_fork.c
+*/
+void		relink_fds(t_exec *ex);
+int			link_fds(t_exec *ex);
+void		link_error(t_exec *ex, t_list **vars);
+void		quit_shell(t_exec *ex, t_setup *setup);
+void		exec_fork(t_exec *ex, t_setup *setup);
+
+/*
+**	EXEC/path.c
+*/
+bool		is_var(t_list *list, char *var);
+char		*join_path(char *path, char *bin);
+char		*find_path(char **paths, char *bin);
+char		*get_path(char *bin, t_list *env, t_list *vars);
+
+/*
+** EXEC/exec_utils.c
+*/
+char		**get_argv(t_list *cmd);
+void		reset_ex(t_exec *ex);
+int			disp_fd_error(char *filename, char *err);
+bool		set_redir(t_exec *ex, t_node *redir, t_node *file);
+void		expand_leafs(t_exec *ex, t_btree *ast, t_list **env, t_list **vars);
+
+/*
+** EXEC/path.c
+*/
+bool		is_var(t_list *list, char *name);
+char		*join_path(char *path, char *bin);
+char		*find_path(char **paths, char *bin);
+char		*get_path(char *bin, t_list *env, t_list *vars);
+
+/*
+** EXEC/exec_free.c
+*/
+void		quit_shell2(t_setup *setup);
+
+/*
+** EXEC/pipe.c
+*/
+void		exec_nofork(t_exec *ex, t_setup *setup);
+int			how_exited(int status);
+void		pipe_it(t_btree *ast, t_setup *setup, int *prev_fd);
 
 #endif

@@ -6,11 +6,46 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/04/21 16:34:08 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/11 16:36:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_iter	*readu_input(t_history *history)
+{
+	t_iter	*iter;
+
+	if (!(iter = malloc(sizeof(t_iter))))
+		return (NULL);
+	iter->i = 0;
+	iter->err = NULL;
+	iter->line = NULL;
+	read_bpb(&iter->line, history);
+	history->pos = -1;
+	ft_putstr_fd(NORMAL, 1);
+	return (iter);
+}
+
+void	print_prompt(char *path)
+{
+	char	*curr_dir;
+
+	ft_putstr_fd(CYAN, 1);
+	ft_putstr_fd("minishit ", 1);
+	ft_putstr_fd(BOLD, 1);
+	ft_putstr_fd(WHITE, 1);
+	ft_putstr_fd("$", 1);
+	ft_putstr_fd(LIGHT_CYAN, 1);
+	curr_dir = ft_strrchr(path, '/');
+	if (curr_dir)
+		ft_putstr_fd(curr_dir + 1, 1);
+	else
+		ft_putstr_fd(path, 1);
+	ft_putstr_fd(DARK_GRAY, 1);
+	ft_putstr_fd("> ", 1);
+	ft_putstr_fd(DEFAULT_COLOR, 1);
+}
 
 void	handle_termcap(char buf[4], char **input, t_history *history)
 {
