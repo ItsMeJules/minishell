@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 12:45:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:14:50 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ typedef struct	s_termcaps
 	int				row;
 	int				curr_row;
 	int				cursor_pos;
+	t_list			*env;
 	int				signal;
+	int				forked;
 }				t_termcaps;
 
 typedef struct	s_history
@@ -85,7 +87,6 @@ typedef struct	s_setup
 {
 	t_iter			*iter;
 	t_list			*lexer;
-	t_list			*env;
 	t_list			*vars;
 	t_history		*history;
 	t_btree			*ast;

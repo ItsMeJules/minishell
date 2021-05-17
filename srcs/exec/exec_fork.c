@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/17 11:46:18 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:09:57 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,19 @@ void	exec_fork(t_exec *ex, t_setup *setup)
 	}
 	else if (pid != -1)
 	{
+		g_tc.forked = 1;
 		if (waitpid(pid, &status, 0) == -1)
 			quit_shell(ex, setup);
+		g_tc.forked = 0;
 		if (!how_exited(status))
 		{
 			str = ft_itoa(WEXITSTATUS(status));
+			mod_env(&setup->vars, "?", str);
+			free(str);
+		}
+		else
+		{
+			str = ft_itoa(how_exited(status) + 128);
 			mod_env(&setup->vars, "?", str);
 			free(str);
 		}

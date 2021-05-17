@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 12:48:38 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:34:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int			init_termcap();
 /*
 **	termcap/termcap.c
 */
-t_iter		*readu_input(t_history *history);
+t_iter		*readu_input(t_setup *setup);
 void		print_prompt(char *path);
-int			read_bpb(char **input, t_history *history);
+int			read_bpb(char **input, t_setup *setup);
 
 /*
 **	termcap/termcap_utils.c

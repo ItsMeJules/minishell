@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/14 17:40:10 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 15:09:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,20 @@ void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 		dup_exec(pfd, NULL, ast->right, setup);
 	else if (pid < 0)
 		quit_shell2(setup);
+	g_tc.forked = 1;
 	close(pfd[0]);
 	if (waitpid(pid, &status, 0) < 0)
 		quit_shell2(setup);
+	g_tc.forked = 0;
 	if (!how_exited(status))
 	{
 		str = ft_itoa(WEXITSTATUS(status));
+		mod_env(&setup->vars, "?", str);
+		free(str);
+	}
+	else
+	{
+		str = ft_itoa(how_exited(status) + 128);
 		mod_env(&setup->vars, "?", str);
 		free(str);
 	}
@@ -81,6 +89,7 @@ void	pipe_it(t_btree *ast, t_setup *setup, int *prev_pfd)
 		dup_exec(prev_pfd, pfd, ast->left, setup);
 	else if (pid < 0)
 		quit_shell2(setup);
+	g_tc.forked = 1;
 	close(pfd[1]);
 	if (((t_node *)ast->right->item)->type == PIPE)
 		pipe_it(ast->right, setup, pfd);
@@ -88,4 +97,5 @@ void	pipe_it(t_btree *ast, t_setup *setup, int *prev_pfd)
 		pipe_r(ast, setup, pfd);
 	if (waitpid(pid, &status, 0) < 0)
 		quit_shell2(setup);
+	g_tc.forked = 0;
 }

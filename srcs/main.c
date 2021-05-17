@@ -6,21 +6,21 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 11:24:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:56:49 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	init_shell(int argc, char **envp, t_setup *setup)
+bool	init_shell(int argc, char **envp)
 {
 	if (argc != 1)
 	{
 		disp_error(ARG_ERR);
 		return (false);
 	}
-	setup->env = pars_env(envp);
-	if (!setup->env)
+	g_tc.env = pars_env(envp);
+	if (!g_tc.env)
 	{
 		disp_error(ENV_ERR);
 		return (false);
@@ -29,6 +29,7 @@ bool	init_shell(int argc, char **envp, t_setup *setup)
 		return (false);
 	else if (init_termcap() < 0)
 		return (false);
+	g_tc.signal = 0;
 	return (true);
 }
 
@@ -36,14 +37,14 @@ void	init_setup(t_setup *setup)
 {
 	char	*shlvl;
 
-	if (!is_var(setup->env, "PWD"))
-		mod_env(&setup->env, "PWD", getcwd(setup->path, 4096));
-	else if (!is_var(setup->env, "SHLVL"))
-		mod_env(&setup->env, "SHLVL", "1");
+	if (!is_var(g_tc.env, "PWD"))
+		mod_env(&g_tc.env, "PWD", getcwd(setup->path, 4096));
+	else if (!is_var(g_tc.env, "SHLVL"))
+		mod_env(&g_tc.env, "SHLVL", "1");
 	else
 	{
-		shlvl = ft_itoa(ft_atoi(get_env_val(setup->env, "SHLVL")) + 1);
-		mod_env(&setup->env, "SHLVL", shlvl);
+		shlvl = ft_itoa(ft_atoi(get_env_val(g_tc.env, "SHLVL")) + 1);
+		mod_env(&g_tc.env, "SHLVL", shlvl);
 		free(shlvl);
 	}
 	setup->vars = NULL;
@@ -70,9 +71,11 @@ void	launch_shell(t_setup *setup)
 {
 	while (42)
 	{
-		print_prompt(get_env_val(setup->env, "PWD"));
+		print_prompt(get_env_val(g_tc.env, "PWD"));
 		get_cursor_pos();
-		setup->iter = readu_input(setup->history);
+		setup->iter = readu_input(setup);
+		if (g_tc.signal == 2)
+			break ;
 		change_term_mode(0);
 		if (setup->iter->err)
 			lexer_free(setup->lexer, setup->iter);
@@ -101,11 +104,13 @@ int	main(int argc, char **argv, char **envp)
 	t_setup	setup;
 
 	(void)argv;
-	if (!init_shell(argc, envp, &setup))
+	if (!init_shell(argc, envp))
 		return (1);
 	init_setup(&setup);
+	signal(SIGINT, &handle_signal);
+	signal(SIGQUIT, &handle_signal);
 	launch_shell(&setup);
-	ft_lstclear(&setup.env, &del_env_elem);
+	ft_lstclear(&g_tc.env, &del_env_elem);
 	ft_lstclear(&setup.vars, &del_env_elem);
 	free_history(setup.history);
 	return (0);

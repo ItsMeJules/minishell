@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 12:18:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 15:16:09 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 		exec_builtin(ex->av, setup);
 		return ((void)relink_fds(ex));
 	}
-	ex->path = get_path(ex->av[0], setup->env, setup->vars);
+	ex->path = get_path(ex->av[0], g_tc.env, setup->vars);
 	if (!ex->path)
 		return ((void)relink_fds(ex));
 	f(ex, setup);
@@ -103,7 +103,7 @@ void	exec(t_btree *ast, t_setup *setup, void (*f)(t_exec *, t_setup *))
 	else
 	{
 		if (!ex.expand)
-			expand_leafs(&ex, ast, &setup->env, &setup->vars);
+			expand_leafs(&ex, ast, &g_tc.env, &setup->vars);
 		if (((t_node *)ast->item)->type == RDR
 			&& set_redir(&ex, ast->item, ast->left->item))
 			exec(ast->right, setup, f);
