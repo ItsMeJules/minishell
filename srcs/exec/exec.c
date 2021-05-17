@@ -6,16 +6,69 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/14 16:57:42 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 12:18:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int		is_dir(char *path)
+{
+	int	fd;
+	int	dir;
+	
+	fd = open(path, O_DIRECTORY);
+	dir = 0;
+	if (fd > 0)
+		dir = 1;
+	close(fd);
+	return (dir);
+}
+
+int		is_exec_file(char *path)
+{
+	struct stat	f_stat;
+	int			exec;
+	int			success;
+
+	success = stat(path, &f_stat);
+	if (success == -1)
+		return (0);
+	exec = 0;
+	if ((f_stat.st_mode & S_IRUSR) && (f_stat.st_mode & S_IXGRP
+				|| f_stat.st_mode & S_IXUSR || f_stat.st_mode & S_IXOTH))
+		exec = 1;
+	return (!success && exec);
+}
+
+int		can_exec(char *file)
+{
+	if (is_dir(file))
+	{
+		ft_putstr_fd(TERM_NAME, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		return (1);
+	}
+	else if (!is_exec_file(file))
+	{
+		ft_putstr_fd(TERM_NAME, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
 void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 		, void (*f)(t_exec *, t_setup *))
 {
 	if (!cmd)
+		return (reset_ex(ex));
+	if (ft_strncmp(((t_token *)cmd->content)->str, "./", 2) == 0
+			&& can_exec(((t_token *)cmd->content)->str))
 		return (reset_ex(ex));
 	if (link_fds(ex))
 		return (link_error(ex, &setup->vars));
