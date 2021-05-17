@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 16:07:04 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/17 16:08:09 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ bool	lexing(t_setup *setup)
 	if (!check_parsing(setup->lexer))
 	{
 		disp_error(PARS_ERR);
-		lexer_free(setup->lexer, setup->iter);
 		mod_env(&setup->vars, "?", "258");
 		return (false);
 	}
@@ -75,16 +74,14 @@ void	launch_shell(t_setup *setup)
 		get_cursor_pos();
 		setup->iter = readu_input(setup);
 		change_term_mode(0);
-		if (setup->iter->err)
-			lexer_free(setup->lexer, setup->iter);
 		g_tc.cursor_pos = 0;
-		if (!setup->iter->line || !lexing(setup))
+		if (setup->iter->err || !lexing(setup))
 		{
 			change_term_mode(1);
-			free(setup->iter->line);
-			free(setup->iter);
+			lexer_free(setup->lexer, setup->iter);
 			continue ;
 		}
+		rm_unused_spaces(&setup->lexer);
 		if (setup->lexer)
 		{
 			setup->ast = parse_ast(setup->lexer);

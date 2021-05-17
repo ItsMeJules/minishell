@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:12:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/27 16:33:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 15:50:09 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ int		print_declare(t_list *env)
 	return (0);
 }
 
-void	set_env(t_list **env, t_list **vars, char *var)
+void	switch_var(t_list **dest, t_list **src, char *var)
 {
 	t_list	*last_env;
 	t_list	*to_switch;
 
-	last_env = *env;
-	to_switch = *vars;
+	last_env = *dest;
+	to_switch = *src;
 	while (last_env->next)
 		last_env = last_env->next;
 	if (!ft_strcmp(((t_env *)to_switch->content)->var, var))
 	{
-		*vars = to_switch->next;
+		*src = to_switch->next;
 		last_env->next = to_switch;
 		last_env->next->next = 0;
 	}
@@ -100,7 +100,6 @@ void	remove_var(t_list **vars, char *var)
 		elem->next = elem->next->next;
 		ft_lstdelone(tmp, &del_env_elem);
 	}
-
 }
 
 int		export(int argc, char **argv, t_list **env, t_list **vars)
@@ -111,20 +110,21 @@ int		export(int argc, char **argv, t_list **env, t_list **vars)
 	i = 1;
 	if (argc == 1)
 		return (print_declare(*env));
+	else if (!check_env_args(argc, argv, "export"))
+		return (1);
 	while (i < argc)
 	{
-		if (!is_declaration(argv[i]))
-		{
-			if (is_var(*vars, argv[i]))
-				set_env(env, vars, argv[i]);
-		}
-		else
-		{
-			var = get_var_from_str(argv[i]);
-			if (is_var(*vars, var))
-				remove_var(vars, var);
+		var = get_var_from_str(argv[i]);
+		if (is_var(*vars, var))
+			switch_var(env, vars, var);
+		if (is_var(*env, var) && is_joinable(argv[i]))
+			concat_var(env, var, get_val_from_str(argv[i]));
+		else if (is_declaration(argv[i]))
 			mod_env2(env, var, get_val_from_str(argv[i]));
-		}
+		else if (!is_var(*env, var))
+			mod_env2(env, var, 0);
+		else
+			free(var);
 		i++;
 	}
 	return (0);

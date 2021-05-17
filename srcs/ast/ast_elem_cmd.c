@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:20:54 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 18:35:45 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 14:55:17 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_list	*next_command(t_list *lexer)
 	static t_list	*elem = NULL;
 	static bool		end = false;
 	t_list			*start;
-	
-	if (end)
+
+	if (end || !lexer)
 	{
 		elem = NULL;
 		end = false;

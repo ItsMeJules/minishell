@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:27:05 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/27 16:34:34 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 14:26:09 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	unset(int argc, char **argv, t_list **env, t_list **vars)
 
 	i = 1;
 	ret = 0;
+	if (!check_env_args(argc, argv, "unset"))
+		return (1);
 	while (i < argc)
 	{
 		if (is_declaration(argv[i]))

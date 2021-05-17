@@ -6,27 +6,11 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/14 18:02:34 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 15:51:40 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	is_declaration(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!ft_strchr(str, '=') || ft_isdigit(str[0]))
-		return (false);
-	while (str[i] != '=')
-		i++;
-	if (!i)
-		return (false);
-	if (str[i - 1] == 92)
-		return (false);
-	return (true);
-}
 
 bool	is_declaration_field(t_list *lexer)
 {
@@ -63,12 +47,14 @@ void	set_var(char *str, t_list **env, t_list **vars)
 		return ;
 	var = get_var_from_str(str);
 	val = get_val_from_str(str);
-	if (is_var(*env, var))
-		mod_env(env, var, val);
+	if (is_var(*env, var) && is_joinable(str))
+		concat_var(env, var, val);
+	else if (is_var(*vars, var) && is_joinable(str))
+		concat_var(vars, var, val);
+	else if (is_var(*env, var))
+		mod_env2(env, var, val);
 	else
-		mod_env(vars, var, val);
-	free(var);
-	free(val);
+		mod_env2(vars, var, val);
 	free(str);
 }
 
@@ -82,9 +68,7 @@ void	add_and_expand(t_list *lexer, t_list **env, t_list **vars)
 		if (((t_token *)lexer->content)->token != SPACE
 			&& ((t_token *)lexer->content)->token != BASE)
 			return ;
-		while (lexer && (((t_token *)lexer->content)->token == BASE
-			|| ((t_token *)lexer->content)->token == D_QUOTE
-			|| ((t_token *)lexer->content)->token == QUOTE))
+		while (lexer && is_strenum(((t_token *)lexer->content)->token))
 		{
 			expand_elem(lexer, *env, *vars);
 			str = join_declaration(str, lexer->content);
