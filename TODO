@@ -1,13 +1,8 @@
 - Gestion des valeures de retour
+- Exec minishit dans minishit donne un env error
 
 # SIGNAUX
 - Gestion des signaux a definir
-
-# EXEC
-- verifier execution d'un fichier non executable ou directory (ex: ./TODO et ./libft)
-
-# ECHO
-- gerer -nnnnnm etc
 
 # EXPORT
 - export 1=test -> error
