@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/14 19:24:29 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/17 12:48:38 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,5 +324,10 @@ void		quit_shell2(t_setup *setup);
 void		exec_nofork(t_exec *ex, t_setup *setup);
 int			how_exited(int status);
 void		pipe_it(t_btree *ast, t_setup *setup, int *prev_fd);
+
+/*
+** SRCS/signals.c
+*/
+void		handle_signal(int signum);
 
 #endif
