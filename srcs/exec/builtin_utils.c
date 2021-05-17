@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:46:49 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/14 19:24:33 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/17 15:11:46 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	exec_builtin(char **cmd, t_setup *setup)
 	if (!ft_strcmp(cmd[0], "echo"))
 		ret = ft_echo(ft_split_size(cmd), cmd);
 	else if (!ft_strcmp(cmd[0], "env"))
-		ret = ft_env(setup->env);
+		ret = ft_env(g_tc.env);
 	else if (!ft_strcmp(cmd[0], "cd"))
-		ret = ft_cd(ft_split_size(cmd), cmd, setup->env);
+		ret = ft_cd(ft_split_size(cmd), cmd, g_tc.env);
 	else if (!ft_strcmp(cmd[0], "unset"))
-		ret = unset(ft_split_size(cmd), cmd, &setup->env, &setup->vars);
+		ret = unset(ft_split_size(cmd), cmd, &g_tc.env, &setup->vars);
 	else if (!ft_strcmp(cmd[0], "export"))
-		ret = export(ft_split_size(cmd), cmd, &setup->env, &setup->vars);
+		ret = export(ft_split_size(cmd), cmd, &g_tc.env, &setup->vars);
 	else if (!ft_strcmp(cmd[0], "pwd"))
-		ret = ft_pwd(setup->env);
+		ret = ft_pwd(g_tc.env);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ret = ft_exit(ft_split_size(cmd), cmd, setup);
 	nbr = ft_itoa(ret);

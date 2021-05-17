@@ -6,7 +6,8 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 16:53:39 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 17:21:15 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:08:22 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +51,9 @@ int			init_termcap();
 /*
 **	termcap/termcap.c
 */
-t_iter		*readu_input(t_history *history);
+t_iter		*readu_input(t_setup *setup);
 void		print_prompt(char *path);
-int			read_bpb(char **input, t_history *history);
+int			read_bpb(char **input, t_setup *setup);
 
 /*
 **	termcap/termcap_utils.c
@@ -334,5 +335,10 @@ void		quit_shell2(t_setup *setup);
 void		exec_nofork(t_exec *ex, t_setup *setup);
 int			how_exited(int status);
 void		pipe_it(t_btree *ast, t_setup *setup, int *prev_fd);
+
+/*
+** SRCS/signals.c
+*/
+void		handle_signal(int signum);
 
 #endif
