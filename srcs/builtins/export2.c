@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 11:56:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 14:26:38 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 17:13:19 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 bool	is_declaration(char *str)
 {
 	size_t	i;
+	char	*var;
 
 	i = 0;
 	if (!ft_strchr(str, '=') || ft_isdigit(str[0]))
@@ -25,6 +26,13 @@ bool	is_declaration(char *str)
 		return (false);
 	if (str[i - 1] == 92)
 		return (false);
+	var = get_var_from_str(str);
+	if (!check_var(var))
+	{
+		free(var);
+		return (false);
+	}
+	free(var);
 	return (true);
 }
 

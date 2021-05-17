@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 15:28:11 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:53:39 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ char		*join_split(t_list *split);
 /*
 ** 	EXP/expand4.c
 */
+char		*trim_spaces(char *str);
 char		*join_declaration(char *str, t_token *token);
 bool		is_strenum(t_etype type);
 void		concat_chains(t_list *lexer);

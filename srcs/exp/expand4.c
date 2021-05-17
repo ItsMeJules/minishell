@@ -6,11 +6,24 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:26:43 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/29 16:07:35 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 17:06:24 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*trim_spaces(char *str)
+{
+	char	*new;
+
+	if (!str || !ft_strlen(str))
+		return (str);
+	if (str[0] != ' ' && str[ft_strlen(str) - 1] != ' ')
+		return (str);
+	new = ft_strtrim(str, " ");
+	free(str);
+	return (new);
+}
 
 void	lst_rmempty(t_list **alst)
 {

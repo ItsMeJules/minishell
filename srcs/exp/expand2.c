@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:58:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/20 13:49:31 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/17 17:18:40 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	split_for_expand(t_token *token, t_list **lst)
 		if (token->str[i] == '$' && i == j)
 		{
 			i++;
-			while (token->str[i] && (!ft_strchr("\\$= ", token->str[i])
+			while (token->str[i] && (!ft_strchr("\\$= /+", token->str[i])
 				|| (token->str[i] == '=' && i - j < 2)))
 				i++;
 		}
@@ -99,6 +99,8 @@ void	expand_field(t_list *lexer, t_list *env, t_list *vars)
 			free(token->str);
 			expand_split(split, env, vars, token->token);
 			token->str = join_split(split);
+			if (token->token == BASE)
+				token->str = trim_spaces(token->str);
 			ft_lstclear(&split, free);
 		}
 		lexer = lexer->next;
