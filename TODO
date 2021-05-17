@@ -1,5 +1,7 @@
 # EXEC
 - verifier execution d'un fichier non executable ou directory (ex: ./TODO et ./libft)
+- Verifier valeures de retour
+- Exec minishit dans minishit donne un env error
 
 #EXPANSION
 - Trimer espaces en debut/fin si pas de D_QUOTE lors de l'expansion
