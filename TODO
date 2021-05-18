@@ -1,7 +1,0 @@
-#EXPANSION
-- Si espace dans un type BASE apres expansion, créer un autre token et le mettre à next
-
-# AUTRES
-- LEAKS termcaps
-
-size t i jointruc

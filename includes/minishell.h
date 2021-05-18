@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 17:21:15 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/18 12:52:11 by tvachera         ###   ########.fr       */
 /*   Updated: 2021/05/17 16:08:22 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -178,6 +178,13 @@ char		*join_declaration(char *str, t_token *token);
 bool		is_strenum(t_etype type);
 void		concat_chains(t_list *lexer);
 void		lst_rmempty(t_list **alst);
+
+/*
+** 	EXP/expand5.c
+*/
+void		link_chains(t_list *ch1, t_list *ch2);
+t_list		*split_word(t_list *lexer);
+void		create_new_words(t_list **lexer);
 
 /*
 **	history/file_manager.c
