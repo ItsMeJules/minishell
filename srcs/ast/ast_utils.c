@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:14:30 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/04 17:40:13 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/18 11:30:10 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	rm_unused_spaces(t_list **lexer)
 	t_list	*prev;
 	t_token	*token;
 
+	if (!lexer || !*lexer)
+		return ;
 	elem = *lexer;
 	if (((t_token *)elem->content)->token == SPACE)
 		((t_token *)elem->content)->rm = true;

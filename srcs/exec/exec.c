@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 17:34:58 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 11:20:03 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 {
 	if (!cmd)
 		return (reset_ex(ex));
-	if (ft_strncmp(((t_token *)cmd->content)->str, "./", 2) == 0
-			&& can_exec(((t_token *)cmd->content)->str))
+	if (ft_strlen(((t_token *)cmd->content)->str) > 2
+		&& ft_strncmp(((t_token *)cmd->content)->str, "./", 2) == 0
+		&& can_exec(((t_token *)cmd->content)->str))
 		return (reset_ex(ex));
 	if (link_fds(ex))
 		return (link_error(ex, &setup->vars));
