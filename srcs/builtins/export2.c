@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 11:56:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 17:13:19 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/18 12:30:32 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ bool	is_declaration(char *str)
 
 bool	is_joinable(char *str)
 {
-	size_t	i;
 	char	*ptr;
 
-	i = 0;
 	ptr = ft_strchr(str, '=');
 	if (!ptr)
 		return (false);
