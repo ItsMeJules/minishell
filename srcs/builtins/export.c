@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:12:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 15:50:09 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/18 15:29:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 int		print_declare(t_list *env)
 {
 	char	**envp;
+	t_env	*data;
 	size_t	i;
 
 	envp = get_envp(env);
 	i = 0;
-	ft_sort_string_tab(envp);	
+	ft_sort_string_tab(envp);
 	while (envp[i])
 	{
 		printf("declare -x %s\n", envp[i]);
@@ -27,6 +28,13 @@ int		print_declare(t_list *env)
 		i++;
 	}
 	free(envp);
+	while (env)
+	{
+		data = (t_env *)env->content;
+		if (!data->val)
+			printf("declare -x %s\n", data->var);
+		env = env->next;
+	}
 	return (0);
 }
 
