@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 13:02:40 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 14:56:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,7 @@ void	pipe_it(t_btree *ast, t_setup *setup, int *prev_pfd)
 		pipe_r(ast, setup, pfd);
 	if (waitpid(pid, &status, 0) < 0)
 		quit_shell2(setup);
+	if (prev_pfd)
+		close(prev_pfd[0]);
 	g_tc.forked--;
 }
