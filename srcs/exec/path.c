@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:53:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 16:59:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ char	*get_herebin(char *bin, t_list *vars)
 	struct stat	buf;
 
 	if (!ft_strchr(bin, '/'))
+	{
+		mod_env(&vars, "?", "127");
+		disp_fd_error(bin, "command not found");
 		return (NULL);
+	}
 	errno = 0;
 	if (!stat(bin, &buf))
 		return (ft_strdup(bin));
