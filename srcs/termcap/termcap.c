@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/18 17:17:12 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 18:00:59 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,18 @@ void	check_signal(char **input, t_list **vars)
 
 int		read_bpb(char **input, t_setup *setup)
 {
-	char	buf[4];
+	char	buf[7];
 	int		ret;
 
-	while ((ret = read(0, buf, 3))) 
+	ft_bzero(buf, 7);
+	while ((ret = read(0, buf, 6))) 
 	{
 		if (buf[0] == 9)
 			continue ;
 		check_signal(input, &setup->vars);
 		buf[ret] = 0;
+		//for (int i = 0; i < buf[i]; i++)
+		//	printf("%d\n", buf[i]);
 		if (ret == 1 && !is_tckey(buf, BACKSPACE_KEY)
 				&& buf[0] != 4 && add_input(buf[0], input))
 			return (1);
