@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 11:56:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 12:30:32 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:00:20 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,31 +74,4 @@ void	concat_var(t_list **env, char *var, char *val)
 	new = ft_strjoin(get_env_val(*env, var), val);
 	mod_env2(env, var, new);
 	free(val);
-}
-
-bool	check_env_args(int argc, char **argv, char *fct)
-{
-	int		i;
-	char	*var;
-	bool	ok;
-
-	i = 1;
-	ok = true;
-	while (i < argc)
-	{
-		var = get_var_from_str(argv[i]);
-		if (!check_var(var))
-		{
-			write(2, TERM_NAME, ft_strlen(TERM_NAME));
-			write(2, ": ", 2);
-			write(2, fct, ft_strlen(fct));
-			write(2, ": `", 3);
-			write(2, var, ft_strlen(var));
-			write(2, "': not a valid identifier\n", 26);
-			ok = false;
-		}
-		free(var);
-		i++;
-	}
-	return (ok);
 }
