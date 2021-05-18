@@ -6,23 +6,11 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:09:12 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/14 19:13:32 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/18 15:21:39 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	disp_env(t_list *env)
-{
-	t_env	*data;
-
-	while (env)
-	{
-		data = (t_env *)env->content;
-		printf("%s=%s\n", data->var, data->val);
-		env = env->next;
-	}
-}
 
 void	free_envp(char **envp)
 {
@@ -37,6 +25,22 @@ void	free_envp(char **envp)
 	free(envp);
 }
 
+int		get_env_size(t_list *env)
+{
+	t_env	*data;
+	int		i;
+
+	i = 0;
+	while (env)
+	{
+		data = (t_env *)env->content;
+		if (data->val)
+			i++;
+		env = env->next;
+	}
+	return (i);
+}
+
 char	**get_envp(t_list *env)
 {
 	char	**envp;
@@ -44,16 +48,19 @@ char	**get_envp(t_list *env)
 	char	*tmp;
 	size_t	i;
 
-	if (!(envp = malloc(sizeof(char *) * (ft_lstsize(env) + 1))))
+	if (!(envp = malloc(sizeof(char *) * (get_env_size(env) + 1))))
 		return (0);
 	i = 0;
 	while (env)
 	{
 		data = (t_env *)env->content;
-		tmp = ft_strjoin(data->var, "=");
-		envp[i] = ft_strjoin(tmp, data->val);
-		free(tmp);
-		i++;
+		if (data->val)
+		{
+			tmp = ft_strjoin(data->var, "=");
+			envp[i] = ft_strjoin(tmp, data->val);
+			free(tmp);
+			i++;
+		}
 		env = env->next;
 	}
 	envp[i] = 0;

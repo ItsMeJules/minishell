@@ -6,8 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/18 15:48:28 by jpeyron          ###   ########.fr       */
-/*   Updated: 2021/05/17 16:08:22 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 16:02:42 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +220,7 @@ bool		check_env_args(int argc, char **argv, char *fct);
 */
 int			unset_err(char *str);
 int			unset(int argc, char **argv, t_list **env, t_list **vars);
+void		disp_exp_err(char *var, char *fct);
 
 /*
 **	BUILTINS/echo.c
