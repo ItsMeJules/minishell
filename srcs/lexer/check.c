@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 15:39:05 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/18 15:54:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,26 @@ bool	check_pipe(t_list *lexer, int i)
 bool	check_semi(t_list *lexer)
 {
 	t_list	*elem;
-	t_token	*next;
 	t_token	*token;
+	bool	no_base;
 
-	if (!lexer)
-		return (false);
-	elem = lexer->next;
-	if (!elem)
-		return (false);
-	token = (t_token *)elem->content;
-	if (elem->next)
-		next = (t_token *)elem->next->content;
-	else
-		next = 0;
-	if ((!next || (next && next->token == SEMI)) && token->token == SPACE)
-		return (false);
-	if (token->token == SEMI)
-		return (false);
+	no_base = 1;
+	elem = lexer;
+	while (elem)
+	{
+		token = (t_token *)elem->content;
+		if (token->token == BASE)
+			no_base = 0;
+		else if (token->token == SEMI)
+		{
+			if (no_base)
+				return (false);
+			else if (!lexer->next)
+				token->rm = true;
+		}
+		elem = elem->next;
+	}
+	ft_lstremove_if(&lexer, lexer, is_removable, free_token);
 	return (true);
 }
 
@@ -95,7 +98,7 @@ bool	check_parsing(t_list *lexer)
 			return (false);
 		else if (token->token == PIPE && !check_pipe(lexer, i))
 			return (false);
-		else if (token->token == SEMI && !check_semi(elem))
+		else if (token->token == SEMI && !check_semi(lexer))
 			return (false);
 		else if (elem->next && token->token == BASE
 			&& is_redir(((t_token *)elem->next->content)->token)
