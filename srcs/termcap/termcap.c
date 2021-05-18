@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/18 13:00:35 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 17:17:12 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ void	print_prompt(char *path)
 	ft_putstr_fd(LIGHT_CYAN, 1);
 	curr_dir = ft_strrchr(path, '/');
 	if (curr_dir)
-		ft_putstr_fd(curr_dir + 1, 1);
+	{
+		if (ft_strcmp(path, "/") == 0)
+			ft_putstr_fd(curr_dir, 1);
+		else
+			ft_putstr_fd(curr_dir + 1, 1);
+	}
 	else
 		ft_putstr_fd(path, 1);
 	ft_putstr_fd(DARK_GRAY, 1);
