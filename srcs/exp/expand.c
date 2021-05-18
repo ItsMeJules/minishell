@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 11:37:09 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:22:33 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	expand(t_list **lexer, t_list **env, t_list **vars, t_etype type)
 	}
 	else if (type == FL)
 		expand_field(*lexer, *env, *vars);
-	create_new_words(lexer);
 	concat_chains(*lexer);
 	ft_lstremove_if(lexer, *lexer, is_removable, free_token);
 	lst_rmdspace(lexer);
