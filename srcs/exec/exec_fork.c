@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/18 12:48:16 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 14:51:35 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	relink_fds(t_exec *ex)
 		return (reset_ex(ex));
 	if (ex->fd_in != 0)
 	{
-		if (dup2(ex->in, 0) < 0)
-			close(ex->in);
+		dup2(ex->in, 0);
+		close(ex->in);
 	}
 	if (ex->fd_out != 1)
 	{
-		if (dup2(ex->out, 1) < 0)
-			close(ex->out);
+		dup2(ex->out, 1);
+		close(ex->out);
 	}
 	reset_ex(ex);
 }
