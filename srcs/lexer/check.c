@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 15:54:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:57:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,13 @@ bool	check_pipe(t_list *lexer, int i)
 
 bool	check_semi(t_list *lexer)
 {
-	t_list	*elem;
 	t_token	*token;
 	bool	no_base;
 
 	no_base = 1;
-	elem = lexer;
-	while (elem)
+	while (lexer)
 	{
-		token = (t_token *)elem->content;
+		token = (t_token *)lexer->content;
 		if (token->token == BASE)
 			no_base = 0;
 		else if (token->token == SEMI)
@@ -76,7 +74,7 @@ bool	check_semi(t_list *lexer)
 			else if (!lexer->next)
 				token->rm = true;
 		}
-		elem = elem->next;
+		lexer = lexer->next;
 	}
 	ft_lstremove_if(&lexer, lexer, is_removable, free_token);
 	return (true);
