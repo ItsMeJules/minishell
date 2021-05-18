@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 15:57:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 16:21:34 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,35 @@ bool	check_pipe(t_list *lexer, int i)
 	return (false);
 }
 
+bool	nothing_after_semi(t_list *lexer)
+{
+	while (lexer && ((t_token *)lexer->content)->token != SEMI)
+	{
+		if (is_strenum(((t_token *)lexer->content)->token))
+			return (false);
+		lexer = lexer->next;
+	}
+	return (true);
+}
+
 bool	check_semi(t_list *lexer)
 {
 	t_token	*token;
-	bool	no_base;
+	bool	no_str;
 
-	no_base = 1;
+	no_str = true;
 	while (lexer)
 	{
 		token = (t_token *)lexer->content;
-		if (token->token == BASE)
-			no_base = 0;
+		if (is_strenum(token->token))
+			no_str = false;
 		else if (token->token == SEMI)
 		{
-			if (no_base)
+			if (no_str)
 				return (false);
-			else if (!lexer->next)
+			else if (nothing_after_semi(lexer))
 				token->rm = true;
+			no_str = true;
 		}
 		lexer = lexer->next;
 	}
