@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 17:37:26 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 13:00:35 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	handle_termcap(char buf[4], char **input, t_setup *setup)
 			ft_lstclear(&g_tc.env, &del_env_elem);
 			ft_lstclear(&setup->vars, &del_env_elem);
 			free_history(setup->history);
+			change_term_mode(0);
 			exit(status);
 		}
 		else
