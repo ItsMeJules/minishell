@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 12:25:39 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 12:32:12 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int		string_is_num(char *str)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
+	if (!ft_isdigit(str[i]) && (str[i] != '-' && str[i] != '+'))
+		return (0);
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
