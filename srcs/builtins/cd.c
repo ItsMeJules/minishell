@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:48:08 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 14:18:27 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:37:39 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,15 @@ int	cd_oldpwd(t_list *env)
 	return (1);
 }
 
+<<<<<<< HEAD
 int	ft_cd(int ac, char **av, t_list *env)
+=======
+int		ft_cd(char **av, t_list *env)
+>>>>>>> 9484671039ac64e9108a37ead0d357909f2073fb
 {
 	char	path[4096];
 
 	path[0] = 0;
-	if (ac > 2)
-	{
-		ft_putstr_fd(TERM_NAME, 2);
-		ft_putstr_fd(": cd: too many arguments\n", 2);
-		return (0);
-	}
 	if (!av[1])
 		return (cd_home(env));
 	if (ft_strcmp("-", av[1]) == 0)

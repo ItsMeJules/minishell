@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 14:12:46 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:37:57 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,14 @@ void		lexer_free(t_list *root, t_iter *iter);
 */
 void		disp_error(char *str);
 bool		check_chev(t_list *lexer);
-bool		check_pipe(t_list *lexer, int i);
 bool		check_semi(t_list *lexer);
 bool		check_parsing(t_list *lexer);
+
+/*
+**	LEXER/check.c
+*/
+bool		check_before_pipe(t_list *lexer, int i);
+bool		check_after_pipe(t_list *lexer);
 
 /*
 **	ENV/mod_env.c
@@ -241,7 +246,7 @@ int			ft_pwd(t_list *env);
 /*
 **	BUILTINS/cd.c
 */
-int			ft_cd(int ac, char **av, t_list *env);
+int			ft_cd(char **av, t_list *env);
 
 /*
 **	BUILTINS/exit.c

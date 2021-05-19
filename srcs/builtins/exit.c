@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 14:20:32 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:37:49 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	string_is_num(char *str)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
+	if (!ft_isdigit(str[i]) && (str[i] != '-' && str[i] != '+'))
+		return (0);
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -78,8 +80,9 @@ int	ft_exit(int ac, char **av, t_setup *setup)
 	}
 	else
 	{
+		ret = ft_atoi(get_env_val(setup->vars, "?"));
 		free_on_exit(setup, av, 1);
-		exit(ft_atoi(get_env_val(setup->vars, "?")));
+		exit(ret);
 		return (1);
 	}
 }
