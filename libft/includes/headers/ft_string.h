@@ -6,7 +6,7 @@
 /*   By: tvachera <tvacherat@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 11:46:08 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/26 13:26:11 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:08:34 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,14 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s1);
-char	*ft_substr(char const *s, unsigned int start
-		, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char *str, char *charset);
 int		ft_split_size(char **split);
 void	ft_free_split(char **split);
 char	*ft_itoa(int n);
-char	*ft_strmapi(char const *s, char (*f)(unsigned int
-		, char));
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int		ft_islower(int c);
 int		ft_isupper(int c);
 void	ft_strclr(char *s);

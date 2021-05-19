@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 16:43:42 by tvachera          #+#    #+#             */
-/*   Updated: 2020/12/18 20:02:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:08:56 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define TRUE 1
 # define BUFFER_SIZE 4096
 
-typedef struct		s_file
+typedef struct s_file
 {
 	int				fd;
 	char			buff[BUFFER_SIZE > 0 ? BUFFER_SIZE : 1];
@@ -33,8 +33,8 @@ t_file				*get_lstelem(t_file **root, int fd);
 void				ft_lstremove(t_file **root, int fd);
 int					get_line_from_buff(char **line, t_file *elem);
 char				*concat(char *ret, t_file *elem, ssize_t bytes);
-int					manage_exit(t_file **root, t_file *elem, int bytes
-					, char **line);
+int					manage_exit(t_file **root, t_file *elem, int bytes,
+						char **line);
 bool				find_endl(char *buff, int size);
 int					get_next_line(int fd, char **line);
 

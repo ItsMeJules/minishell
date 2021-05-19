@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 12:31:42 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/27 13:23:54 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 15:18:21 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char	*ft_strjoin_sep(char const *s1, char *sep, char const *s2)
 	j = 0;
 	if (!s1 || !s2 || !sep)
 		return (0);
-	if (!(join = malloc(sizeof(char) * total_len(s1, s2, sep))))
+	join = malloc(sizeof(char) * total_len(s1, s2, sep));
+	if (!join)
 		return (0);
 	join_str(&j, join, s1);
 	join_str(&j, join, sep);
