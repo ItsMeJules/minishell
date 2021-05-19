@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:53:36 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/18 17:09:21 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*find_path(char **paths, char *bin)
 	char		*path;
 	int			ret;
 
-	if (ft_strlen(bin) == 0)
+	if (ft_strlen(bin) == 0 || ft_strchr(bin, '/'))
 		return (0);
 	i = 0;
 	errno = 0;
@@ -79,7 +79,10 @@ char	*get_herebin(char *bin, t_list *vars)
 	struct stat	buf;
 
 	if (!ft_strchr(bin, '/'))
+	{
+		errno = ENOENT;
 		return (NULL);
+	}
 	errno = 0;
 	if (!stat(bin, &buf))
 		return (ft_strdup(bin));
