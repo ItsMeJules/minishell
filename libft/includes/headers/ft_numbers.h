@@ -6,12 +6,12 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 11:09:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/01/22 11:11:19 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 15:08:13 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NUMBERS_H
-# define NUMBERS_H
+#ifndef FT_NUMBERS_H
+# define FT_NUMBERS_H
 
 int	ft_abs(int val);
 

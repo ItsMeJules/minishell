@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:38 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/16 16:20:40 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:15:37 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
-	if (!(sub = malloc(sizeof(char) * (len + 1))))
+	sub = malloc(sizeof(char) * (len + 1));
+	if (!sub)
 		return (0);
 	if (start >= ft_strlen(s))
 	{

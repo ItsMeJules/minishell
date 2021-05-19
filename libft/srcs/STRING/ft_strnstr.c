@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:33 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/16 16:23:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/19 15:14:32 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 		}
 		if (!s2[j])
 			return ((char *)&s1[i - j]);
-		s1[i] ? i -= j - 1 : 0;
+		if (s1[i])
+			i -= j - 1;
+		else
+			i = 0;
 	}
 	return (0);
 }
