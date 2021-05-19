@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:26:43 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 17:06:24 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 11:32:06 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ char	*join_declaration(char *str, t_token *token)
 {
 	char	*tmp;
 
-	if (!str)
+	if (!token->str || !ft_strlen(token->str))
+		return (str);
+	else if (!str)
 		str = ft_strdup(token->str);
 	else
 	{
