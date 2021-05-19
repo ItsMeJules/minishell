@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 11:56:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 18:18:18 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 12:36:46 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	**get_envp2(t_list *env)
 {
 	char	**envp;
 	t_env	*data;
-	char	*tmp;
 	size_t	i;
 
 	if (!(envp = malloc(sizeof(char *) * (ft_lstsize(env) + 1))))
@@ -26,11 +25,7 @@ char	**get_envp2(t_list *env)
 	{
 		data = (t_env *)env->content;
 		if (data->val)
-		{
-			tmp = ft_strjoin(data->var, "=");
-			envp[i] = ft_strjoin(tmp, data->val);
-			free(tmp);
-		}
+			envp[i] = join_for_export(data);
 		else
 			envp[i] = ft_strdup(data->var);
 		i++;
