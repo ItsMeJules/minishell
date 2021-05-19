@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 14:52:11 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 15:17:05 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:34:34 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	fill_tab(char **tab, char *str, char *charset, unsigned int count)
 		while (str[j] && is_charset(str[j], charset) == true)
 			j++;
 		tab[i] = malloc(sizeof(char) * get_word_size(str + j, charset));
-		if (tab[i])
+		if (!tab[i])
 			return ;
 		while (str[j] && is_charset(str[j], charset) == false)
 		{

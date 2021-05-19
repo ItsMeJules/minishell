@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 14:50:09 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 15:29:39 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ char		*get_path(char *bin, t_list *env, t_list *vars);
 /*
 ** EXEC/path2.c
 */
-int			init_paths(char **paths, char *bin, t_list *env, t_list *vars);
+char		**init_paths(char *bin, t_list *env, t_list *vars);
 
 /*
 ** EXEC/exec_free.c

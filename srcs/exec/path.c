@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:49:46 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 15:34:49 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ char	*get_path(char *bin, t_list *env, t_list *vars)
 		return (path);
 	else if (errno != ENOENT)
 		return (0);
-	paths = NULL;
-	if (!init_paths(paths, bin, env, vars))
+	paths = init_paths(bin, env, vars);
+	if (!paths)
 		return (0);
 	path = find_path(paths, bin);
 	if (!path)

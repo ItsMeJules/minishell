@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 15:17:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 15:25:19 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	trim_malloc(char **trim, int end, int start)
 	trim = malloc(sizeof(char) * (end - start + 1));
 	if (!trim)
 		return (0);
+	return (1);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
@@ -51,7 +52,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		end--;
 	if (end < start)
 		end = start;
-	if (trim_malloc(&trim, end, start))
+	if (!trim_malloc(&trim, end, start))
 		return (0);
 	while (i < end - start)
 	{
