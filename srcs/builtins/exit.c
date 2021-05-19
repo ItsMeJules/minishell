@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/17 16:14:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 12:25:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ int		ft_exit(int ac, char **av, t_setup *setup)
 	}
 	else
 	{
+		ret = ft_atoi(get_env_val(setup->vars, "?"));
 		free_on_exit(setup, av, 1);
-		exit(ft_atoi(get_env_val(setup->vars, "?")));
+		exit(ret);
 		return (1);
 	}
 }
