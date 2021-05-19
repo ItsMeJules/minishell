@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/18 18:17:49 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 12:15:54 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 
 void	disp_lexer(t_list *root); // A RETIRER
 void	disp_vars(t_list *vars); // A RETIRER
+void	disp_node(void *item); // A RETIRER
 
 /*
 ** main.c
@@ -248,10 +249,10 @@ int			ft_exit(int ac, char **av, t_setup *setup);
 /*
 **	AST/ast_elem.c
 */
+void		reset_builders();
 t_list		*next_sep(t_list *lexer);
 t_list		*next_pipe(t_list *lexer);
 t_list		*next_redir(t_list *lexer);
-t_list		*next_file(t_list *lexer);
 
 /*
 **	AST/ast_elem_cmd.c

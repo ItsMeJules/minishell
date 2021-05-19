@@ -6,11 +6,19 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:02:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 11:43:42 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 12:15:30 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	reset_builders()
+{
+	next_sep(NULL);
+	next_pipe(NULL);
+	next_redir(NULL);
+	next_command(NULL);
+}
 
 t_list	*next_sep(t_list *lexer)
 {
@@ -18,7 +26,7 @@ t_list	*next_sep(t_list *lexer)
 	static bool		end = false;
 	t_token			*token;
 
-	if (end)
+	if (end || !lexer)
 	{
 		elem = NULL;
 		end = false;
@@ -45,7 +53,7 @@ t_list	*next_pipe(t_list *lexer)
 	static bool		end = false;
 	t_token			*token;
 
-	if (end)
+	if (end || !lexer)
 	{
 		elem = NULL;
 		end = false;
@@ -73,7 +81,7 @@ t_list	*next_redir(t_list *lexer)
 	static bool		end = false;
 	t_token			*token;
 
-	if (end)
+	if (end || !lexer)
 	{
 		elem = NULL;
 		end = false;

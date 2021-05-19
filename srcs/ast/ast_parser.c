@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:35:16 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 11:45:34 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 12:14:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_btree	*parse_ast(t_list *lexer)
 		else
 			break ;
 	}
+	reset_builders();
 	btree_apply_prefix(root, fix_ast_chain);
 	return (root);
 }
