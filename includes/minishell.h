@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 12:36:30 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:12:46 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ int			ft_exit(int ac, char **av, t_setup *setup);
 /*
 **	AST/ast_elem.c
 */
-void		reset_builders();
+t_btree		*clean_building(t_btree *root);
 t_list		*next_sep(t_list *lexer);
 t_list		*next_pipe(t_list *lexer);
 t_list		*next_redir(t_list *lexer);

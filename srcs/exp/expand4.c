@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:26:43 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 11:32:06 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:35:41 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	is_strenum(t_etype type)
 void	concat_chains(t_list *lexer)
 {
 	t_token	*token;
-	
+
 	while (lexer)
 	{
 		token = (t_token *)lexer->content;

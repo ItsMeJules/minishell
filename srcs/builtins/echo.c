@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:20:02 by jules             #+#    #+#             */
-/*   Updated: 2021/05/17 11:37:28 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:19:29 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	is_n_opt(char *arg)
 {
 	int	i;
-	
+
 	if (arg[0] != '-')
 		return (false);
 	i = 1;
@@ -24,7 +24,7 @@ bool	is_n_opt(char *arg)
 	return (!arg[i]);
 }
 
-int		ft_echo(int ac, char **av)
+int	ft_echo(int ac, char **av)
 {
 	bool	nl;
 	int		i;

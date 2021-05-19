@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 15:25:42 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/17 17:32:44 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:33:24 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ t_env	*create_env_elem(char *var, char *val)
 {
 	t_env	*new;
 
-	if (!var || !(new = malloc(sizeof(t_env))))
+	if (!var)
+		return (0);
+	new = malloc(sizeof(t_env));
+	if (!new)
 		return (0);
 	new->var = var;
 	new->val = val;
@@ -47,7 +50,8 @@ char	*get_var_from_str(char *str)
 		i++;
 	if (i > 0 && str[i - 1] == '+')
 		i--;
-	if (!(var = malloc(sizeof(char) * (i + 1))))
+	var = malloc(sizeof(char) * (i + 1));
+	if (!var)
 		return (0);
 	while (j < i)
 	{
@@ -72,7 +76,8 @@ char	*get_val_from_str(char *str)
 		i++;
 	else
 		return (0);
-	if (!(val = malloc(sizeof(char) * (ft_strlen(str) - i + 1))))
+	val = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	if (!val)
 		return (0);
 	while (str[i])
 		val[j++] = str[i++];
@@ -85,19 +90,14 @@ t_list	*pars_env(char **envp)
 	size_t	i;
 	t_list	*root;
 	t_list	*new;
-	t_env	*env;
 
-	i =	0;
-	root = 0;
+	i = 0;
+	root = NULL;
 	while (envp[i])
 	{
-		if (!(env = create_env_elem(get_var_from_str(envp[i])
-			, get_val_from_str(envp[i]))))
-		{
-			ft_lstclear(&root, &del_env_elem);
-			return (0);
-		}
-		if (!(new = ft_lstnew(env)))
+		new = ft_lstnew(create_env_elem(get_var_from_str(envp[i]),
+					get_val_from_str(envp[i])));
+		if (!new)
 		{
 			ft_lstclear(&root, &del_env_elem);
 			return (0);

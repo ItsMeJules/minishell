@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:09:12 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 15:21:39 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:23:02 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_envp(char **envp)
 	free(envp);
 }
 
-int		get_env_size(t_list *env)
+int	get_env_size(t_list *env)
 {
 	t_env	*data;
 	int		i;
@@ -48,7 +48,8 @@ char	**get_envp(t_list *env)
 	char	*tmp;
 	size_t	i;
 
-	if (!(envp = malloc(sizeof(char *) * (get_env_size(env) + 1))))
+	envp = malloc(sizeof(char *) * (get_env_size(env) + 1));
+	if (!envp)
 		return (0);
 	i = 0;
 	while (env)

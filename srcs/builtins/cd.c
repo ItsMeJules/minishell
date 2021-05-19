@@ -6,13 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:48:08 by jules             #+#    #+#             */
-/*   Updated: 2021/05/14 19:21:44 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 14:18:27 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		dir_change_err(char *path)
+int	dir_change_err(char *path)
 {
 	ft_putstr_fd(TERM_NAME, 2);
 	ft_putstr_fd(": cd: ", 2);
@@ -23,11 +23,11 @@ int		dir_change_err(char *path)
 	return (0);
 }
 
-int		cd_home(t_list *env)
+int	cd_home(t_list *env)
 {
 	char	*home;
 	char	path[4096];
-	
+
 	if (!is_var(env, "HOME"))
 	{
 		ft_putstr_fd(TERM_NAME, 2);
@@ -42,11 +42,11 @@ int		cd_home(t_list *env)
 	return (1);
 }
 
-int		cd_oldpwd(t_list *env)
+int	cd_oldpwd(t_list *env)
 {
 	char	*old_pwd;
 	char	path[4096];
-	
+
 	if (!is_var(env, "OLDPWD"))
 	{
 		ft_putstr_fd(TERM_NAME, 2);
@@ -61,7 +61,7 @@ int		cd_oldpwd(t_list *env)
 	return (1);
 }
 
-int		ft_cd(int ac, char **av, t_list *env)
+int	ft_cd(int ac, char **av, t_list *env)
 {
 	char	path[4096];
 
@@ -73,7 +73,7 @@ int		ft_cd(int ac, char **av, t_list *env)
 		return (0);
 	}
 	if (!av[1])
-		return (cd_home(env));	
+		return (cd_home(env));
 	if (ft_strcmp("-", av[1]) == 0)
 		return (cd_oldpwd(env));
 	if (chdir(av[1]))

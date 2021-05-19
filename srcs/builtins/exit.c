@@ -6,13 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/17 16:14:15 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:20:32 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		string_is_num(char *str)
+int	string_is_num(char *str)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ int		string_is_num(char *str)
 	return (1);
 }
 
-int		print_error(int type, char *str)
+int	print_error(int type, char *str)
 {
 	if (type == 1)
 	{
@@ -55,11 +55,11 @@ void	free_on_exit(t_setup *setup, char **av, int free_av)
 		ft_putstr_fd("exit\n", 1);
 }
 
-int		ft_exit(int ac, char **av, t_setup *setup)
+int	ft_exit(int ac, char **av, t_setup *setup)
 {
 	int	ret;
 
-	if (ac > 2)	
+	if (ac > 2)
 		return (print_error(1, NULL));
 	else if (ac == 2)
 	{

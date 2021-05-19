@@ -6,13 +6,13 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:12:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 12:24:50 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:20:53 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		print_declare(t_list *env)
+int	print_declare(t_list *env)
 {
 	char	**envp;
 	size_t	i;
@@ -94,7 +94,7 @@ void	parse_exp_var(char *declare, char *var, t_list **env, t_list **vars)
 		free(var);
 }
 
-int		export(int argc, char **argv, t_list **env, t_list **vars)
+int	export(int argc, char **argv, t_list **env, t_list **vars)
 {
 	int		i;
 	char	*var;

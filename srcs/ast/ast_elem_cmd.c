@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:20:54 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 11:56:37 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:00:55 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ t_list	*next_command(t_list *lexer)
 	}
 	init_elem(lexer, &elem, &start);
 	while (elem && ((t_token *)elem->content)->token != PIPE
-			&& ((t_token *)elem->content)->token != SEMI)
+		&& ((t_token *)elem->content)->token != SEMI)
 	{
-		if (elem->next && is_chev(((t_token *)elem->next->content)->token))	
+		if (elem->next && is_chev(((t_token *)elem->next->content)->token))
 			elem->next = skip_chev(elem->next);
 		elem = elem->next;
 	}

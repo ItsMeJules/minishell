@@ -6,18 +6,20 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:02:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 12:15:30 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:12:11 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	reset_builders()
+t_btree	*clean_building(t_btree *root)
 {
 	next_sep(NULL);
 	next_pipe(NULL);
 	next_redir(NULL);
 	next_command(NULL);
+	btree_apply_prefix(root, fix_ast_chains);
+	return (root);
 }
 
 t_list	*next_sep(t_list *lexer)
@@ -92,7 +94,7 @@ t_list	*next_redir(t_list *lexer)
 	else
 		elem = elem->next;
 	while (elem && ((t_token *)elem->content)->token != PIPE
-			&& ((t_token *)elem->content)->token != SEMI)
+		&& ((t_token *)elem->content)->token != SEMI)
 	{
 		token = (t_token *)elem->content;
 		if (is_chev(token->token))

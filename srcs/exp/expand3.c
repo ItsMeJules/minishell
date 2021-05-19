@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:26:52 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 15:32:58 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:35:26 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	lst_rmdspace(t_list **alst)
 {
 	t_token	*elem;
 	t_list	*lst;
-	
+
 	lst = *alst;
 	while (lst)
 	{
@@ -44,7 +44,7 @@ void	lst_rmdsemi(t_list **alst)
 		if (lst->next)
 			next = (t_token *)lst->next->content;
 		if (elem->token == SEMI && ((next && next->token == SEMI)
-			|| !next || !i))
+				|| !next || !i))
 			elem->rm = true;
 		i++;
 		lst = lst->next;
@@ -88,7 +88,7 @@ char	*join_split(t_list *split)
 	char	*ret;
 	char	*temp;
 
-	ret = 0;	
+	ret = 0;
 	while (split)
 	{
 		if (!ret)
