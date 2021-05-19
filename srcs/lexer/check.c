@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:21:34 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 11:44:03 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	check_semi(t_list *lexer)
 		{
 			if (no_str)
 				return (false);
-			else if (nothing_after_semi(lexer))
+			else if (nothing_after_semi(lexer->next))
 				token->rm = true;
 			no_str = true;
 		}
