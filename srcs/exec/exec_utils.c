@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:34:43 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 16:06:10 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,13 @@ void	reset_ex(t_exec *ex)
 	ex->expand = false;
 }
 
-int	disp_fd_error(char *filename, char *err)
+bool	open_fds(t_exec *ex, char *filename, t_etype redir_type)
 {
-	write(2, TERM_NAME, ft_strlen(TERM_NAME));
-	write(2, ": ", 2);
-	write(2, err, ft_strlen(err));
-	write(2, ": ", 2);
-	write(2, filename, ft_strlen(filename));
-	write(2, "\n", 1);
-	return (0);
-}
-
-bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
-{
-	t_etype	redir_type;
-	char	*filename;
-
-	redir_type = ((t_token *)redir->elem->content)->token;
-	filename = ((t_token *)file->elem->content)->str;
+	if (!filename)
+	{
+		disp_fd_error("", "ambiguous redirect");
+		return (false);
+	}
 	if ((redir_type == CHEV_R || redir_type == D_CHEV_R) && ex->fd_out != 1)
 		close(ex->fd_out);
 	if (redir_type == CHEV_R)
@@ -98,6 +87,24 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 		return (disp_fd_error(filename, strerror(errno)));
 	}
 	return (true);
+}
+
+bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
+{
+	t_etype	redir_type;
+	char	*filename;
+
+	if (redir && file)
+	{
+		redir_type = ((t_token *)redir->elem->content)->token;
+		filename = ((t_token *)file->elem->content)->str;
+		return (open_fds(ex, filename, redir_type));
+	}
+	else
+	{
+		disp_fd_error("", "ambiguous redirect");
+		return (false);
+	}
 }
 
 void	expand_leafs(t_exec *ex, t_btree *ast, t_list **env, t_list **vars)

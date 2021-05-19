@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 15:29:39 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 16:02:24 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,9 +332,14 @@ char		*get_path(char *bin, t_list *env, t_list *vars);
 */
 char		**get_argv(t_list *cmd);
 void		reset_ex(t_exec *ex);
-int			disp_fd_error(char *filename, char *err);
 bool		set_redir(t_exec *ex, t_node *redir, t_node *file);
 void		expand_leafs(t_exec *ex, t_btree *ast, t_list **env, t_list **vars);
+bool		open_fds(t_exec *ex, char *filename, t_etype type);
+
+/*
+** EXEC/exec_utils2.c
+*/
+int			disp_fd_error(char *filename, char *err);
 
 /*
 ** EXEC/path.c
