@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 12:15:54 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 12:36:30 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,11 @@ bool		is_declaration(char *str);
 bool		is_joinable(char *str);
 bool		check_var(char *str);
 void		concat_var(t_list **env, char *var, char *val);
+
+/*
+**	BUILTINS/export3.c
+*/
+char		*join_for_export(t_env *data);
 
 /*
 **	BUILTINS/unset.c
