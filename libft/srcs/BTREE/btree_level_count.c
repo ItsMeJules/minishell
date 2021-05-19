@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:37:06 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 13:44:52 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:45:36 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	btree_level_count(t_btree *root)
 	if (root->left)
 	{
 		temp = btree_level_count(root->left);
-		count < temp ? count = temp : 0;
+		if (count < temp)
+			count = temp;
 	}
 	if (root->right)
 	{
 		temp = btree_level_count(root->right);
-		count < temp ? count = temp : 0;
+		if (count < temp)
+			count = temp;
 	}
 	return (count + 1);
 }

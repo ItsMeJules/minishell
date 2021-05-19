@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 14:52:11 by tvachera          #+#    #+#             */
-/*   Updated: 2021/01/28 23:44:51 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 15:17:05 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ short	is_charset(char c, char *charset)
 	return (false);
 }
 
-int		get_word_size(char *str, char *charset)
+int	get_word_size(char *str, char *charset)
 {
 	unsigned int	i;
 
@@ -49,7 +49,8 @@ void	fill_tab(char **tab, char *str, char *charset, unsigned int count)
 		k = 0;
 		while (str[j] && is_charset(str[j], charset) == true)
 			j++;
-		if (!(tab[i] = malloc(sizeof(char) * get_word_size(str + j, charset))))
+		tab[i] = malloc(sizeof(char) * get_word_size(str + j, charset));
+		if (tab[i])
 			return ;
 		while (str[j] && is_charset(str[j], charset) == false)
 		{
@@ -73,8 +74,7 @@ char	**ft_split(char *str, char *charset)
 	count = 0;
 	if (!str || !charset)
 	{
-		if (!(tab = malloc(sizeof(char *))))
-			return (0);
+		tab = malloc(sizeof(char *));
 		tab[0] = 0;
 		return (tab);
 	}
@@ -82,12 +82,12 @@ char	**ft_split(char *str, char *charset)
 	{
 		while ((is_charset(str[i], charset) == true && str[i]))
 			i++;
-		str[i] ? count++ : 0;
+		if (str[i])
+			count++;
 		while (is_charset(str[i], charset) == false && str[i])
 			i++;
 	}
-	if (!(tab = malloc(sizeof(char *) * (count + 1))))
-		return (0);
+	tab = malloc(sizeof(char *) * (count + 1));
 	fill_tab(tab, str, charset, count);
 	return (tab);
 }

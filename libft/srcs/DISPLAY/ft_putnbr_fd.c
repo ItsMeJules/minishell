@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:11 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/16 16:20:12 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:49:27 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	if (n == -2147483648)
 		return ((void)write(fd, "-2147483648", 11));
-	n < 0 ? write(fd, "-", 1) : 0;
-	n < 0 ? n *= -1 : 0;
-	n >= 10 ? ft_putnbr_fd(n / 10, fd) : 0;
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
 	n = n % 10 + 48;
 	write(fd, &n, 1);
 }

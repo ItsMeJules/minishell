@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 16:45:09 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/18 16:28:57 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:04:10 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_file	*gnl_lstnew(int fd)
 {
 	t_file	*new;
 
-	if (!(new = malloc(sizeof(t_file))))
+	new = malloc(sizeof(t_file));
+	if (!new)
 		return (0);
 	new->next = 0;
 	new->fd = fd;
@@ -43,7 +44,8 @@ t_file	*get_lstelem(t_file **root, int fd)
 		return (0);
 	if (!(*root))
 	{
-		if (!(elem = gnl_lstnew(fd)))
+		elem = gnl_lstnew(fd);
+		if (!elem)
 			return (0);
 		*root = elem;
 		return (elem);

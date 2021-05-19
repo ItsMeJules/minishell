@@ -6,21 +6,21 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 16:26:13 by tvachera          #+#    #+#             */
-/*   Updated: 2020/12/18 20:02:16 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:03:43 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
-#include "../../includes/libft.h"
 
-int		get_line_from_buff(char **line, t_file *elem)
+int	get_line_from_buff(char **line, t_file *elem)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	j = 0;
-	if (!(line[0] = malloc(sizeof(char) * (line_len(elem->buff) + 1))))
+	line[0] = malloc(sizeof(char) * (line_len(elem->buff) + 1));
+	if (!line[0])
 		return (-1);
 	while (elem->buff[i] && elem->buff[i] != 10)
 	{
@@ -48,26 +48,26 @@ char	*concat(char *ret, t_file *elem, ssize_t bytes)
 
 	i = 0;
 	j = 0;
-	if (!(line = malloc(sizeof(char) * (ft_strlen(ret)
-		+ line_len(elem->buff) + 1))))
+	line = malloc(sizeof(char) * (ft_strlen(ret) + line_len(elem->buff) + 1));
+	if (!line)
+	{
+		if (ret)
+			free(ret);
 		return (0);
+	}
 	while (ret[i])
 	{
 		line[i] = ret[i];
 		i++;
 	}
 	while (elem->buff[j] != 10 && j < bytes)
-	{
-		line[i] = elem->buff[j];
-		i++;
-		j++;
-	}
+		line[i++] = elem->buff[j++];
 	line[i] = 0;
 	free(ret);
 	return (line);
 }
 
-int		manage_exit(t_file **root, t_file *elem, int bytes, char **line)
+int	manage_exit(t_file **root, t_file *elem, int bytes, char **line)
 {
 	int	i;
 	int	j;
@@ -107,7 +107,7 @@ bool	find_endl(char *buff, int size)
 	return (false);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static t_file	*root = 0;
 	char			*ret;
@@ -116,7 +116,8 @@ int		get_next_line(int fd, char **line)
 
 	ret = 0;
 	bytes = 0;
-	if (!line || BUFFER_SIZE <= 0 || !(elem = get_lstelem(&root, fd)))
+	elem = get_lstelem(&root, fd);
+	if (!line || BUFFER_SIZE <= 0 || !elem)
 		return (-1);
 	if (ft_strlen(elem->buff) > line_len(elem->buff))
 		return (get_line_from_buff(line, elem));
@@ -124,13 +125,12 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	while (find_endl(elem->buff, bytes) == false)
 	{
-		if (!(bytes = read(fd, elem->buff, BUFFER_SIZE)))
+		bytes = read(fd, elem->buff, BUFFER_SIZE);
+		if (!bytes)
 			break ;
-		if (bytes < 0 || !(ret = concat(ret, elem, bytes)))
-		{
-			free(ret);
+		else if (bytes < 0)
 			return (-1);
-		}
+		ret = concat(ret, elem, bytes);
 	}
 	line[0] = ret;
 	return (manage_exit(&root, elem, bytes, line));

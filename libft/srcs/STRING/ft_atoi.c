@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:19:04 by tvachera          #+#    #+#             */
-/*   Updated: 2020/12/24 12:22:34 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:11:45 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 #define INTMAX 2147483647
 #define INTMIN 2147483648
+
+static int	atoi_ret(int is_negative)
+{
+	if (is_negative == 1)
+		return (-1);
+	return (0);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -28,7 +35,8 @@ int	ft_atoi(const char *str)
 		i++;
 	if ((str[i] == 43 || str[i] == 45) && str[i])
 	{
-		str[i] == 45 ? is_negative *= -1 : 0;
+		if (str[i] == 45)
+			is_negative *= -1;
 		i++;
 	}
 	while ((str[i] > 47 && str[i] < 58) && str[i])
@@ -37,7 +45,7 @@ int	ft_atoi(const char *str)
 		nb += str[i] - 48;
 		if ((nb > INTMAX && is_negative == 1)
 			|| (nb > INTMIN && is_negative == -1))
-			return (is_negative == 1 ? -1 : 0);
+			return (atoi_ret(is_negative));
 		i++;
 	}
 	return (nb * is_negative);

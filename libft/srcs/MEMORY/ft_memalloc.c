@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 17:26:24 by jules             #+#    #+#             */
-/*   Updated: 2020/12/18 17:42:55 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 15:06:15 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	*ft_memalloc(size_t size)
 {
 	void	*buffer;
 
-	if (!(buffer = malloc(size)))
+	buffer = malloc(size);
+	if (!buffer)
 		return (NULL);
 	ft_bzero(buffer, size);
 	return (buffer);

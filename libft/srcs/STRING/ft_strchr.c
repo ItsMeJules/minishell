@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:17 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/16 16:37:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/19 15:17:51 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s + i);
 		i++;
 	}
-	return (c == 0 ? (char *)s + i : 0);
+	if (c == 0)
+		return ((char *)s + i);
+	return (0);
 }

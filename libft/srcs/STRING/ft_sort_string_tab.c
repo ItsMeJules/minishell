@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:24:35 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/26 13:25:32 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:14:44 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	str_swap(char **s1, char **s2)
 	*s2 = temp;
 }
 
-void		ft_sort_string_tab(char **tab)
+void	ft_sort_string_tab(char **tab)
 {
 	int	i;
 	int	j;

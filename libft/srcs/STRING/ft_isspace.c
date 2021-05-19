@@ -6,7 +6,7 @@
 /*   By: tvachera <tvacherat@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 19:53:40 by tvachera          #+#    #+#             */
-/*   Updated: 2020/12/21 20:06:00 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:14:19 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isspace(int arg)
 {
-	char c;
+	char	c;
 
 	c = (char)arg;
 	if (c == 32 || (c >= 9 && c <= 13))

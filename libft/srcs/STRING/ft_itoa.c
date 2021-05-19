@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:19:38 by tvachera          #+#    #+#             */
-/*   Updated: 2020/11/16 16:19:39 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:13:44 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static unsigned int	get_len(unsigned int nb, unsigned int *pow)
 	return (len);
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	size_t			i;
 	unsigned int	pow;
@@ -35,10 +35,15 @@ char				*ft_itoa(int n)
 	char			*word;
 
 	i = n < 0;
-	nb = n < 0 ? -n : n;
-	if (!(word = malloc(sizeof(char) * (get_len(nb, &pow) + i + 1))))
+	if (n < 0)
+		nb = n;
+	else
+		nb = -n;
+	word = malloc(sizeof(char) * (get_len(nb, &pow) + i + 1));
+	if (!word)
 		return (0);
-	n < 0 ? word[0] = '-' : 0;
+	if (n < 0)
+		word[0] = '-';
 	while (pow >= 1)
 	{
 		word[i] = base[nb / pow];

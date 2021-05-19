@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:34:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 13:44:47 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:46:27 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	*btree_search_item(t_btree *root, void *data_ref
 		return (root->item);
 	if (root->left)
 	{
-		if ((data = btree_search_item(root->left, data_ref, cmpf)))
+		data = btree_search_item(root->left, data_ref, cmpf);
+		if (data)
 			return (data);
 	}
 	if (root->right)

@@ -6,13 +6,13 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:38:30 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/19 13:44:58 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:43:50 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-static void			start(t_btree *root, unsigned int current_level
+static void	start(t_btree *root, unsigned int current_level
 				, unsigned int *levels_list, void (*applyf)(void *item
 				, int current_level, int is_first_elem))
 {
@@ -28,7 +28,7 @@ static void			start(t_btree *root, unsigned int current_level
 	}
 }
 
-void			btree_apply_by_level(t_btree *root, void (*applyf)
+void	btree_apply_by_level(t_btree *root, void (*applyf)
 				(void *item, int current_level, int is_first_elem))
 {
 	unsigned int	count;

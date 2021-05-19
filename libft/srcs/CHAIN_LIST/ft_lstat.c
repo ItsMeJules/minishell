@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 17:39:50 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/21 14:54:51 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:47:05 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ t_list	*ft_lstat(t_list *begin_list, unsigned int nbr)
 		begin_list = begin_list->next;
 		i++;
 	}
-	return (i == nbr ? begin_list : 0);
+	if (i == nbr)
+		return (begin_list);
+	return (0);
 }

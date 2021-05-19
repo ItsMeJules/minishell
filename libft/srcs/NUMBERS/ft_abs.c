@@ -6,11 +6,13 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:47:28 by jules             #+#    #+#             */
-/*   Updated: 2020/12/19 22:26:11 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 15:07:18 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_abs(int val)
 {
-	return (val > 0 ? val : -val);
+	if (val > 0)
+		return (val);
+	return (-val);
 }
