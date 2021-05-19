@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 11:44:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 13:58:54 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,40 +64,6 @@ bool	lexing(t_setup *setup)
 		return (false);
 	}
 	return (true);
-}
-
-void	disp_node(void *item)
-{
-	t_node	*node;
-	t_list	*lst;
-	t_token	*tk;
-
-	node = (t_node *)item;
-	lst = node->elem;
-	while (lst)
-	{
-		tk = (t_token *)lst->content;
-		if (tk->token == SPACE)
-			printf(" ");
-		else if (tk->token == PIPE)
-			printf("|");
-		else if (tk->token == SEMI)
-			printf(";");
-		else if (tk->token == CHEV_R)
-			printf(">");
-		else if (tk->token == CHEV_L)
-			printf("<");
-		else if (tk->token == D_CHEV_R)
-			printf(">>");
-		else if (tk->token == BASE)
-			printf("%s", tk->str);
-		else if (tk->token == QUOTE)
-			printf("'%s'", tk->str);
-		else if (tk->token == D_QUOTE)
-			printf("\"%s\"", tk->str);
-		lst = lst->next;
-	}
-	printf(" ");
 }
 
 void	launch_shell(t_setup *setup)

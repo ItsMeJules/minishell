@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 13:34:59 by jules             #+#    #+#             */
-/*   Updated: 2021/05/14 17:42:56 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:02:37 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 t_list	*get_semic(t_iter *iter)
 {
 	t_token	*token;
-	
+
 	token = create_token(";", SEMI);
 	iter->i++;
 	if (!token)
 	{
-		iter->err = ERR_MALLOC; 
+		iter->err = ERR_MALLOC;
 		return (NULL);
 	}
 	return (ft_lstnew(token));
@@ -32,7 +32,8 @@ char	*get_wbetw_wd(size_t start, size_t end, size_t nb_esc, char *line)
 	size_t	i;
 
 	i = 0;
-	if (!(str = malloc(sizeof(char) * (end - start - nb_esc + 1))))
+	str = malloc(sizeof(char) * (end - start - nb_esc + 1));
+	if (!str)
 		return (0);
 	while (start < end)
 	{
@@ -60,14 +61,15 @@ size_t	get_word_bis(t_iter *iter, size_t *nb_esc)
 
 	i = iter->i;
 	while (iter->line[i] && iter->line[i] != ' '
-			&& !ft_strchr(SPECIAL_CHARS, iter->line[i]))
+		&& !ft_strchr(SPECIAL_CHARS, iter->line[i]))
 	{
 		if (iter->line[i] == 92)
 		{
 			bslash = count_backslash(&iter->line[i]);
 			while (iter->line[i] == 92)
 				i++;
-			if (bslash % 2 != 0 && iter->line[i] && ft_strchr(SPECIAL_CHARS, iter->line[i]))
+			if (bslash % 2 != 0 && iter->line[i]
+				&& ft_strchr(SPECIAL_CHARS, iter->line[i]))
 			{
 				i++;
 				(*nb_esc)++;

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 12:40:07 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:34:16 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:03:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_token	*create_token(char *str, t_etype token)
 
 	if (!str)
 		return (0);
-	if (!(new = malloc(sizeof(t_token))))
+	new = malloc(sizeof(t_token));
+	if (!new)
 		return (0);
 	new->str = str;
 	new->token = token;
@@ -32,7 +33,8 @@ char	*get_wbetw(size_t start, size_t end, char *line)
 	size_t	i;
 
 	i = 0;
-	if (!(str = malloc(sizeof(char) * (end - start + 1))))
+	str = malloc(sizeof(char) * (end - start + 1));
+	if (!str)
 		return (0);
 	while (start < end)
 	{
@@ -44,7 +46,7 @@ char	*get_wbetw(size_t start, size_t end, char *line)
 	return (str);
 }
 
-int		count_backslash(char *start)
+int	count_backslash(char *start)
 {
 	size_t	i;
 	int		count;

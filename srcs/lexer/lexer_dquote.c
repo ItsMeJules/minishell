@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 16:44:42 by jules             #+#    #+#             */
-/*   Updated: 2021/04/08 15:28:33 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 15:00:18 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*get_wbetw_dq(size_t start, size_t end, size_t nb_esc, char *line)
 	size_t	i;
 
 	i = 0;
-	if (!(str = malloc(sizeof(char) * (end - start - nb_esc + 1))))
+	str = malloc(sizeof(char) * (end - start - nb_esc + 1));
+	if (!str)
 		return (0);
 	while (start < end)
 	{

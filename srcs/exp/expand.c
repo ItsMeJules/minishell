@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 14:45:54 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 11:19:27 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:34:12 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	is_declaration_field(t_list *lexer)
 		else if (token->token == BASE && !is_declaration(token->str))
 			return (false);
 		while (lexer && (((t_token *)lexer->content)->token == BASE
-			|| ((t_token *)lexer->content)->token == D_QUOTE
-			|| ((t_token *)lexer->content)->token == QUOTE))
+				|| ((t_token *)lexer->content)->token == D_QUOTE
+				|| ((t_token *)lexer->content)->token == QUOTE))
 			lexer = lexer->next;
 		if (lexer && ((t_token *)lexer->content)->token == SPACE)
 			lexer = lexer->next;

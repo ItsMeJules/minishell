@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 16:14:30 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/18 11:30:10 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:16:46 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,14 @@ void	rm_unused_spaces(t_list **lexer)
 	while (elem)
 	{
 		token = (t_token *)elem->content;
-		if (token->token == SPACE)
-		{
-			if (elem->next && !is_strenum(((t_token *)elem->next->content)->token))
-				token->rm = true;
-			else if (!elem->next)
-				token->rm = true;
-			else if (prev && is_chev(((t_token *)prev->content)->token))
-				token->rm = true;
-		}
+		if (token->token == SPACE && elem->next
+			&& !is_strenum(((t_token *)elem->next->content)->token))
+			token->rm = true;
+		else if (token->token == SPACE && !elem->next)
+			token->rm = true;
+		else if (token->token == SPACE && prev
+			&& is_chev(((t_token *)prev->content)->token))
+			token->rm = true;
 		prev = elem;
 		elem = elem->next;
 	}

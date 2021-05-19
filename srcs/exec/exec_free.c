@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 14:59:53 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 14:39:12 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:44:47 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	quit_shell2(t_setup *setup)
 	exit(1);
 }
 
-void	init_exit_ret(t_liset *vars, int status)
+void	init_exit_ret(t_list *vars, int status)
 {
 	char	*str;
 
 	str = ft_itoa(status);
-	mod_env(&ars, "?", str);
+	mod_env(&vars, "?", str);
 	free(str);
 }

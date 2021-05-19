@@ -6,11 +6,45 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:19:51 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/11 15:52:03 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 13:59:03 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	disp_node(void *item)
+{
+	t_node	*node;
+	t_list	*lst;
+	t_token	*tk;
+
+	node = (t_node *)item;
+	lst = node->elem;
+	while (lst)
+	{
+		tk = (t_token *)lst->content;
+		if (tk->token == SPACE)
+			printf(" ");
+		else if (tk->token == PIPE)
+			printf("|");
+		else if (tk->token == SEMI)
+			printf(";");
+		else if (tk->token == CHEV_R)
+			printf(">");
+		else if (tk->token == CHEV_L)
+			printf("<");
+		else if (tk->token == D_CHEV_R)
+			printf(">>");
+		else if (tk->token == BASE)
+			printf("%s", tk->str);
+		else if (tk->token == QUOTE)
+			printf("'%s'", tk->str);
+		else if (tk->token == D_QUOTE)
+			printf("\"%s\"", tk->str);
+		lst = lst->next;
+	}
+	printf(" ");
+}
 
 void	disp_lexer(t_list *root)
 {

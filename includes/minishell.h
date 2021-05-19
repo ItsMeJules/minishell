@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 14:39:31 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:50:09 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ int			ft_exit(int ac, char **av, t_setup *setup);
 /*
 **	AST/ast_elem.c
 */
-void		reset_builders(void);
+t_btree		*clean_building(t_btree *root);
 t_list		*next_sep(t_list *lexer);
 t_list		*next_pipe(t_list *lexer);
 t_list		*next_redir(t_list *lexer);
@@ -343,6 +343,11 @@ bool		is_var(t_list *list, char *name);
 char		*join_path(char *path, char *bin);
 char		*find_path(char **paths, char *bin);
 char		*get_path(char *bin, t_list *env, t_list *vars);
+
+/*
+** EXEC/path2.c
+*/
+int			init_paths(char **paths, char *bin, t_list *env, t_list *vars);
 
 /*
 ** EXEC/exec_free.c

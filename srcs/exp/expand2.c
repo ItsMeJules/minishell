@@ -6,13 +6,13 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:58:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:51:49 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:34:34 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_removable(void *data1, void *data2)
+int	is_removable(void *data1, void *data2)
 {
 	t_token	*token;
 
@@ -38,7 +38,7 @@ void	split_for_expand(t_token *token, t_list **lst)
 		{
 			i++;
 			while (token->str[i] && (!ft_strchr("\\$= /+", token->str[i])
-				|| (token->str[i] == '=' && i - j < 2)))
+					|| (token->str[i] == '=' && i - j < 2)))
 				i++;
 		}
 		else if (i == j)

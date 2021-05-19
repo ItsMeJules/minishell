@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:39:04 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:50:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 {
 	pid_t	pid;
 	int		status;
-	char	*str;
 
 	pid = fork();
 	if (!pid)

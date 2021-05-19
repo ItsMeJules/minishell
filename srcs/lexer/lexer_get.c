@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:48:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/04/13 15:19:11 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:01:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_list	*get_quote(t_iter *iter)
 	if (!token)
 	{
 		iter->err = ERR_MALLOC;
-		return 0;
+		return (0);
 	}
 	iter->i = i + 1;
 	return (ft_lstnew(token));
@@ -38,12 +38,12 @@ t_list	*get_quote(t_iter *iter)
 t_list	*get_lchev(t_iter *iter)
 {
 	t_token	*token;
-	
+
 	token = create_token("<", CHEV_L);
 	iter->i++;
 	if (!token)
 	{
-		iter->err = ERR_MALLOC; 
+		iter->err = ERR_MALLOC;
 		return (NULL);
 	}
 	return (ft_lstnew(token));
@@ -52,7 +52,7 @@ t_list	*get_lchev(t_iter *iter)
 t_list	*get_rchev(t_iter *iter)
 {
 	t_token	*token;
-	
+
 	if (iter->line[iter->i + 1] && iter->line[iter->i + 1] == '>')
 	{
 		token = create_token(">>", D_CHEV_R);
@@ -65,7 +65,7 @@ t_list	*get_rchev(t_iter *iter)
 	}
 	if (!token)
 	{
-		iter->err = ERR_MALLOC; 
+		iter->err = ERR_MALLOC;
 		return (NULL);
 	}
 	return (ft_lstnew(token));
@@ -74,12 +74,12 @@ t_list	*get_rchev(t_iter *iter)
 t_list	*get_pipe(t_iter *iter)
 {
 	t_token	*token;
-	
+
 	token = create_token("|", PIPE);
 	iter->i++;
 	if (!token)
 	{
-		iter->err = ERR_MALLOC; 
+		iter->err = ERR_MALLOC;
 		return (NULL);
 	}
 	return (ft_lstnew(token));

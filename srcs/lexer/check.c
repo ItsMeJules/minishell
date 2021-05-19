@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:37:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 12:57:00 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:59:23 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ bool	check_parsing(t_list *lexer)
 	{
 		token = (t_token *)elem->content;
 		if ((token->token == CHEV_R || token->token == CHEV_L
-			|| token->token == D_CHEV_R) && !check_chev(elem))
+				|| token->token == D_CHEV_R) && !check_chev(elem))
 			return (false);
 		else if (token->token == PIPE && (!check_before_pipe(lexer, i)
-			|| !check_after_pipe(elem->next)))
+				|| !check_after_pipe(elem->next)))
 			return (false);
 		else if (token->token == SEMI && !check_semi(lexer))
 			return (false);

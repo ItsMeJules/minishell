@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:35:16 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 12:14:14 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:12:01 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fix_ast_chain(void *item)
 	else
 	{
 		while (lst->next && (is_strenum(((t_token *)lst->next->content)->token)
-			|| ((t_token *)lst->next->content)->token == SPACE))
+				|| ((t_token *)lst->next->content)->token == SPACE))
 			lst = lst->next;
 		lst->next = 0;
 	}
@@ -49,16 +49,21 @@ void	move_pipes_to_ast(t_btree **root, t_list *lexer)
 {
 	t_list	*new;
 
-	while ((new = next_pipe(lexer)))
+	new = next_pipe(lexer);
+	while (new)
 	{
 		add_node(root, create_node(new, PIPE));
-		while ((new = next_redir(lexer)))
+		new = next_redir(lexer);
+		while (new)
 		{
 			add_node(root, create_node(new, RDR));
 			add_node(root, create_node(new->next, FL));
+			new = next_redir(lexer);
 		}
-		if ((new = next_command(lexer)))
+		new = next_command(lexer);
+		if (new)
 			add_node(root, create_node(new, CMD));
+		new = next_pipe(lexer);
 	}
 }
 
@@ -70,20 +75,22 @@ t_btree	*parse_ast(t_list *lexer)
 	root = NULL;
 	while (42)
 	{
-		if ((new = next_sep(lexer)))
+		new = next_sep(lexer);
+		if (new)
 			add_node(&root, create_node(new, SEMI));
 		move_pipes_to_ast(&root, lexer);
-		while ((new = next_redir(lexer)))
+		new = next_redir(lexer);
+		while (new)
 		{
 			add_node(&root, create_node(new, RDR));
 			add_node(&root, create_node(new->next, FL));
+			new = next_redir(lexer);
 		}
-		if ((new = next_command(lexer)))
+		new = next_command(lexer);
+		if (new)
 			add_node(&root, create_node(new, CMD));
 		else
 			break ;
 	}
-	reset_builders();
-	btree_apply_prefix(root, fix_ast_chain);
-	return (root);
+	return (clean_building(root));
 }

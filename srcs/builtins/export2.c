@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 11:56:37 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 12:36:46 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:21:35 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	**get_envp2(t_list *env)
 	t_env	*data;
 	size_t	i;
 
-	if (!(envp = malloc(sizeof(char *) * (ft_lstsize(env) + 1))))
+	envp = malloc(sizeof(char *) * (ft_lstsize(env) + 1));
+	if (!envp)
 		return (0);
 	i = 0;
 	while (env)

@@ -6,13 +6,13 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:27:05 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:00:38 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:22:14 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		unset_err(char *str)
+int	unset_err(char *str)
 {
 	write(2, TERM_NAME, ft_strlen(TERM_NAME));
 	write(2, ": unset: `", 10);
@@ -53,7 +53,7 @@ void	disp_exp_err(char *var, char *fct)
 	write(2, "': not a valid identifier\n", 26);
 }
 
-int		unset(int argc, char **argv, t_list **env, t_list **vars)
+int	unset(int argc, char **argv, t_list **env, t_list **vars)
 {
 	int		i;
 	int		ret;
