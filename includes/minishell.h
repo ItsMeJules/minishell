@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 13:03:48 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:39:31 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # include <curses.h>
 # include <term.h>
 
-void	disp_lexer(t_list *root); // A RETIRER
-void	disp_vars(t_list *vars); // A RETIRER
-void	disp_node(void *item); // A RETIRER
+void		disp_lexer(t_list *root); // A RETIRER
+void		disp_vars(t_list *vars); // A RETIRER
+void		disp_node(void *item); // A RETIRER
 
 /*
 ** main.c
@@ -46,7 +46,7 @@ void		print_prompt(char *path);
 **	termcap/termcap_init.c
 */
 void		change_term_mode(int on);
-int			init_termcap();
+int			init_termcap(void);
 
 /*
 **	termcap/termcap.c
@@ -61,6 +61,7 @@ int			read_bpb(char **input, t_setup *setup);
 int			is_tckey(char tc[4], int const_tc);
 void		get_cursor_pos(void);
 int			ft_putchar(int c);
+void		handle_ctrld_exit(t_setup *setup);
 void		rewrite_line(char *str, int col);
 
 /*
@@ -79,7 +80,7 @@ void		handle_backspace(char **input);
 /*
 **	termcap/input_cursor.c
 */
-void		handle_cursor_move_left();
+void		handle_cursor_move_left(void);
 void		handle_cursor_move_right(char **input);
 void		handle_up_arrow(t_history *history, char **input);
 void		handle_down_arrow(t_history *history, char **input);
@@ -162,7 +163,8 @@ void		expand(t_list **lexer, t_list **env, t_list **vars, t_etype type);
 */
 int			is_removable(void *data1, void *data2);
 void		split_for_expand(t_token *token, t_list **lst);
-void		expand_split(t_list *split, t_list *env, t_list *vars, t_etype type);
+void		expand_split(t_list *split, t_list *env, t_list *vars,
+				t_etype type);
 void		expand_elem(t_list *lexer, t_list *env, t_list *vars);
 void		expand_field(t_list *lexer, t_list *env, t_list *vars);
 
@@ -259,7 +261,7 @@ int			ft_exit(int ac, char **av, t_setup *setup);
 /*
 **	AST/ast_elem.c
 */
-void		reset_builders();
+void		reset_builders(void);
 t_list		*next_sep(t_list *lexer);
 t_list		*next_pipe(t_list *lexer);
 t_list		*next_redir(t_list *lexer);
@@ -303,10 +305,10 @@ void		exec_builtin(char **cmd, t_setup *setup);
 /*
 ** EXEC/exec.c
 */
-void		exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
-			, void (*f)(t_exec *, t_setup *)); 
-void		exec(t_btree *ast, t_setup *setup
-			, void (*f)(t_exec *, t_setup *));
+void		exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup,
+				void (*f)(t_exec *, t_setup *));
+void		exec(t_btree *ast, t_setup *setup,
+				void (*f)(t_exec *, t_setup *));
 
 /*
 ** EXEC/exec_fork.c
@@ -346,6 +348,7 @@ char		*get_path(char *bin, t_list *env, t_list *vars);
 ** EXEC/exec_free.c
 */
 void		quit_shell2(t_setup *setup);
+void		init_exit_ret(t_list *vars, int status);
 
 /*
 ** EXEC/pipe.c

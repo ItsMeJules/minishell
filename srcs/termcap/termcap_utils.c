@@ -6,13 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/26 20:43:44 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 14:28:55 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_tckey(char tc[4], int const_tc)
+int	is_tckey(char tc[4], int const_tc)
 {
 	if (const_tc == LEFT_ARROW_KEY)
 		return (tc[0] == 27 && (tc[1] == 79 || tc[1] == 91) && tc[2] == 68);
@@ -54,15 +54,28 @@ void	get_cursor_pos(void)
 	g_tc.curr_row = g_tc.row;
 }
 
-int		ft_putchar(int c)
+int	ft_putchar(int c)
 {
 	return (write(1, &c, 1));
+}
+
+void	handle_ctrld_exit(t_setup *setup)
+{
+	int	status;
+
+	status = ft_atoi(get_env_val(setup->vars, "?"));
+	write(1, "exit\n", 5);
+	ft_lstclear(&g_tc.env, &del_env_elem);
+	ft_lstclear(&setup->vars, &del_env_elem);
+	free_history(setup->history);
+	change_term_mode(0);
+	exit(status);
 }
 
 void	rewrite_line(char *str, int col)
 {
 	int	trow;
-	
+
 	trow = g_tc.curr_row;
 	clear_after(g_tc.row, g_tc.col);
 	move_cursor(g_tc.row, g_tc.col);
@@ -71,9 +84,6 @@ void	rewrite_line(char *str, int col)
 	{
 		if (trow + 1 == g_tc.w.ws_row && g_tc.row > 0)
 		{
-			/*
-			 ** A small trick which allows me to go to the next line
-			 */
 			write(1, " ", 1);
 			move_cursor(trow, 0);
 			g_tc.row--;

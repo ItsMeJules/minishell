@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 16:45:09 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 11:12:39 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:33:41 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	relink_fds(t_exec *ex)
 	reset_ex(ex);
 }
 
-int		link_fds(t_exec *ex)
+int	link_fds(t_exec *ex)
 {
 	if (ex->fd_in == 0 && ex->fd_out == 1)
 		return (0);

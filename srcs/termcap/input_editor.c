@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:19:32 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/17 14:47:54 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:22:05 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ char	*new_str(int str_size)
 
 	if (str_size == -1)
 		return (NULL);
-	if (!(new_str = malloc((str_size + 1) * sizeof(char))))	
-	{
-		//msg d'erreur ?
+	new_str = malloc((str_size + 1) * sizeof(char));
+	if (!new_str)
 		return (NULL);
-	}
 	return (new_str);
 }
 
@@ -30,8 +28,8 @@ void	insert_char(char c, char *new_str, int str_size, char **input)
 {
 	int	i;
 	int	j;
-	
-	i = -1;	
+
+	i = -1;
 	j = 0;
 	while (++i < str_size)
 	{
@@ -45,22 +43,22 @@ void	insert_char(char c, char *new_str, int str_size, char **input)
 	*input = new_str;
 }
 
-int		add_input(char c, char **input)
+int	add_input(char c, char **input)
 {
 	char	*new_str;
-	int		str_size; 
+	int		str_size;
 
 	if (c == '\n')
 	{
 		write(1, &c, 1);
 		return (1);
 	}
-	str_size = *input == NULL ? 1 : ft_strlen(*input) + 1;
-	if (!(new_str = malloc((str_size + 1) * sizeof(char))))
-	{
-		//msg d'erreur ?
+	str_size = 1;
+	if (*input)
+		str_size = ft_strlen(*input) + 1;
+	new_str = malloc((str_size + 1) * sizeof(char));
+	if (!new_str)
 		return (0);
-	}
 	insert_char(c, new_str, str_size, input);
 	g_tc.cursor_pos++;
 	rewrite_line(new_str, g_tc.curr_col + 1);
@@ -72,16 +70,14 @@ void	handle_ctrld(char **input)
 	int		i;
 	int		j;
 	char	*new_str;
-	
+
 	if (g_tc.cursor_pos >= (int)ft_strlen(*input))
 		return ;
 	i = -1;
 	j = 0;
-	if (!(new_str = malloc(ft_strlen(*input) * sizeof(char))))
-	{
-		//msg d'erreur ?
+	new_str = malloc(ft_strlen(*input) * sizeof(char));
+	if (!new_str)
 		return ;
-	}
 	while ((*input)[++i])
 	{
 		if (i != g_tc.cursor_pos)
@@ -98,8 +94,8 @@ void	handle_backspace(char **input)
 	int		j;
 	char	*str;
 
-	if (input == NULL || *input == NULL ||
-			(g_tc.curr_col <= g_tc.col && g_tc.row == g_tc.curr_row))
+	if (input == NULL || *input == NULL
+		|| (g_tc.curr_col <= g_tc.col && g_tc.row == g_tc.curr_row))
 		return ;
 	str = new_str(ft_strlen(*input) - 1);
 	if (!str)

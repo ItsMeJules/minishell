@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 13:03:02 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 17:09:21 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:35:43 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ char	*get_path(char *bin, t_list *env, t_list *vars)
 	else
 	{
 		mod_env(&vars, "?", "127");
-		disp_fd_error(bin, "command not found");
-		return (0);
+		return (disp_fd_error(bin, "command not found"));
 	}
 	path = find_path(paths, bin);
 	if (!path)

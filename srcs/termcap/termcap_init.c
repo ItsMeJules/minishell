@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 15:35:18 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/11 16:14:10 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:28:23 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ void	change_term_mode(int on)
 		tcsetattr(0, TCSAFLUSH, &g_tc.o_termios);
 }
 
-int	init_termcap()
+int	init_termcap(void)
 {
 	int				ret_ent;
 	char			*term;
 
-	if (!(term = getenv("TERM")))
+	term = getenv("TERM");
+	if (!term)
 	{
 		printf(TERM_ENV_NOT_FOUND);
 		return (-1);
 	}
-	if ((ret_ent = tgetent(NULL, term)) == -1)
+	ret_ent = tgetent(NULL, term);
+	if (ret_ent == -1)
 	{
 		printf(TERMCAP_DB_ACCESS);
 		return (-1);

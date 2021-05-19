@@ -6,13 +6,13 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 15:40:01 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/04/26 19:51:30 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/19 14:17:41 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_cursor_move_left()
+void	handle_cursor_move_left(void)
 {
 	if (g_tc.curr_row == g_tc.row)
 	{
@@ -57,9 +57,9 @@ void	handle_up_arrow(t_history *history, char **input)
 	int	len;
 	int	ratio;
 
-	if ((size_t)history->pos + 1 < history->size)	
+	if ((size_t)history->pos + 1 < history->size)
 	{
-		if (*input)	
+		if (*input)
 			free(*input);
 		*input = ft_strdup(ft_lstat(history->cmds, ++history->pos)->content);
 		len = ft_strlen(*input) + g_tc.col;

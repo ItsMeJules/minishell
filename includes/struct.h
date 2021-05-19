@@ -6,14 +6,14 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 18:22:32 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:34:01 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:16:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef enum	e_type
+typedef enum e_type
 {
 	QUOTE,
 	D_QUOTE,
@@ -29,33 +29,33 @@ typedef enum	e_type
 	RDR
 }				t_etype;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	t_etype			token;
 	char			*str;
 	bool			rm;
 }				t_token;
 
-typedef	struct	s_iter
+typedef struct s_iter
 {
 	size_t			i;
 	char			*err;
 	char			*line;
 }				t_iter;
 
-typedef struct	s_spf
+typedef struct s_spf
 {
 	char			spe;
 	t_list			*(*f)(t_iter *iter);
 }				t_spf;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*var;
 	char			*val;
 }					t_env;
 
-typedef struct	s_termcaps
+typedef struct s_termcaps
 {
 	struct winsize	w;
 	struct termios	o_termios;
@@ -69,7 +69,7 @@ typedef struct	s_termcaps
 	int				forked;
 }				t_termcaps;
 
-typedef struct	s_history
+typedef struct s_history
 {	
 	t_list			*cmds;
 	size_t			size;
@@ -77,13 +77,13 @@ typedef struct	s_history
 	int				fd;
 }				t_history;
 
-typedef struct	s_node
+typedef struct s_node
 {
 	t_list			*elem;
 	t_etype			type;	
 }				t_node;
 
-typedef struct	s_setup
+typedef struct s_setup
 {
 	t_iter			*iter;
 	t_list			*lexer;
@@ -93,7 +93,7 @@ typedef struct	s_setup
 	char			path[4096];
 }				t_setup;
 
-typedef struct	s_exec
+typedef struct s_exec
 {
 	int				fd_in;
 	int				fd_out;
@@ -105,7 +105,7 @@ typedef struct	s_exec
 	char			**envp;
 }				t_exec;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	pid_t			pid[2];
 	int				status[2];

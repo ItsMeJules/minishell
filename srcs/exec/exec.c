@@ -6,17 +6,17 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 12:10:06 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:32:52 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_dir(char *path)
+int	is_dir(char *path)
 {
 	int	fd;
 	int	dir;
-	
+
 	fd = open(path, O_DIRECTORY);
 	dir = 0;
 	if (fd > 0)
@@ -25,7 +25,7 @@ int		is_dir(char *path)
 	return (dir);
 }
 
-int		is_exec_file(char *path)
+int	is_exec_file(char *path)
 {
 	struct stat	f_stat;
 	int			exec;
@@ -36,12 +36,12 @@ int		is_exec_file(char *path)
 		return (1);
 	exec = 0;
 	if ((f_stat.st_mode & S_IRUSR) && (f_stat.st_mode & S_IXGRP
-				|| f_stat.st_mode & S_IXUSR || f_stat.st_mode & S_IXOTH))
+			|| f_stat.st_mode & S_IXUSR || f_stat.st_mode & S_IXOTH))
 		exec = 1;
 	return (!success && exec);
 }
 
-int		can_exec(char *file, t_list **env)
+int	can_exec(char *file, t_list **env)
 {
 	if (is_dir(file))
 	{

@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 11:42:46 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 14:56:07 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:39:04 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_nofork(t_exec *ex, t_setup *setup)
 		quit_shell(ex, setup);
 }
 
-int		how_exited(int status)
+int	how_exited(int status)
 {
 	if (WIFEXITED(status))
 		return (0);
@@ -51,7 +51,7 @@ void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 	pid_t	pid;
 	int		status;
 	char	*str;
-	
+
 	pid = fork();
 	if (!pid)
 		dup_exec(pfd, NULL, ast->right, setup);
@@ -63,17 +63,9 @@ void	pipe_r(t_btree *ast, t_setup *setup, int *pfd)
 		quit_shell2(setup);
 	g_tc.forked--;
 	if (!how_exited(status))
-	{
-		str = ft_itoa(WEXITSTATUS(status));
-		mod_env(&setup->vars, "?", str);
-		free(str);
-	}
+		init_exit_ret(setup->vars, WEXITSTATUS(status));
 	else
-	{
-		str = ft_itoa(how_exited(status) + 128);
-		mod_env(&setup->vars, "?", str);
-		free(str);
-	}
+		init_exit_ret(setup->vars, how_exited(status) + 128);
 }
 
 void	pipe_it(t_btree *ast, t_setup *setup, int *prev_pfd)

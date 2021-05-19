@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/18 18:00:59 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:27:23 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_iter	*readu_input(t_setup *setup)
 {
 	t_iter	*iter;
 
-	if (!(iter = malloc(sizeof(t_iter))))
+	iter = malloc(sizeof(t_iter));
+	if (!iter)
 		return (NULL);
 	iter->i = 0;
 	iter->err = NULL;
@@ -55,8 +56,6 @@ void	print_prompt(char *path)
 
 void	handle_termcap(char buf[4], char **input, t_setup *setup)
 {
-	int	status;
-
 	if (is_tckey(buf, LEFT_ARROW_KEY))
 		handle_cursor_move_left();
 	else if (is_tckey(buf, RIGHT_ARROW_KEY))
@@ -70,15 +69,7 @@ void	handle_termcap(char buf[4], char **input, t_setup *setup)
 	else if (buf[0] == 4 && input)
 	{
 		if (!*input || ft_strlen(*input) == 0)
-		{
-			status = ft_atoi(get_env_val(setup->vars, "?"));
-			write(1, "exit\n", 5);
-			ft_lstclear(&g_tc.env, &del_env_elem);
-			ft_lstclear(&setup->vars, &del_env_elem);
-			free_history(setup->history);
-			change_term_mode(0);
-			exit(status);
-		}
+			handle_ctrld_exit(setup);
 		else
 			handle_ctrld(input);
 	}
@@ -97,25 +88,28 @@ void	check_signal(char **input, t_list **vars)
 	}
 }
 
-int		read_bpb(char **input, t_setup *setup)
+int	read_bpb(char **input, t_setup *setup)
 {
 	char	buf[7];
 	int		ret;
 
 	ft_bzero(buf, 7);
-	while ((ret = read(0, buf, 6))) 
+	ret = read(0, buf, 6);
+	while (ret)
 	{
 		if (buf[0] == 9)
+		{
+			ret = read(0, buf, 6);
 			continue ;
+		}
 		check_signal(input, &setup->vars);
 		buf[ret] = 0;
-		//for (int i = 0; i < buf[i]; i++)
-		//	printf("%d\n", buf[i]);
 		if (ret == 1 && !is_tckey(buf, BACKSPACE_KEY)
-				&& buf[0] != 4 && add_input(buf[0], input))
+			&& buf[0] != 4 && add_input(buf[0], input))
 			return (1);
 		else if (ret == 3 || is_tckey(buf, BACKSPACE_KEY) || buf[0] == 4)
 			handle_termcap(buf, input, setup);
+		ret = read(0, buf, 6);
 	}
 	return (0);
 }

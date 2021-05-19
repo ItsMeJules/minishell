@@ -6,18 +6,18 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:46:49 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 13:01:56 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 14:31:56 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env")
-			|| !ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "export")
-			|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "pwd")
-			|| !ft_strcmp(cmd, "exit"));
+		|| !ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "pwd")
+		|| !ft_strcmp(cmd, "exit"));
 }
 
 void	exec_builtin(char **cmd, t_setup *setup)
