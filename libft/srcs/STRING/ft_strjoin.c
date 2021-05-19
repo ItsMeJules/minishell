@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:21 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 15:18:34 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/19 15:20:02 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	i = 0;
 	while (s2[i])
-	{
-		join[j] = s2[i];
-		j++;
-		i++;
-	}
+		join[j++] = s2[i++];
 	join[j] = 0;
 	return (join);
 }
