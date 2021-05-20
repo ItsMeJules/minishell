@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:19:38 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 15:13:44 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:51:08 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*ft_itoa(int n)
 
 	i = n < 0;
 	if (n < 0)
-		nb = n;
-	else
 		nb = -n;
+	else
+		nb = n;
 	word = malloc(sizeof(char) * (get_len(nb, &pow) + i + 1));
 	if (!word)
 		return (0);
