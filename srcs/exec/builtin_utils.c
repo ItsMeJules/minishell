@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 17:46:49 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 15:54:03 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 14:49:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	exec_builtin(char **cmd, t_setup *setup)
 	else if (!ft_strcmp(cmd[0], "env"))
 		ret = ft_env(g_tc.env);
 	else if (!ft_strcmp(cmd[0], "cd"))
-		ret = ft_cd(cmd, g_tc.env, setup->vars);
-	else if (!ft_strcmp(cmd[0], "unset"))
+		ret = ft_cd(cmd, g_tc.env);
+	else if (!ft_strcmp(cmd[0], "nset"))
 		ret = unset(ft_split_size(cmd), cmd, &g_tc.env, &setup->vars);
 	else if (!ft_strcmp(cmd[0], "export"))
 		ret = export(ft_split_size(cmd), cmd, &g_tc.env, &setup->vars);
