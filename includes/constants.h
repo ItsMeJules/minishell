@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:13:35 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 11:29:43 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:49:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@
 # define UP_ARROW_KEY 3
 # define DOWN_ARROW_KEY 4
 # define BACKSPACE_KEY 5
+# define HOME_KEY 6
+# define END_KEY 7
+# define CTRL_UP_KEYCOMB 8
+# define CTRL_DOWN_KEYCOMB 9
 
 /*
 ** COLORS

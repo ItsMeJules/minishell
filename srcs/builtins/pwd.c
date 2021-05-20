@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:59:29 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 15:57:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 15:19:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ int	ft_pwd(t_list *env, t_list *vars)
 	ft_putstr_fd(get_env_val(env, "PWD"), 1);
 	ft_putchar_fd('\n', 1);
 	mod_env(&vars, "?", "0");
-	return (1);
+	return (0);
 }

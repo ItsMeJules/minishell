@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 14:27:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 16:24:59 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ void	handle_termcap(char buf[4], char **input, t_setup *setup)
 		handle_up_arrow(setup->history, input);
 	else if (is_tckey(buf, BACKSPACE_KEY))
 		handle_backspace(input);
+	else if (is_tckey(buf, HOME_KEY))
+		handle_home();
+	else if (is_tckey(buf, END_KEY))
+		handle_end(input);
+	else if (is_tckey(buf, CTRL_UP_KEYCOMB))
+			handle_move_line(1, NULL);
+	else if (is_tckey(buf, CTRL_DOWN_KEYCOMB))
+			handle_move_line(0, input);
 	else if (buf[0] == 4 && input)
 	{
 		if (!*input || ft_strlen(*input) == 0)
@@ -107,7 +115,7 @@ int	read_bpb(char **input, t_setup *setup)
 		if (ret == 1 && !is_tckey(buf, BACKSPACE_KEY)
 			&& buf[0] != 4 && add_input(buf[0], input))
 			return (1);
-		else if (ret == 3 || is_tckey(buf, BACKSPACE_KEY) || buf[0] == 4)
+		else if (ret > 1 || is_tckey(buf, BACKSPACE_KEY) || buf[0] == 4)
 			handle_termcap(buf, input, setup);
 		ret = read(0, buf, 6);
 	}

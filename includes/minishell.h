@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 15:53:44 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 16:25:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ void		handle_cursor_move_left(void);
 void		handle_cursor_move_right(char **input);
 void		handle_up_arrow(t_history *history, char **input);
 void		handle_down_arrow(t_history *history, char **input);
+
+/*
+**	TERMCAP/input_cursor_bonus.c
+*/
+void		handle_home(void);
+void		handle_end(char **input);
+void		handle_move_line(int up, char **input);
 
 /*
 **	LEXER/lexer.c

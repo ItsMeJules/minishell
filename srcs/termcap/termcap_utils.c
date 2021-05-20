@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 13:26:46 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 14:28:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 15:46:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int	is_tckey(char tc[4], int const_tc)
 		return (tc[0] == 27 && (tc[1] == 79 || tc[1] == 91) && tc[2] == 67);
 	else if (const_tc == BACKSPACE_KEY)
 		return (tc[0] == 8 || tc[0] == 127);
+	else if (const_tc == HOME_KEY)
+		return (tc[0] == 27 && tc[1] == 91 && tc[2] == 72);
+	else if (const_tc == END_KEY)
+		return (tc[0] == 27 && tc[1] == 91 && tc[2] == 70);
+	else if (const_tc == CTRL_UP_KEYCOMB)
+		return (tc[0] == 27 && tc[1] == 91 && tc[2] == 49 && tc[3] == 59
+			&& tc[4] == 53 && tc[5] == 65);
+	else if (const_tc == CTRL_DOWN_KEYCOMB)
+		return (tc[0] == 27 && tc[1] == 91 && tc[2] == 49 && tc[3] == 59
+			&& tc[4] == 53 && tc[5] == 66);
 	return (0);
 }
 
