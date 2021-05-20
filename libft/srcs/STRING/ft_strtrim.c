@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 15:25:19 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:05:08 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1);
 	while (s1[start] && is_set(s1[start], set))
 		start++;
-	while (end >= 0 && is_set(s1[end - 1], set))
+	while (end >= 0 || (i > 0 && is_set(s1[end - 1], set)))
 		end--;
 	if (end < start)
 		end = start;

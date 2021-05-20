@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 14:01:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 16:06:10 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:37:42 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	reset_ex(t_exec *ex)
 
 bool	open_fds(t_exec *ex, char *filename, t_etype redir_type)
 {
-	if (!filename)
-	{
-		disp_fd_error("", "ambiguous redirect");
-		return (false);
-	}
 	if ((redir_type == CHEV_R || redir_type == D_CHEV_R) && ex->fd_out != 1)
 		close(ex->fd_out);
 	if (redir_type == CHEV_R)
@@ -94,7 +89,8 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 	t_etype	redir_type;
 	char	*filename;
 
-	if (redir && file)
+	errno = 0;
+	if (redir && file && file->elem)
 	{
 		redir_type = ((t_token *)redir->elem->content)->token;
 		filename = ((t_token *)file->elem->content)->str;
@@ -102,7 +98,9 @@ bool	set_redir(t_exec *ex, t_node *redir, t_node *file)
 	}
 	else
 	{
-		disp_fd_error("", "ambiguous redirect");
+		ft_putstr_fd(TERM_NAME, 2);
+		ft_putstr_fd(": ambiguous redirect\n", 2);
+		reset_ex(ex);
 		return (false);
 	}
 }

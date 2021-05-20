@@ -1,5 +1,3 @@
 echo -n -n -nnnn -nnnnnnm
 cat Makefile | grep pr | head -n 5 | cd test (return val)
 cat Makefile | grep pr | head -n 5 | cat test (return val)
-cat < not_file (mauvais message d'erreur)
-> $RIEN (WTF)

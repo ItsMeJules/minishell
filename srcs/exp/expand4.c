@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:26:43 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:35:41 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:12:00 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*trim_spaces(char *str)
 {
 	char	*new;
 
-	if (!str || !ft_strlen(str))
+	if (!str || !ft_strlen(str) || only_char(str, ' '))
 		return (str);
 	if (str[0] != ' ' && str[ft_strlen(str) - 1] != ' ')
 		return (str);

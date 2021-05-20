@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 16:07:11 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:12:28 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ void		lst_rmempty(t_list **alst);
 void		link_chains(t_list *ch1, t_list *ch2);
 void		split_word(t_list *lexer);
 void		create_new_words(t_list *lexer);
+bool		only_char(char *str, char c);
 
 /*
 **	history/file_manager.c

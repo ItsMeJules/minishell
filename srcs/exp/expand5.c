@@ -6,11 +6,25 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 11:37:21 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/18 16:47:29 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:11:26 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	only_char(char *str, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != c)
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 void	link_chains(t_list *ch1, t_list *ch2)
 {
