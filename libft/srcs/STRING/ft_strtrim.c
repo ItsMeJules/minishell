@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 16:20:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/20 11:05:08 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:42:44 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	is_set(char c, char const *set)
 
 int	trim_malloc(char **trim, int end, int start)
 {
-	trim = malloc(sizeof(char) * (end - start + 1));
+	*trim = malloc(sizeof(char) * (end - start + 2));
 	if (!trim)
 		return (0);
 	return (1);
@@ -45,16 +45,16 @@ char	*ft_strtrim(char const *s1, char const *set)
 	start = 0;
 	if (!s1)
 		return (0);
-	end = ft_strlen(s1);
+	end = ft_strlen(s1) - 1;
 	while (s1[start] && is_set(s1[start], set))
 		start++;
-	while (end >= 0 || (i > 0 && is_set(s1[end - 1], set)))
+	while (end >= 0 && is_set(s1[end], set))
 		end--;
 	if (end < start)
 		end = start;
 	if (!trim_malloc(&trim, end, start))
 		return (0);
-	while (i < end - start)
+	while (i < end - start + 1)
 	{
 		trim[i] = s1[start + i];
 		i++;

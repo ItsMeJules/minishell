@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:58:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:34:34 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:20:12 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	split_for_expand(t_token *token, t_list **lst)
 		if (token->str[i] == '$' && i == j)
 		{
 			i++;
-			while (token->str[i] && (!ft_strchr("\\$= /+", token->str[i])
+			while (token->str[i] && (!ft_strchr("\\$= /+'^", token->str[i])
 					|| (token->str[i] == '=' && i - j < 2)))
 				i++;
 		}
