@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:12:36 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:20:53 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:20:21 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ int	export(int argc, char **argv, t_list **env, t_list **vars)
 {
 	int		i;
 	char	*var;
+	int		ret;
 
 	i = 1;
+	ret = 0;
 	if (argc == 1)
 		return (print_declare(*env));
 	while (i < argc)
@@ -109,10 +111,11 @@ int	export(int argc, char **argv, t_list **env, t_list **vars)
 			parse_exp_var(argv[i], var, env, vars);
 		else
 		{
+			ret = 1;
 			disp_exp_err(var, "export");
 			free(var);
 		}
 		i++;
 	}
-	return (0);
+	return (ret);
 }
