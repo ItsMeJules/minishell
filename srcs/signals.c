@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 10:36:13 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/20 14:56:51 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/20 17:04:46 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_signal(int signum)
 	}
 	else if (signum == SIGQUIT && g_tc.forked)
 	{
-		ft_putstr_fd("Quit: 3", 1);
+		ft_putstr_fd("Quit (core dumped)", 1);
 		ft_putchar_fd('\n', 1);
 	}
 }

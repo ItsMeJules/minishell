@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:42:33 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 14:57:23 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 16:57:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_exit(int ac, char **av, t_setup *setup)
 		{
 			print_error(2, str);
 			free(str);
-			exit(255);
+			exit(1);
 		}
 		else
 		{

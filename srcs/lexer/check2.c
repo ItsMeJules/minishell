@@ -6,7 +6,7 @@
 /*   By: jpeyron <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 12:50:57 by jpeyron           #+#    #+#             */
-/*   Updated: 2021/05/19 12:57:55 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 17:44:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ bool	check_after_pipe(t_list *lexer)
 		return (false);
 	while (lexer && ((t_token *)lexer->content)->token != SEMI)
 	{
-		if (is_strenum(((t_token *)lexer->content)->token))
+		if (is_strenum(((t_token *)lexer->content)->token)
+			|| is_chev(((t_token *)lexer->content)->token))
 			return (true);
 		else if (((t_token *)lexer->content)->token != SPACE)
 			return (false);

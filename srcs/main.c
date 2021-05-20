@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 15:41:58 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:15:54 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ bool	lexing(t_setup *setup)
 
 void	launch_shell(t_setup *setup)
 {
+	char path[4096];
 	while (42)
 	{
-		print_prompt(get_env_val(g_tc.env, "PWD"));
+		print_prompt(getcwd(path, 4096));
 		get_cursor_pos();
 		setup->iter = readu_input(setup);
 		change_term_mode(0);
