@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 15:41:58 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 18:04:58 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	lexing(t_setup *setup)
 	{
 		lexer_free(&setup->lexer, setup->iter);
 		disp_error(PARS_ERR);
-		mod_env(&setup->vars, "?", "258");
+		mod_env(&setup->vars, "?", "2");
 		return (false);
 	}
 	return (true);
