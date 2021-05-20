@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 15:37:03 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:53:44 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,7 @@ bool		open_fds(t_exec *ex, char *filename, t_etype type);
 ** EXEC/exec_utils2.c
 */
 int			disp_fd_error(char *filename, char *err);
+void		dot_only_err(t_setup *setup, t_exec *ex);
 
 /*
 ** EXEC/path.c
