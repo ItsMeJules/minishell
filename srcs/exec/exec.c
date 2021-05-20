@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 15:43:01 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/19 14:32:52 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/20 15:54:08 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	exec_cmd(t_exec *ex, t_list *cmd, t_setup *setup
 {
 	if (!cmd)
 		return (reset_ex(ex));
+	if (!ft_strcmp(((t_token *)cmd->content)->str, "."))
+		return (dot_only_err(setup, ex));
 	if (link_fds(ex))
 		return (link_error(ex, &setup->vars));
 	ex->av = get_argv(cmd);

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 13:58:54 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:41:58 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ bool	lexing(t_setup *setup)
 	save_command(setup->iter->line, setup->history);
 	setup->lexer = NULL;
 	setup->lexer = tokenize_input(setup->iter);
+	if (setup->iter->err)
+	{
+		lexer_free(&setup->lexer, setup->iter);
+		return (false);
+	}
 	if (!check_parsing(setup->lexer))
 	{
+		lexer_free(&setup->lexer, setup->iter);
 		disp_error(PARS_ERR);
 		mod_env(&setup->vars, "?", "258");
 		return (false);
@@ -75,10 +81,9 @@ void	launch_shell(t_setup *setup)
 		setup->iter = readu_input(setup);
 		change_term_mode(0);
 		g_tc.cursor_pos = 0;
-		if (setup->iter->err || !lexing(setup))
+		if (!lexing(setup) || setup->iter->err)
 		{
 			change_term_mode(1);
-			lexer_free(setup->lexer, setup->iter);
 			continue ;
 		}
 		rm_unused_spaces(&setup->lexer);

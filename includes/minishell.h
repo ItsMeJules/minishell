@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 16:03:00 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/20 16:25:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ t_list		*get_word(t_iter *iter);
 t_token		*create_token(char *str, t_etype token);
 char		*get_wbetw(size_t start, size_t end, char *line);
 int			count_backslash(char *start);
-void		lexer_free(t_list *root, t_iter *iter);
+void		lexer_free(t_list **root, t_iter *iter);
 
 /*
 **	LEXER/check.c
@@ -348,6 +348,7 @@ bool		open_fds(t_exec *ex, char *filename, t_etype type);
 ** EXEC/exec_utils2.c
 */
 int			disp_fd_error(char *filename, char *err);
+void		dot_only_err(t_setup *setup, t_exec *ex);
 
 /*
 ** EXEC/path.c
