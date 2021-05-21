@@ -6,7 +6,7 @@
 /*   By: tvachera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:58:17 by tvachera          #+#    #+#             */
-/*   Updated: 2021/05/20 17:20:12 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:03:26 by tvachera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void	expand_field(t_list *lexer, t_list *env, t_list *vars)
 			free(token->str);
 			expand_split(split, env, vars, token->token);
 			token->str = join_split(split);
-			if (token->token == BASE)
-				token->str = trim_spaces(token->str);
 			ft_lstclear(&split, free);
 		}
 		lexer = lexer->next;
