@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:25:28 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 16:17:59 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/21 13:48:00 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_end(char **input)
 	int	ratio;
 
 	if (!input || !*input)
-		return ; 
+		return ;
 	len = ft_strlen(*input) + g_tc.col;
 	ratio = (int)(len / g_tc.w.ws_col);
 	g_tc.cursor_pos = len - g_tc.col;
@@ -55,10 +55,10 @@ void	handle_move_line(int up, char **input)
 	{
 		len = ft_strlen(*input);
 		nb_lines = (int)((len + g_tc.col) / g_tc.w.ws_col);
-		if (g_tc.curr_row == g_tc.row + nb_lines) 
+		if (g_tc.curr_row == g_tc.row + nb_lines)
 			return ;
-		if (g_tc.curr_row + 1 == g_tc.row + nb_lines && g_tc.curr_col >
-				(len + g_tc.col) % g_tc.w.ws_col)
+		if (g_tc.curr_row + 1 == g_tc.row + nb_lines && g_tc.curr_col
+			> (len + g_tc.col) % g_tc.w.ws_col)
 			return (handle_end(input));
 		g_tc.cursor_pos += g_tc.w.ws_col;
 		move_cursor(g_tc.curr_row + 1, g_tc.curr_col);

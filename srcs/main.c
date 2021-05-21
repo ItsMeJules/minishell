@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:08:03 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 18:15:42 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/21 13:46:07 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ bool	lexing(t_setup *setup)
 
 void	launch_shell(t_setup *setup)
 {
-	char path[4096];
+	char	path[4096];
+
 	while (42)
 	{
 		print_prompt(getcwd(path, 4096));

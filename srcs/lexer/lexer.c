@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 11:24:06 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 15:40:26 by tvachera         ###   ########.fr       */
+/*   Updated: 2021/05/21 13:47:10 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_token(void *vtoken)
 
 	token = (t_token *)vtoken;
 	if ((token->token == QUOTE || token->token == D_QUOTE
-		|| token->token == BASE) && token->str)
+			|| token->token == BASE) && token->str)
 		free(((t_token *)vtoken)->str);
 	free(vtoken);
 }

@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 13:20:02 by jules             #+#    #+#             */
-/*   Updated: 2021/05/19 15:45:29 by jpeyron          ###   ########.fr       */
+/*   Updated: 2021/05/21 13:46:39 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	skip_n_opt(bool nl, int *i)
 {
 	if (nl && *i == 1)
 	{
-		(*i)++; 
+		(*i)++;
 		return (1);
 	}
 	return (0);
@@ -46,7 +46,7 @@ int	ft_echo(int ac, char **av)
 		nl = is_n_opt(av[1]);
 	while (i < ac)
 	{
-		if (skip_n_opt(nl, &i))	
+		if (skip_n_opt(nl, &i))
 			continue ;
 		if (!is_n_opt(av[i]))
 			p_opt = true;

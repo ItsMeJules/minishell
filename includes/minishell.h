@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:16:20 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 17:31:24 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/21 13:48:40 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@
 
 # include <curses.h>
 # include <term.h>
-
-void		disp_lexer(t_list *root); // A RETIRER
-void		disp_vars(t_list *vars); // A RETIRER
-void		disp_node(void *item); // A RETIRER
 
 /*
 ** main.c

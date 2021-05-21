@@ -6,7 +6,7 @@
 /*   By: jules <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:51 by jules             #+#    #+#             */
-/*   Updated: 2021/05/20 16:24:59 by jules            ###   ########.fr       */
+/*   Updated: 2021/05/21 13:48:19 by jpeyron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	handle_termcap(char buf[4], char **input, t_setup *setup)
 	else if (is_tckey(buf, END_KEY))
 		handle_end(input);
 	else if (is_tckey(buf, CTRL_UP_KEYCOMB))
-			handle_move_line(1, NULL);
+		handle_move_line(1, NULL);
 	else if (is_tckey(buf, CTRL_DOWN_KEYCOMB))
-			handle_move_line(0, input);
+		handle_move_line(0, input);
 	else if (buf[0] == 4 && input)
 	{
 		if (!*input || ft_strlen(*input) == 0)
